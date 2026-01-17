@@ -8,7 +8,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=EB+Garamond:wght@400&family=Inter:wght@400&display=swap" rel="stylesheet">
     
     <style>
         /* =====================================================
@@ -22,15 +22,11 @@
             --muted-platinum: #BFC3C7;
             --ivory: #EDEBE7;
             --muted-stone: #A7ABB2;
-            --divider-opacity: rgba(42, 46, 51, 0.55);
             
             /* Typography */
-            --font-headline: "Tiempos Headline", "Adobe Caslon Pro", "Big Caslon", Georgia, serif;
-            --font-body: "Tiempos Text", "Adobe Caslon Pro", Georgia, serif;
-            --font-ui: "Neue Haas Grotesk", "Suisse Int'l", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            
-            /* Layout */
-            --container-max: 680px;
+            --font-headline: 'Cormorant Garamond', 'Adobe Caslon Pro', 'Big Caslon', Georgia, serif;
+            --font-body: 'EB Garamond', 'Adobe Caslon Pro', Georgia, serif;
+            --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
 
         /* =====================================================
@@ -46,8 +42,6 @@
             font-size: 16px;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            text-rendering: optimizeLegibility;
-            font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
         }
 
         body {
@@ -62,6 +56,7 @@
            ===================================================== */
         .page {
             width: 100%;
+            min-height: 100vh;
             opacity: 0;
             animation: fadeIn 200ms ease-out forwards;
         }
@@ -75,9 +70,10 @@
            ===================================================== */
         .container--680 {
             width: 92vw;
-            max-width: var(--container-max);
+            max-width: 680px;
             margin: 0 auto;
             padding-top: 64px;
+            text-align: left;
         }
 
         /* =====================================================
@@ -117,8 +113,8 @@
             line-height: 26px;
             font-weight: 400;
             color: var(--muted-stone);
-            max-width: 56ch;
-            text-wrap: pretty;
+            max-width: 62ch;
+            margin-bottom: 28px;
         }
 
         /* =====================================================
@@ -127,7 +123,7 @@
         .divider {
             width: 100%;
             height: 1px;
-            background-color: var(--divider-opacity);
+            background-color: rgba(42, 46, 51, 0.55);
             margin: 28px 0;
         }
 
@@ -146,18 +142,15 @@
         }
 
         /* =====================================================
-           DOMAIN (OPTIONAL SURFACE)
+           DOMAIN
            ===================================================== */
         .domain {
             background-color: var(--heritage-charcoal);
-            border: 1px solid var(--divider-opacity);
+            border: 1px solid rgba(42, 46, 51, 0.55);
             border-radius: 14px;
             padding: 22px;
         }
 
-        /* =====================================================
-           BODY PARAGRAPH
-           ===================================================== */
         .body__p {
             font-family: var(--font-body);
             font-size: 15px;
@@ -165,7 +158,6 @@
             font-weight: 400;
             color: var(--muted-stone);
             max-width: 62ch;
-            text-wrap: pretty;
         }
 
         .body__p + .body__p {
@@ -178,7 +170,15 @@
         .stack {
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 0;
+        }
+
+        .stack__pair {
+            margin-bottom: 14px;
+        }
+
+        .stack__pair:last-of-type {
+            margin-bottom: 0;
         }
 
         .stack__item {
@@ -191,8 +191,8 @@
 
         .stack__closing {
             font-family: var(--font-body);
-            font-size: 14px;
-            line-height: 24px;
+            font-size: 15px;
+            line-height: 26px;
             font-weight: 400;
             color: var(--muted-stone);
             margin-top: 14px;
@@ -201,13 +201,17 @@
         /* =====================================================
            FOOTER
            ===================================================== */
+        .footer {
+            margin-bottom: 64px;
+        }
+
         .footer__title {
             font-family: var(--font-body);
-            font-size: 14px;
-            line-height: 22px;
+            font-size: 15px;
+            line-height: 26px;
             font-weight: 400;
             color: var(--ivory);
-            margin-bottom: 8px;
+            margin-bottom: 4px;
         }
 
         .footer__meta {
@@ -218,13 +222,13 @@
             letter-spacing: 0.12em;
             text-transform: uppercase;
             color: var(--muted-platinum);
-            margin-bottom: 8px;
+            margin-bottom: 4px;
         }
 
         .footer__micro {
             font-family: var(--font-body);
-            font-size: 13px;
-            line-height: 20px;
+            font-size: 11px;
+            line-height: 16px;
             font-weight: 400;
             color: var(--muted-stone);
         }
@@ -252,6 +256,11 @@
                 font-size: 18px;
                 line-height: 30px;
             }
+
+            .stack__closing {
+                font-size: 16px;
+                line-height: 28px;
+            }
         }
 
         /* =====================================================
@@ -278,57 +287,26 @@
             .body__p {
                 font-size: 17px;
                 line-height: 30px;
+                max-width: 56ch;
             }
 
             .stack__item {
                 font-size: 20px;
                 line-height: 34px;
             }
+
+            .footer {
+                margin-bottom: 96px;
+            }
         }
 
         /* =====================================================
            UTILITIES
            ===================================================== */
-        ::selection {
-            background-color: var(--muted-platinum);
-            color: var(--carbon-black);
-        }
-
         @media (prefers-reduced-motion: reduce) {
             .page {
                 opacity: 1;
                 animation: none;
-            }
-        }
-
-        @media print {
-            body {
-                background-color: #fff;
-                color: #000;
-            }
-
-            .domain {
-                background-color: #f9f9f9;
-                border-color: #ddd;
-            }
-
-            .hero__h1,
-            .footer__title {
-                color: #000;
-            }
-
-            .hero__subline,
-            .section__label,
-            .footer__meta {
-                color: #666;
-            }
-
-            .hero__support,
-            .body__p,
-            .stack__item,
-            .stack__closing,
-            .footer__micro {
-                color: #333;
             }
         }
     </style>
@@ -342,38 +320,42 @@
                 <h1 class="hero__h1">The Gated Shifter</h1>
                 <p class="hero__subline">Stewardship for Significant Italian Automobiles</p>
                 <p class="hero__support">A private advisory operating where mechanical truth, provenance, and long-term continuity define value.</p>
+                <div class="divider"></div>
             </section>
-
-            <!-- DIVIDER -->
-            <div class="divider"></div>
 
             <!-- OUR DOMAIN -->
-            <section class="section domain">
-                <p class="section__label">Our Domain</p>
-                <p class="body__p">The Gated Shifter serves collectors of historically significant automobiles, including Ferrari, Lamborghini, Maserati, Bizzarrini, Bugatti, Alfa Romeo Zagato, and air-cooled Porsche, among other rare and consequential motorcars.</p>
-                <p class="body__p">Our work is informed by more than five decades of direct mechanical, archival, and custodial experience—spanning the stewardship of some of the world's most significant private collections, concours-level judging, and leadership of the largest independent Ferrari workshop in the United States.</p>
+            <section class="section">
+                <div class="domain">
+                    <p class="section__label">Our Domain</p>
+                    <p class="body__p">The Gated Shifter serves collectors of historically significant automobiles, including Ferrari, Lamborghini, Maserati, Bizzarrini, Bugatti, Alfa Romeo Zagato, and air-cooled Porsche, among other rare and consequential motorcars.</p>
+                    <p class="body__p">Our work is informed by more than five decades of direct mechanical, archival, and custodial experience—spanning the stewardship of some of the world's most significant private collections, concours-level judging, and leadership of the largest independent Ferrari workshop in the United States.</p>
+                </div>
+                <div class="divider"></div>
             </section>
-
-            <!-- DIVIDER -->
-            <div class="divider"></div>
 
             <!-- POSITIONING -->
             <section class="section">
                 <p class="section__label">Positioning</p>
                 <div class="stack">
-                    <p class="stack__item">We do not authenticate stories.<br>We verify cars.</p>
-                    <p class="stack__item">We do not manage collections for liquidity.<br>We manage them for continuity.</p>
-                    <p class="stack__item">We do not scale.<br>We remain accountable.</p>
+                    <div class="stack__pair">
+                        <p class="stack__item">We do not authenticate stories.<br>We verify cars.</p>
+                    </div>
+                    <div class="stack__pair">
+                        <p class="stack__item">We do not manage collections for liquidity.<br>We manage them for continuity.</p>
+                    </div>
+                    <div class="stack__pair">
+                        <p class="stack__item">We do not scale.<br>We remain accountable.</p>
+                    </div>
                 </div>
                 <p class="stack__closing">Engagements are private and referral-based.</p>
             </section>
 
             <!-- FOOTER -->
-            <section class="section">
+            <footer class="footer">
                 <p class="footer__title">The Gated Shifter</p>
                 <p class="footer__meta">Private Advisory</p>
                 <p class="footer__micro">Discreet inquiries by introduction.</p>
-            </section>
+            </footer>
 
         </div>
     </main>

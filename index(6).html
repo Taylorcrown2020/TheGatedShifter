@@ -8,443 +8,549 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     
     <style>
+        /* =====================================================
+           DESIGN TOKENS
+           ===================================================== */
         :root {
-            --carbon-black: #000000;
-            --deep-charcoal: #0A0A0A;
-            --slate: #1A1A1A;
-            --platinum: #C5C5C5;
-            --ivory: #F5F5F5;
-            --stone: #8A8A8A;
-            --rule: rgba(255, 255, 255, 0.06);
+            /* Colors */
+            --carbon-black: #0B0C0E;
+            --heritage-charcoal: #141719;
+            --slate-gray: #2A2E33;
+            --muted-platinum: #BFC3C7;
+            --ivory: #EDEBE7;
+            --muted-stone: #A7ABB2;
+            --divider-color: rgba(42, 46, 51, 0.55);
             
-            --font-display: 'Playfair Display', 'Big Caslon', Georgia, serif;
-            --font-body: 'Cormorant Garamond', 'Adobe Caslon Pro', Georgia, serif;
+            /* Typography */
+            --font-headline: 'Playfair Display', 'Big Caslon', Georgia, serif;
+            --font-body: 'EB Garamond', 'Adobe Caslon Pro', Georgia, serif;
             --font-ui: 'Inter', -apple-system, sans-serif;
+            
+            /* Layout */
+            --container-max: 720px;
         }
 
-        * {
+        /* =====================================================
+           BASE
+           ===================================================== */
+        *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
         html {
-            scroll-behavior: smooth;
+            font-size: 16px;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             text-rendering: optimizeLegibility;
             font-feature-settings: 'kern' 1, 'liga' 1;
+            scroll-behavior: smooth;
         }
 
         body {
             background-color: var(--carbon-black);
+            background-image: 
+                linear-gradient(135deg, var(--carbon-black) 0%, #0F1113 50%, var(--heritage-charcoal) 100%);
             color: var(--ivory);
             font-family: var(--font-body);
+            line-height: 1.6;
+            position: relative;
             overflow-x: hidden;
         }
-
-        ::selection {
-            background-color: var(--platinum);
-            color: var(--carbon-black);
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                radial-gradient(circle at 50% 50%, transparent 0%, transparent 48%, rgba(42, 46, 51, 0.03) 48%, rgba(42, 46, 51, 0.03) 50%, transparent 50%);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.7;
+        }
+        
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(90deg, transparent 0%, rgba(191, 195, 199, 0.02) 50%, transparent 100%),
+                radial-gradient(ellipse at 30% 20%, rgba(191, 195, 199, 0.08) 0%, transparent 30%),
+                radial-gradient(ellipse at 70% 80%, rgba(167, 171, 178, 0.06) 0%, transparent 35%);
+            pointer-events: none;
+            z-index: -1;
         }
 
-        /* HERO - Full Viewport */
+        /* =====================================================
+           PAGE
+           ===================================================== */
+        .page {
+            width: 100%;
+            opacity: 0;
+            animation: fadeIn 200ms ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* =====================================================
+           HERO
+           ===================================================== */
         .hero {
             min-height: 100vh;
             min-height: 100dvh;
             display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 80px 24px;
+            position: relative;
+        }
+
+        .hero__content {
+            max-width: 800px;
+        }
+
+        .hero__eyebrow {
+            font-family: var(--font-ui);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--muted-stone);
+            margin-bottom: 32px;
+            opacity: 0;
+            transform: translateY(-10px);
+            animation: fadeDown 600ms cubic-bezier(0.23, 1, 0.32, 1) 200ms forwards;
+        }
+
+        .hero__h1 {
+            font-family: var(--font-headline);
+            font-size: 48px;
+            line-height: 1.1;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            color: var(--ivory);
+            margin-bottom: 24px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 800ms cubic-bezier(0.23, 1, 0.32, 1) 400ms forwards;
+        }
+
+        .hero__motto {
+            font-family: var(--font-headline);
+            font-size: 20px;
+            line-height: 1.5;
+            font-weight: 400;
+            font-style: italic;
+            color: var(--muted-platinum);
+            margin-bottom: 32px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 800ms cubic-bezier(0.23, 1, 0.32, 1) 600ms forwards;
+        }
+
+        .hero__divider {
+            display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0 5vw;
+            gap: 16px;
+            margin-bottom: 32px;
+            opacity: 0;
+            animation: fadeIn 600ms ease-out 800ms forwards;
+        }
+
+        .hero__divider-line {
+            width: 48px;
+            height: 1px;
+            background-color: var(--slate-gray);
+        }
+
+        .hero__divider-diamond {
+            width: 8px;
+            height: 8px;
+            border: 1px solid var(--slate-gray);
+            transform: rotate(45deg);
+        }
+
+        .hero__support {
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 1.7;
+            font-weight: 400;
+            color: var(--muted-stone);
+            max-width: 520px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 800ms cubic-bezier(0.23, 1, 0.32, 1) 900ms forwards;
+        }
+
+        .hero__scroll {
+            position: absolute;
+            bottom: 48px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            opacity: 0;
+            animation: fadeIn 600ms ease-out 1200ms forwards;
+            transition: opacity 300ms ease;
+        }
+
+        .hero__scroll:hover {
+            opacity: 0.7;
+        }
+
+        .hero__scroll-text {
+            font-family: var(--font-ui);
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted-platinum);
+        }
+
+        .hero__scroll-line {
+            width: 1px;
+            height: 40px;
             position: relative;
             overflow: hidden;
         }
 
-        .hero::before {
+        .hero__scroll-line::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                radial-gradient(ellipse at 50% 20%, rgba(26, 26, 26, 0.4) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 80%, rgba(20, 20, 20, 0.3) 0%, transparent 50%);
-            z-index: 0;
+            background: linear-gradient(to bottom, var(--muted-platinum), transparent);
+            opacity: 0.6;
+            animation: scrollLine 2s ease-in-out infinite;
         }
 
-        .hero__content {
-            max-width: 1200px;
-            width: 100%;
-            position: relative;
-            z-index: 2;
-            opacity: 0;
-            transform: translateY(40px);
-            animation: heroFade 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+        @keyframes scrollLine {
+            0% { transform: translateY(-100%); }
+            50%, 100% { transform: translateY(100%); }
         }
 
-        @keyframes heroFade {
-            to {
-                opacity: 1;
+        @keyframes fadeUp {
+            to { 
+                opacity: 1; 
                 transform: translateY(0);
             }
         }
 
-        .hero__eyebrow {
-            font-family: var(--font-ui);
-            font-size: 10px;
-            font-weight: 400;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: var(--platinum);
-            margin-bottom: 20px;
-            opacity: 0.7;
+        @keyframes fadeDown {
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
         }
 
-        .hero__title {
-            font-family: var(--font-display);
-            font-size: 56px;
-            line-height: 1.05;
-            font-weight: 500;
-            letter-spacing: -0.02em;
-            color: var(--ivory);
-            margin-bottom: 20px;
-            max-width: 800px;
-        }
-
-        .hero__subtitle {
-            font-family: var(--font-body);
-            font-size: 19px;
-            line-height: 1.6;
-            font-weight: 300;
-            color: var(--stone);
-            max-width: 560px;
-            letter-spacing: 0.01em;
-        }
-
-        .hero__scroll {
-            position: absolute;
-            bottom: 8vh;
-            left: 50%;
-            transform: translateX(-50%);
+        /* =====================================================
+           CONTENT — Centered Layout
+           ===================================================== */
+        .content {
+            padding: 0 24px 96px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            cursor: pointer;
-            opacity: 0.2;
-            transition: opacity 0.3s ease;
         }
 
-        .hero__scroll:hover {
-            opacity: 0.5;
-        }
-
-        .hero__scroll-text {
-            font-family: var(--font-ui);
-            font-size: 9px;
-            font-weight: 400;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: var(--platinum);
-        }
-
-        .hero__scroll-line {
-            width: 1px;
-            height: 60px;
-            background: linear-gradient(to bottom, transparent, var(--platinum), transparent);
-        }
-
-        /* DIVIDER - Expanded Space */
-        .divider {
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.8s ease;
-        }
-
-        .divider.visible {
-            opacity: 1;
-        }
-
-        .divider__line {
-            width: 120px;
-            height: 0.5px;
-            background: linear-gradient(90deg, transparent, var(--rule), transparent);
-        }
-
-        /* DOMAIN - Floating Card */
-        .domain {
-            min-height: 80vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 8vh 5vw;
-            position: relative;
-        }
-
-        .domain__scroll {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            cursor: pointer;
-            opacity: 0.2;
-            transition: opacity 0.3s ease;
-            z-index: 10;
-        }
-
-        .domain__scroll:hover {
-            opacity: 0.5;
-        }
-
-        .domain__scroll-text {
-            font-family: var(--font-ui);
-            font-size: 9px;
-            font-weight: 400;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: var(--platinum);
-        }
-
-        .domain__scroll-line {
-            width: 1px;
-            height: 60px;
-            background: linear-gradient(to bottom, transparent, var(--platinum), transparent);
-        }
-
-        .domain__card {
-            max-width: 720px;
+        /* Decorative top divider */
+        .content__divider-top {
             width: 100%;
-            background: linear-gradient(135deg, rgba(10, 10, 10, 0.8) 0%, rgba(15, 15, 15, 0.6) 100%);
-            border: 1px solid var(--rule);
-            padding: 48px 40px 80px;
-            position: relative;
-            backdrop-filter: blur(20px);
-            opacity: 0;
-            transform: translateY(60px);
-            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), 
-                        transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .domain__card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .domain__card::before {
-            content: '';
-            position: absolute;
-            top: -1px;
-            left: 20%;
-            width: 60%;
+            max-width: var(--container-max);
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            background: linear-gradient(90deg, transparent, var(--divider-color), transparent);
+            margin-bottom: 64px;
         }
 
-        .domain__label {
+        .section__label {
             font-family: var(--font-ui);
-            font-size: 10px;
-            font-weight: 400;
-            letter-spacing: 0.25em;
+            font-size: 11px;
+            line-height: 16px;
+            font-weight: 500;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: var(--platinum);
-            margin-bottom: 32px;
-            opacity: 0.8;
+            color: var(--muted-platinum);
+            margin-bottom: 24px;
+            text-align: center;
         }
 
-        .domain__text {
+        /* =====================================================
+           OUR DOMAIN — Centered Card
+           ===================================================== */
+        .domain {
+            width: 100%;
+            max-width: var(--container-max);
+            background-color: var(--heritage-charcoal);
+            border: 1px solid var(--divider-color);
+            border-radius: 16px;
+            padding: 40px 32px;
+            margin-bottom: 80px;
+            text-align: center;
+        }
+
+        .body__p {
+            font-family: var(--font-body);
+            font-size: 17px;
+            line-height: 1.8;
+            font-weight: 400;
+            color: var(--muted-stone);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .body__p + .body__p {
+            margin-top: 20px;
+        }
+
+        /* =====================================================
+           POSITIONING — Centered
+           ===================================================== */
+        .positioning {
+            width: 100%;
+            max-width: var(--container-max);
+            text-align: center;
+            padding-bottom: 80px;
+        }
+
+        .stack {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .stack__pair {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .stack__item {
             font-family: var(--font-body);
             font-size: 18px;
-            line-height: 1.75;
-            font-weight: 300;
-            color: var(--stone);
-            margin-bottom: 24px;
-            letter-spacing: 0.01em;
-        }
-
-        .domain__text:last-of-type {
-            margin-bottom: 0;
-        }
-
-        /* POSITIONING - Stacked */
-        .positioning {
-            padding: 10vh 5vw;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .positioning__label {
-            font-family: var(--font-ui);
-            font-size: 10px;
+            line-height: 1.6;
             font-weight: 400;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: var(--platinum);
-            text-align: center;
-            margin-bottom: 60px;
-            opacity: 0.8;
+            color: var(--muted-stone);
         }
 
-        .positioning__content {
-            max-width: 720px;
-            width: 100%;
-        }
-
-        .positioning__scroll {
-            display: flex;
-            flex-direction: column;
-            gap: 32px;
-        }
-
-        .positioning__panel {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .positioning__panel.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .positioning__statement {
-            font-family: var(--font-body);
-            font-size: 20px;
-            line-height: 1.5;
-            font-weight: 300;
-            color: var(--stone);
-            letter-spacing: 0.01em;
-        }
-
-        .positioning__emphasis {
-            font-size: 22px;
+        .stack__item--emphasis {
             color: var(--ivory);
-            font-weight: 400;
+            font-weight: 500;
         }
 
         .positioning__closing {
             font-family: var(--font-body);
-            font-size: 16px;
+            font-size: 15px;
             line-height: 1.6;
-            font-weight: 300;
+            font-weight: 400;
             font-style: italic;
-            color: var(--stone);
-            text-align: center;
-            margin-top: 60px;
-            opacity: 0.7;
+            color: var(--muted-stone);
+            margin-top: 40px;
+            opacity: 0.8;
         }
 
-        /* FOOTER */
+        /* =====================================================
+           FOOTER — Centered
+           ===================================================== */
         .footer {
-            padding: 10vh 5vw 6vh;
+            width: 100%;
+            max-width: var(--container-max);
+            padding-top: 40px;
+            border-top: 1px solid var(--divider-color);
             text-align: center;
-            border-top: 0.5px solid var(--rule);
         }
 
         .footer__title {
-            font-family: var(--font-display);
-            font-size: 20px;
-            font-weight: 400;
+            font-family: var(--font-headline);
+            font-size: 18px;
+            line-height: 1.4;
+            font-weight: 500;
             color: var(--ivory);
             margin-bottom: 8px;
-            letter-spacing: -0.01em;
         }
 
         .footer__meta {
             font-family: var(--font-ui);
-            font-size: 9px;
-            font-weight: 400;
-            letter-spacing: 0.3em;
+            font-size: 10px;
+            line-height: 16px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
-            color: var(--platinum);
-            margin-bottom: 8px;
-            opacity: 0.7;
+            color: var(--muted-platinum);
+            margin-bottom: 12px;
         }
 
         .footer__micro {
             font-family: var(--font-body);
             font-size: 14px;
-            font-weight: 300;
+            line-height: 1.5;
+            font-weight: 400;
             font-style: italic;
-            color: var(--stone);
-            opacity: 0.6;
+            color: var(--muted-stone);
+            opacity: 0.8;
         }
 
-        /* TABLET */
-        @media (min-width: 768px) {
-            .hero__title {
-                font-size: 80px;
+        /* =====================================================
+           TABLET (480px+)
+           ===================================================== */
+        @media (min-width: 480px) {
+            .hero__h1 {
+                font-size: 64px;
             }
 
-            .hero__subtitle {
-                font-size: 21px;
+            .hero__motto {
+                font-size: 22px;
             }
 
-            .hero__scroll {
-                bottom: 40px;
+            .hero__support {
+                font-size: 17px;
             }
 
-            .domain__card {
-                padding: 64px 56px 80px;
+            .hero__divider-line {
+                width: 56px;
             }
 
-            .domain__text {
+            .domain {
+                padding: 48px 40px;
+            }
+
+            .body__p {
+                font-size: 18px;
+            }
+
+            .stack__item {
                 font-size: 19px;
             }
+        }
 
-            .domain__scroll {
-                bottom: 40px;
+        /* =====================================================
+           DESKTOP (992px+)
+           ===================================================== */
+        @media (min-width: 992px) {
+            .content {
+                padding: 0 48px 120px;
             }
 
-            .positioning__statement {
-                font-size: 22px;
+            .content__divider-top {
+                margin-bottom: 80px;
             }
 
-            .positioning__emphasis {
+            .hero__eyebrow {
+                font-size: 12px;
+                margin-bottom: 40px;
+            }
+
+            .hero__h1 {
+                font-size: 80px;
+                margin-bottom: 28px;
+            }
+
+            .hero__motto {
                 font-size: 26px;
+                margin-bottom: 40px;
+            }
+
+            .hero__divider {
+                margin-bottom: 40px;
+            }
+
+            .hero__divider-line {
+                width: 64px;
+            }
+
+            .hero__support {
+                font-size: 18px;
+                max-width: 560px;
+            }
+
+            .domain {
+                padding: 56px 48px;
+                margin-bottom: 96px;
+            }
+
+            .body__p {
+                font-size: 19px;
+                line-height: 1.85;
+            }
+
+            .positioning {
+                padding-bottom: 96px;
+            }
+
+            .stack {
+                gap: 28px;
+            }
+
+            .stack__item {
+                font-size: 21px;
+                line-height: 1.55;
+            }
+
+            .positioning__closing {
+                font-size: 16px;
+                margin-top: 48px;
+            }
+
+            .footer {
+                padding-top: 48px;
+            }
+
+            .footer__title {
+                font-size: 20px;
+                margin-bottom: 10px;
+            }
+
+            .footer__meta {
+                font-size: 11px;
+                margin-bottom: 14px;
+            }
+
+            .footer__micro {
+                font-size: 15px;
             }
         }
 
-        /* DESKTOP */
-        @media (min-width: 1200px) {
-            .hero__title {
-                font-size: 110px;
+        /* =====================================================
+           LARGE SCREENS (1441px+)
+           ===================================================== */
+        @media (min-width: 1441px) {
+            .hero__h1 {
+                font-size: 88px;
             }
 
-            .hero__subtitle {
+            .stack__item {
                 font-size: 22px;
             }
-
-            .positioning__statement {
-                font-size: 24px;
-            }
-
-            .positioning__emphasis {
-                font-size: 28px;
-            }
         }
 
-        /* ULTRA-WIDE */
-        @media (min-width: 1920px) {
-            .hero__title {
-                font-size: 120px;
-            }
+        /* =====================================================
+           UTILITIES
+           ===================================================== */
+        ::selection {
+            background-color: var(--muted-platinum);
+            color: var(--carbon-black);
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -452,109 +558,132 @@
                 scroll-behavior: auto;
             }
 
-            .hero__content {
+            .page,
+            .hero__eyebrow,
+            .hero__h1,
+            .hero__motto,
+            .hero__divider,
+            .hero__support,
+            .hero__scroll {
                 opacity: 1;
                 transform: none;
                 animation: none;
+            }
+
+            .hero__scroll-line::before {
+                animation: none;
+            }
+        }
+
+        @media print {
+            body {
+                background-color: #fff;
+                color: #0B0C0E;
+            }
+
+            .hero {
+                min-height: auto;
+                padding: 48px 24px;
             }
 
             .hero__scroll {
-                animation: none;
+                display: none;
             }
 
-            .domain__card,
-            .positioning__panel {
-                opacity: 1;
-                transform: none;
-                transition: none;
+            .domain {
+                background-color: #f7f7f7;
+                border-color: #e0e0e0;
+            }
+
+            .hero__h1,
+            .stack__item--emphasis,
+            .footer__title {
+                color: #0B0C0E;
+            }
+
+            .hero__eyebrow,
+            .hero__motto,
+            .section__label,
+            .footer__meta {
+                color: #555;
+            }
+
+            .hero__support,
+            .body__p,
+            .stack__item,
+            .positioning__closing,
+            .footer__micro {
+                color: #333;
             }
         }
     </style>
 </head>
 <body>
-    <!-- HERO -->
-    <section class="hero" id="hero">
-        <div class="hero__content">
-            <p class="hero__eyebrow">Private Advisory</p>
-            <h1 class="hero__title">The Gated Shifter</h1>
-            <p class="hero__subtitle">A private advisory operating where mechanical truth, provenance, and long-term continuity define value.</p>
-        </div>
-        <a href="#domain" class="hero__scroll">
-            <span class="hero__scroll-text">Discover</span>
-            <span class="hero__scroll-line"></span>
-        </a>
-    </section>
-
-    <!-- DIVIDER -->
-    <div class="divider">
-        <div class="divider__line"></div>
-    </div>
-
-    <!-- DOMAIN -->
-    <section class="domain" id="domain">
-        <div class="domain__card">
-            <p class="domain__label">Our Domain</p>
-            <p class="domain__text">The Gated Shifter serves collectors of historically significant automobiles, including Ferrari, Lamborghini, Maserati, Bizzarrini, Bugatti, Alfa Romeo Zagato, and air-cooled Porsche, among other rare and consequential motorcars.</p>
-            <p class="domain__text">Our work is informed by more than five decades of direct mechanical, archival, and custodial experience—spanning the stewardship of some of the world's most significant private collections, concours-level judging, and leadership of the largest independent Ferrari workshop in the United States.</p>
-        </div>
-        <a href="#positioning" class="domain__scroll">
-            <span class="domain__scroll-text">Continue</span>
-            <span class="domain__scroll-line"></span>
-        </a>
-    </section>
-
-    <!-- DIVIDER -->
-    <div class="divider">
-        <div class="divider__line"></div>
-    </div>
-
-    <!-- POSITIONING -->
-    <section class="positioning" id="positioning">
-        <p class="positioning__label">Positioning</p>
-        <div class="positioning__content">
-            <div class="positioning__scroll">
-                <div class="positioning__panel">
-                    <p class="positioning__statement">We do not authenticate stories.</p>
-                    <p class="positioning__emphasis">We verify cars.</p>
+    <main class="page">
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero__content">
+                <p class="hero__eyebrow">Private Advisory</p>
+                <h1 class="hero__h1">The Gated Shifter</h1>
+                <p class="hero__motto">We preserve the machine.</p>
+                <div class="hero__divider">
+                    <span class="hero__divider-line"></span>
+                    <span class="hero__divider-diamond"></span>
+                    <span class="hero__divider-line"></span>
                 </div>
-                <div class="positioning__panel">
-                    <p class="positioning__statement">We do not manage collections for liquidity.</p>
-                    <p class="positioning__emphasis">We manage them for continuity.</p>
-                </div>
-                <div class="positioning__panel">
-                    <p class="positioning__statement">We do not scale.</p>
-                    <p class="positioning__emphasis">We remain accountable.</p>
-                </div>
+                <p class="hero__support">A private advisory operating where mechanical truth, provenance, and long-term continuity define value.</p>
             </div>
-            <p class="positioning__closing">Engagements are private and referral-based.</p>
-        </div>
-    </section>
+            <a href="#content" class="hero__scroll">
+                <span class="hero__scroll-text">Discover</span>
+                <span class="hero__scroll-line"></span>
+            </a>
+        </section>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-        <p class="footer__title">The Gated Shifter</p>
-        <p class="footer__meta">Private Advisory</p>
-        <p class="footer__micro">Discreet inquiries by introduction.</p>
-    </footer>
+        <!-- CONTENT -->
+        <div class="content" id="content">
+            <!-- Top divider -->
+            <div class="content__divider-top"></div>
+
+            <!-- OUR DOMAIN -->
+            <section class="domain">
+                <p class="section__label">Our Domain</p>
+                <p class="body__p">The Gated Shifter serves collectors of historically significant automobiles, including Ferrari, Lamborghini, Maserati, Bizzarrini, Bugatti, Alfa Romeo Zagato, and air-cooled Porsche, among other rare and consequential motorcars.</p>
+                <p class="body__p">Our work is informed by more than five decades of direct mechanical, archival, and custodial experience—spanning the stewardship of some of the world's most significant private collections, concours-level judging, and leadership of the largest independent Ferrari workshop in the United States.</p>
+            </section>
+
+            <!-- POSITIONING -->
+            <section class="positioning">
+                <p class="section__label">Positioning</p>
+                <div class="stack">
+                    <div class="stack__pair">
+                        <p class="stack__item">We do not authenticate stories.</p>
+                        <p class="stack__item stack__item--emphasis">We verify cars.</p>
+                    </div>
+                    <div class="stack__pair">
+                        <p class="stack__item">We do not manage collections for liquidity.</p>
+                        <p class="stack__item stack__item--emphasis">We manage them for continuity.</p>
+                    </div>
+                    <div class="stack__pair">
+                        <p class="stack__item">We do not scale.</p>
+                        <p class="stack__item stack__item--emphasis">We remain accountable.</p>
+                    </div>
+                </div>
+                <p class="positioning__closing">Engagements are private and referral-based.</p>
+            </section>
+
+            <!-- FOOTER -->
+            <footer class="footer">
+                <p class="footer__title">The Gated Shifter</p>
+                <p class="footer__meta">Private Advisory</p>
+                <p class="footer__micro">Discreet inquiries by introduction.</p>
+            </footer>
+        </div>
+    </main>
 
     <script>
-        // Intersection Observer for scroll-triggered animations
-        const observerOptions = {
-            threshold: 0.2,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        // Observe elements
-        document.querySelectorAll('.divider, .domain__card, .positioning__panel').forEach(el => {
-            observer.observe(el);
+        document.querySelector('.hero__scroll')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.querySelector('#content')?.scrollIntoView({ behavior: 'smooth' });
         });
     </script>
 </body>
