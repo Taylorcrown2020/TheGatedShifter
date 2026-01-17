@@ -5,46 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Gated Shifter — Private Advisory</title>
     
-    <!-- Premium Font Stack -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;1,8..60,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     
     <style>
         /* =====================================================
            DESIGN TOKENS
            ===================================================== */
         :root {
-            /* Colors - EXACT from spec */
+            /* Colors */
             --carbon-black: #0B0C0E;
             --heritage-charcoal: #171A1F;
-            --warm-graphite: #2A2E33;
+            --slate-gray: #2A2E33;
+            --muted-platinum: #BFC3C7;
             --ivory: #EDEBE7;
             --muted-stone: #A7ABB2;
-            --platinum: #BFC3C7;
-            
-            /* Derived */
-            --divider-color: rgba(42, 46, 51, 0.50);
-            --surface-border: rgba(42, 46, 51, 0.55);
-            --platinum-90: rgba(191, 195, 199, 0.90);
-            --secondary-text: rgba(167, 171, 178, 0.85);
+            --divider-color: rgba(42, 46, 51, 0.55);
             
             /* Typography */
-            --font-headline: 'Playfair Display', Georgia, serif;
-            --font-body: 'Source Serif 4', Georgia, serif;
+            --font-headline: 'Playfair Display', 'Big Caslon', Georgia, serif;
+            --font-body: 'EB Garamond', 'Adobe Caslon Pro', Georgia, serif;
             --font-ui: 'Inter', -apple-system, sans-serif;
             
             /* Spacing */
-            --section-spacing-mobile: 44px;
-            --section-spacing-desktop: 64px;
-            --heading-to-body: 16px;
-            --paragraph-spacing: 14px;
-            --divider-spacing: 28px;
+            --section-spacing-mobile: 64px;
+            --section-spacing-desktop: 88px;
+            --paragraph-spacing: 16px;
+            --heading-to-paragraph: 20px;
             
             /* Layout */
-            --container-max: 680px;
-            --container-padding-mobile: 18px;
-            --container-padding-desktop: 24px;
+            --container-max: 800px;
+            --content-padding-mobile: 24px;
+            --content-padding-desktop: 48px;
         }
 
         /* =====================================================
@@ -70,60 +64,23 @@
             color: var(--ivory);
             font-family: var(--font-body);
             line-height: 1.6;
-            overflow-x: hidden;
         }
 
         /* =====================================================
-           AMBIENT BACKGROUND
+           PAGE
            ===================================================== */
-        .ambient {
-            position: fixed;
-            top: 0;
-            left: 0;
+        .page {
             width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .ambient__glow {
-            position: absolute;
-            top: -20%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 140%;
-            height: 60%;
-            background: radial-gradient(
-                ellipse at center,
-                rgba(42, 46, 51, 0.4) 0%,
-                transparent 70%
-            );
             opacity: 0;
-            animation: ambientFade 2s ease-out 500ms forwards;
+            animation: fadeIn 200ms ease-out forwards;
         }
 
-        @keyframes ambientFade {
+        @keyframes fadeIn {
             to { opacity: 1; }
         }
 
         /* =====================================================
-           PAGE STRUCTURE
-           ===================================================== */
-        .page {
-            position: relative;
-            z-index: 1;
-        }
-
-        .container {
-            width: 92vw;
-            max-width: var(--container-max);
-            margin: 0 auto;
-            padding-left: var(--container-padding-mobile);
-            padding-right: var(--container-padding-mobile);
-        }
-
-        /* =====================================================
-           HERO — Full Viewport
+           HERO
            ===================================================== */
         .hero {
             min-height: 100vh;
@@ -133,53 +90,51 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 80px 0;
+            padding: 80px 24px;
             position: relative;
         }
 
         .hero__content {
-            width: 92vw;
-            max-width: var(--container-max);
-            padding: 0 var(--container-padding-mobile);
+            max-width: 800px;
         }
 
-        /* Wordmark */
-        .hero__wordmark {
+        .hero__eyebrow {
             font-family: var(--font-ui);
-            font-size: 10px;
+            font-size: 11px;
             font-weight: 500;
-            letter-spacing: 0.3em;
+            letter-spacing: 0.25em;
             text-transform: uppercase;
-            color: var(--platinum);
-            opacity: 0;
+            color: var(--muted-stone);
             margin-bottom: 32px;
-            animation: fadeDown 800ms cubic-bezier(0.23, 1, 0.32, 1) 100ms forwards;
+            opacity: 0;
+            transform: translateY(-10px);
+            animation: fadeDown 600ms cubic-bezier(0.23, 1, 0.32, 1) 200ms forwards;
         }
 
         .hero__h1 {
             font-family: var(--font-headline);
-            font-size: 42px;
-            line-height: 1.15;
+            font-size: 48px;
+            line-height: 1.1;
             font-weight: 500;
             letter-spacing: -0.01em;
             color: var(--ivory);
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             opacity: 0;
-            transform: translateY(30px);
-            animation: fadeUp 1000ms cubic-bezier(0.23, 1, 0.32, 1) 300ms forwards;
+            transform: translateY(20px);
+            animation: fadeUp 800ms cubic-bezier(0.23, 1, 0.32, 1) 400ms forwards;
         }
 
         .hero__motto {
             font-family: var(--font-headline);
-            font-size: 19px;
+            font-size: 20px;
             line-height: 1.5;
             font-weight: 400;
             font-style: italic;
-            color: var(--platinum);
+            color: var(--muted-platinum);
             margin-bottom: 32px;
             opacity: 0;
             transform: translateY(20px);
-            animation: fadeUp 800ms cubic-bezier(0.23, 1, 0.32, 1) 550ms forwards;
+            animation: fadeUp 800ms cubic-bezier(0.23, 1, 0.32, 1) 600ms forwards;
         }
 
         .hero__divider {
@@ -189,65 +144,61 @@
             gap: 16px;
             margin-bottom: 32px;
             opacity: 0;
-            animation: fadeIn 800ms cubic-bezier(0.23, 1, 0.32, 1) 750ms forwards;
+            animation: fadeIn 600ms ease-out 800ms forwards;
         }
 
         .hero__divider-line {
-            width: 40px;
+            width: 48px;
             height: 1px;
-            background: linear-gradient(90deg, transparent, var(--platinum), transparent);
-            opacity: 0.5;
+            background-color: var(--slate-gray);
         }
 
-        .hero__divider-icon {
-            width: 6px;
-            height: 6px;
-            border: 1px solid var(--platinum);
-            opacity: 0.5;
+        .hero__divider-diamond {
+            width: 8px;
+            height: 8px;
+            border: 1px solid var(--slate-gray);
             transform: rotate(45deg);
         }
 
         .hero__support {
             font-family: var(--font-body);
-            font-size: 15px;
+            font-size: 16px;
             line-height: 1.7;
             font-weight: 400;
-            color: var(--secondary-text);
-            max-width: 46ch;
+            color: var(--muted-stone);
+            max-width: 520px;
             margin: 0 auto;
             opacity: 0;
             transform: translateY(20px);
             animation: fadeUp 800ms cubic-bezier(0.23, 1, 0.32, 1) 900ms forwards;
         }
 
-        /* Scroll Indicator */
         .hero__scroll {
             position: absolute;
-            bottom: 40px;
+            bottom: 48px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 12px;
+            text-decoration: none;
             opacity: 0;
-            animation: fadeIn 600ms ease-out 1400ms forwards;
-            cursor: pointer;
+            animation: fadeIn 600ms ease-out 1200ms forwards;
             transition: opacity 300ms ease;
         }
 
         .hero__scroll:hover {
-            opacity: 0.8;
+            opacity: 0.7;
         }
 
         .hero__scroll-text {
             font-family: var(--font-ui);
-            font-size: 9px;
+            font-size: 10px;
             font-weight: 500;
             letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: var(--platinum);
-            opacity: 0.7;
+            color: var(--muted-platinum);
         }
 
         .hero__scroll-line {
@@ -264,9 +215,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, var(--platinum) 50%, transparent);
-            opacity: 0.4;
-            animation: scrollLine 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            background: linear-gradient(to bottom, var(--muted-platinum), transparent);
+            opacity: 0.6;
+            animation: scrollLine 2s ease-in-out infinite;
         }
 
         @keyframes scrollLine {
@@ -274,233 +225,6 @@
             50%, 100% { transform: translateY(100%); }
         }
 
-        /* =====================================================
-           CONTENT SECTIONS
-           ===================================================== */
-        .content {
-            padding: 88px 0;
-            position: relative;
-        }
-
-        .content::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 1px;
-            height: 64px;
-            background: linear-gradient(to bottom, var(--divider-color), transparent);
-        }
-
-        .section {
-            margin-bottom: var(--section-spacing-mobile);
-        }
-
-        .section:last-of-type {
-            margin-bottom: 0;
-        }
-
-        .section__label {
-            font-family: var(--font-ui);
-            font-size: 11px;
-            line-height: 16px;
-            font-weight: 500;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--platinum);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .section__label::before {
-            content: '';
-            width: 20px;
-            height: 1px;
-            background-color: var(--platinum);
-            opacity: 0.5;
-        }
-
-        /* =====================================================
-           DIVIDER
-           ===================================================== */
-        .divider {
-            height: 1px;
-            width: 100%;
-            background-color: var(--divider-color);
-            margin-top: var(--divider-spacing);
-            margin-bottom: var(--divider-spacing);
-        }
-
-        /* =====================================================
-           OUR DOMAIN — Surface Card
-           ===================================================== */
-        .domain {
-            background: linear-gradient(
-                135deg,
-                var(--heritage-charcoal) 0%,
-                rgba(23, 26, 31, 0.8) 100%
-            );
-            border: 1px solid var(--surface-border);
-            border-radius: 12px;
-            padding: 28px 24px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .domain::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(
-                90deg,
-                transparent 0%,
-                rgba(255, 255, 255, 0.06) 50%,
-                transparent 100%
-            );
-        }
-
-        .domain::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(
-                circle at top right,
-                rgba(191, 195, 199, 0.03) 0%,
-                transparent 70%
-            );
-            pointer-events: none;
-        }
-
-        .body__p {
-            font-family: var(--font-body);
-            font-size: 15px;
-            line-height: 1.75;
-            font-weight: 400;
-            color: var(--secondary-text);
-            max-width: 54ch;
-            position: relative;
-        }
-
-        .body__p--lead {
-            color: var(--ivory);
-            font-size: 16px;
-        }
-
-        .body__p + .body__p {
-            margin-top: var(--paragraph-spacing);
-        }
-
-        .marque {
-            color: var(--ivory);
-            font-style: italic;
-        }
-
-        /* =====================================================
-           OUR POSITION
-           ===================================================== */
-        .stack {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-
-        .stack__pair {
-            position: relative;
-            padding-left: 16px;
-            border-left: 1px solid var(--divider-color);
-        }
-
-        .stack__item {
-            font-family: var(--font-body);
-            font-size: 17px;
-            line-height: 1.6;
-            font-weight: 400;
-            color: var(--muted-stone);
-        }
-
-        .stack__item--emphasis {
-            color: var(--ivory);
-            font-weight: 500;
-            margin-top: 4px;
-        }
-
-        /* =====================================================
-           ENGAGEMENT
-           ===================================================== */
-        .engagement__text {
-            font-family: var(--font-body);
-            font-size: 16px;
-            line-height: 1.7;
-            font-weight: 400;
-            color: var(--secondary-text);
-            font-style: italic;
-        }
-
-        /* =====================================================
-           FOOTER
-           ===================================================== */
-        .footer {
-            padding: 56px 0 64px;
-            text-align: center;
-            position: relative;
-        }
-
-        .footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            height: 1px;
-            background-color: var(--divider-color);
-        }
-
-        .footer__logo {
-            width: 32px;
-            height: 32px;
-            margin: 0 auto 20px;
-            opacity: 0.4;
-        }
-
-        .footer__logo svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        .footer__title {
-            font-family: var(--font-headline);
-            font-size: 18px;
-            line-height: 1.3;
-            font-weight: 500;
-            color: var(--ivory);
-            letter-spacing: 0.01em;
-            margin-bottom: 8px;
-        }
-
-        .footer__meta {
-            font-family: var(--font-ui);
-            font-size: 10px;
-            line-height: 16px;
-            font-weight: 500;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--platinum);
-            opacity: 0.8;
-        }
-
-        /* =====================================================
-           ANIMATIONS
-           ===================================================== */
         @keyframes fadeUp {
             to { 
                 opacity: 1; 
@@ -509,57 +233,166 @@
         }
 
         @keyframes fadeDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
             to { 
-                opacity: 0.7; 
+                opacity: 1; 
                 transform: translateY(0);
             }
         }
 
-        @keyframes fadeIn {
-            to { opacity: 1; }
+        /* =====================================================
+           CONTENT
+           ===================================================== */
+        .content {
+            padding: var(--content-padding-mobile);
+            padding-top: 48px;
+            padding-bottom: 80px;
+            max-width: calc(var(--container-max) + (var(--content-padding-mobile) * 2));
+            margin: 0 auto;
         }
 
-        .reveal {
-            opacity: 0;
-            transform: translateY(32px);
-            transition: opacity 700ms cubic-bezier(0.23, 1, 0.32, 1),
-                        transform 700ms cubic-bezier(0.23, 1, 0.32, 1);
+        /* Top divider line */
+        .content__divider-top {
+            width: 100%;
+            height: 1px;
+            background-color: var(--divider-color);
+            margin-bottom: 48px;
         }
 
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
+        .section__label {
+            font-family: var(--font-ui);
+            font-size: 12px;
+            line-height: 16px;
+            font-weight: 500;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--muted-platinum);
+            margin-bottom: var(--heading-to-paragraph);
         }
 
-        .reveal-delay-1 { transition-delay: 100ms; }
-        .reveal-delay-2 { transition-delay: 200ms; }
-        .reveal-delay-3 { transition-delay: 300ms; }
+        /* =====================================================
+           OUR DOMAIN — Card
+           ===================================================== */
+        .domain {
+            background-color: var(--heritage-charcoal);
+            border: 1px solid var(--divider-color);
+            border-radius: 14px;
+            padding: 28px 24px;
+            margin-bottom: var(--section-spacing-mobile);
+        }
+
+        .body__p {
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 1.75;
+            font-weight: 400;
+            color: var(--muted-stone);
+        }
+
+        .body__p + .body__p {
+            margin-top: var(--paragraph-spacing);
+        }
+
+        /* =====================================================
+           POSITIONING — Left Aligned, Outside Card
+           ===================================================== */
+        .positioning {
+            padding-top: var(--section-spacing-mobile);
+            padding-bottom: var(--section-spacing-mobile);
+        }
+
+        .stack {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stack__pair {
+            margin-bottom: 16px;
+        }
+
+        .stack__pair:last-child {
+            margin-bottom: 0;
+        }
+
+        .stack__item {
+            font-family: var(--font-body);
+            font-size: 17px;
+            line-height: 1.7;
+            font-weight: 400;
+            color: var(--ivory);
+        }
+
+        .positioning__closing {
+            font-family: var(--font-body);
+            font-size: 15px;
+            line-height: 1.6;
+            font-weight: 400;
+            font-style: italic;
+            color: var(--muted-stone);
+            margin-top: 28px;
+        }
+
+        /* =====================================================
+           FOOTER
+           ===================================================== */
+        .footer {
+            padding-top: 32px;
+            border-top: 1px solid var(--divider-color);
+        }
+
+        .footer__title {
+            font-family: var(--font-headline);
+            font-size: 15px;
+            line-height: 1.4;
+            font-weight: 500;
+            color: var(--ivory);
+            margin-bottom: 4px;
+        }
+
+        .footer__meta {
+            font-family: var(--font-ui);
+            font-size: 11px;
+            line-height: 16px;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted-platinum);
+            margin-bottom: 8px;
+        }
+
+        .footer__micro {
+            font-family: var(--font-body);
+            font-size: 13px;
+            line-height: 1.5;
+            font-weight: 400;
+            font-style: italic;
+            color: var(--muted-stone);
+        }
 
         /* =====================================================
            TABLET (480px+)
            ===================================================== */
         @media (min-width: 480px) {
             .hero__h1 {
-                font-size: 52px;
+                font-size: 64px;
             }
 
             .hero__motto {
-                font-size: 21px;
+                font-size: 22px;
             }
 
             .hero__support {
-                font-size: 16px;
+                font-size: 17px;
+            }
+
+            .hero__divider-line {
+                width: 56px;
+            }
+
+            .domain {
+                padding: 32px 28px;
             }
 
             .body__p {
-                font-size: 16px;
-            }
-
-            .body__p--lead {
                 font-size: 17px;
             }
 
@@ -567,16 +400,8 @@
                 font-size: 18px;
             }
 
-            .domain {
-                padding: 32px 28px;
-            }
-
-            .stack {
-                gap: 28px;
-            }
-
             .stack__pair {
-                padding-left: 20px;
+                margin-bottom: 12px;
             }
         }
 
@@ -584,27 +409,29 @@
            DESKTOP (992px+)
            ===================================================== */
         @media (min-width: 992px) {
-            .container {
-                padding-left: var(--container-padding-desktop);
-                padding-right: var(--container-padding-desktop);
+            .content {
+                padding: var(--content-padding-desktop);
+                padding-top: 64px;
+                padding-bottom: 96px;
+                max-width: calc(var(--container-max) + (var(--content-padding-desktop) * 2));
             }
 
-            .hero__content {
-                padding: 0 var(--container-padding-desktop);
+            .content__divider-top {
+                margin-bottom: 64px;
             }
 
-            .hero__wordmark {
-                font-size: 11px;
+            .hero__eyebrow {
+                font-size: 12px;
                 margin-bottom: 40px;
             }
 
             .hero__h1 {
-                font-size: 68px;
-                margin-bottom: 24px;
+                font-size: 80px;
+                margin-bottom: 28px;
             }
 
             .hero__motto {
-                font-size: 24px;
+                font-size: 26px;
                 margin-bottom: 40px;
             }
 
@@ -613,86 +440,53 @@
             }
 
             .hero__divider-line {
-                width: 56px;
+                width: 64px;
             }
 
             .hero__support {
-                font-size: 17px;
-                max-width: 50ch;
-            }
-
-            .hero__scroll {
-                bottom: 48px;
-            }
-
-            .content {
-                padding: 104px 0;
-            }
-
-            .content::before {
-                height: 80px;
-            }
-
-            .section {
-                margin-bottom: var(--section-spacing-desktop);
-            }
-
-            .section__label {
-                font-size: 11px;
-                margin-bottom: 24px;
-            }
-
-            .section__label::before {
-                width: 28px;
+                font-size: 18px;
+                max-width: 560px;
             }
 
             .domain {
                 padding: 36px 32px;
+                margin-bottom: var(--section-spacing-desktop);
             }
 
             .body__p {
-                font-size: 17px;
+                font-size: 18px;
                 line-height: 1.8;
-                max-width: 58ch;
             }
 
-            .body__p--lead {
-                font-size: 18px;
+            .positioning {
+                padding-top: var(--section-spacing-desktop);
+                padding-bottom: var(--section-spacing-desktop);
             }
 
             .stack__item {
                 font-size: 20px;
-                line-height: 1.55;
-            }
-
-            .stack {
-                gap: 32px;
+                line-height: 1.65;
             }
 
             .stack__pair {
-                padding-left: 24px;
+                margin-bottom: 8px;
             }
 
-            .engagement__text {
-                font-size: 17px;
+            .positioning__closing {
+                font-size: 16px;
+                margin-top: 32px;
             }
 
             .footer {
-                padding: 72px 0 80px;
-            }
-
-            .footer__logo {
-                width: 36px;
-                height: 36px;
-                margin-bottom: 24px;
+                padding-top: 40px;
             }
 
             .footer__title {
-                font-size: 20px;
+                font-size: 16px;
             }
 
-            .footer__meta {
-                font-size: 11px;
+            .footer__micro {
+                font-size: 14px;
             }
         }
 
@@ -701,11 +495,7 @@
            ===================================================== */
         @media (min-width: 1441px) {
             .hero__h1 {
-                font-size: 76px;
-            }
-
-            .hero__motto {
-                font-size: 26px;
+                font-size: 88px;
             }
         }
 
@@ -713,20 +503,22 @@
            UTILITIES
            ===================================================== */
         ::selection {
-            background-color: rgba(191, 195, 199, 0.2);
-            color: var(--ivory);
+            background-color: var(--muted-platinum);
+            color: var(--carbon-black);
         }
 
         @media (prefers-reduced-motion: reduce) {
-            html { scroll-behavior: auto; }
-            
-            .hero__wordmark,
+            html {
+                scroll-behavior: auto;
+            }
+
+            .page,
+            .hero__eyebrow,
             .hero__h1,
             .hero__motto,
             .hero__divider,
             .hero__support,
-            .hero__scroll,
-            .ambient__glow {
+            .hero__scroll {
                 opacity: 1;
                 transform: none;
                 animation: none;
@@ -734,45 +526,62 @@
 
             .hero__scroll-line::before {
                 animation: none;
-                transform: none;
-                opacity: 0.4;
-            }
-
-            .reveal {
-                opacity: 1;
-                transform: none;
-                transition: none;
             }
         }
 
-        /* Print */
         @media print {
-            body { background: #fff; color: #0B0C0E; }
-            .hero { min-height: auto; padding: 48px 0; }
-            .hero__scroll, .ambient { display: none; }
-            .domain { background: #f5f5f5; border-color: #ddd; }
-            .hero__h1, .stack__item--emphasis, .body__p--lead, .marque, .footer__title { color: #0B0C0E; }
-            .hero__motto, .section__label, .footer__meta { color: #666; }
-            .hero__support, .body__p, .engagement__text, .stack__item { color: #333; }
+            body {
+                background-color: #fff;
+                color: #0B0C0E;
+            }
+
+            .hero {
+                min-height: auto;
+                padding: 48px 24px;
+            }
+
+            .hero__scroll {
+                display: none;
+            }
+
+            .domain {
+                background-color: #f7f7f7;
+                border-color: #e0e0e0;
+            }
+
+            .hero__h1,
+            .stack__item,
+            .footer__title {
+                color: #0B0C0E;
+            }
+
+            .hero__eyebrow,
+            .hero__motto,
+            .section__label,
+            .footer__meta {
+                color: #555;
+            }
+
+            .hero__support,
+            .body__p,
+            .positioning__closing,
+            .footer__micro {
+                color: #333;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Ambient Background -->
-    <div class="ambient">
-        <div class="ambient__glow"></div>
-    </div>
-
     <main class="page">
         <!-- HERO -->
         <section class="hero">
             <div class="hero__content">
-                <p class="hero__wordmark">Private Advisory</p>
+                <p class="hero__eyebrow">Private Advisory</p>
                 <h1 class="hero__h1">The Gated Shifter</h1>
                 <p class="hero__motto">We preserve the machine.</p>
                 <div class="hero__divider">
                     <span class="hero__divider-line"></span>
-                    <span class="hero__divider-icon"></span>
+                    <span class="hero__divider-diamond"></span>
                     <span class="hero__divider-line"></span>
                 </div>
                 <p class="hero__support">A private advisory operating where mechanical truth, provenance, and long-term continuity define value.</p>
@@ -785,75 +594,46 @@
 
         <!-- CONTENT -->
         <div class="content" id="content">
-            <div class="container">
-                <!-- OUR DOMAIN -->
-                <section class="section domain reveal">
-                    <p class="section__label">Our Domain</p>
-                    <p class="body__p body__p--lead">The Gated Shifter serves collectors of historically significant Italian automobiles, including <span class="marque">Ferrari</span>, <span class="marque">Lamborghini</span>, <span class="marque">Maserati</span>, <span class="marque">Bizzarrini</span>, <span class="marque">Bugatti</span>, and <span class="marque">Alfa Romeo Zagato</span>.</p>
-                    <p class="body__p">Our work is informed by more than five decades of direct mechanical, archival, and custodial experience—spanning the stewardship of some of the world's most significant private collections, concours-level judging, and leadership of the largest independent Ferrari workshop in the United States.</p>
-                </section>
+            <!-- Top divider -->
+            <div class="content__divider-top"></div>
 
-                <div class="divider reveal reveal-delay-1"></div>
+            <!-- OUR DOMAIN — Card -->
+            <section class="domain">
+                <p class="section__label">Our Domain</p>
+                <p class="body__p">The Gated Shifter serves collectors of historically significant automobiles, including Ferrari, Lamborghini, Maserati, Bizzarrini, Bugatti, Alfa Romeo Zagato, and air-cooled Porsche, among other rare and consequential motorcars.</p>
+                <p class="body__p">Our work is informed by more than five decades of direct mechanical, archival, and custodial experience—spanning the stewardship of some of the world's most significant private collections, concours-level judging, and leadership of the largest independent Ferrari workshop in the United States.</p>
+            </section>
 
-                <!-- OUR POSITION -->
-                <section class="section position reveal reveal-delay-1">
-                    <p class="section__label">Our Position</p>
-                    <div class="stack">
-                        <div class="stack__pair">
-                            <p class="stack__item">We do not authenticate stories.</p>
-                            <p class="stack__item stack__item--emphasis">We verify cars.</p>
-                        </div>
-                        <div class="stack__pair">
-                            <p class="stack__item">We do not manage collections for liquidity.</p>
-                            <p class="stack__item stack__item--emphasis">We manage them for continuity.</p>
-                        </div>
-                        <div class="stack__pair">
-                            <p class="stack__item">We do not scale.</p>
-                            <p class="stack__item stack__item--emphasis">We remain accountable.</p>
-                        </div>
+            <!-- POSITIONING -->
+            <section class="positioning">
+                <p class="section__label">Positioning</p>
+                <div class="stack">
+                    <div class="stack__pair">
+                        <p class="stack__item">We do not authenticate stories.</p>
+                        <p class="stack__item">We verify cars.</p>
                     </div>
-                </section>
-
-                <div class="divider reveal reveal-delay-2"></div>
-
-                <!-- ENGAGEMENT -->
-                <section class="section engagement reveal reveal-delay-2">
-                    <p class="section__label">Engagement</p>
-                    <p class="engagement__text">Engagements are private and referral-based.</p>
-                </section>
-            </div>
-        </div>
-
-        <!-- FOOTER -->
-        <footer class="footer reveal reveal-delay-3">
-            <div class="container">
-                <div class="footer__logo">
-                    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="6" y="10" width="20" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/>
-                        <circle cx="16" cy="16" r="3" stroke="currentColor" stroke-width="1.5"/>
-                        <line x1="16" y1="13" x2="16" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                        <line x1="16" y1="22" x2="16" y2="19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                    </svg>
+                    <div class="stack__pair">
+                        <p class="stack__item">We do not manage collections for liquidity.</p>
+                        <p class="stack__item">We manage them for continuity.</p>
+                    </div>
+                    <div class="stack__pair">
+                        <p class="stack__item">We do not scale.</p>
+                        <p class="stack__item">We remain accountable.</p>
+                    </div>
                 </div>
+                <p class="positioning__closing">Engagements are private and referral-based.</p>
+            </section>
+
+            <!-- FOOTER -->
+            <footer class="footer">
                 <p class="footer__title">The Gated Shifter</p>
                 <p class="footer__meta">Private Advisory</p>
-            </div>
-        </footer>
+                <p class="footer__micro">Discreet inquiries by introduction.</p>
+            </footer>
+        </div>
     </main>
 
     <script>
-        // Scroll reveal
-        const reveals = document.querySelectorAll('.reveal');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
-        reveals.forEach(el => observer.observe(el));
-
-        // Smooth scroll for hero indicator
         document.querySelector('.hero__scroll')?.addEventListener('click', (e) => {
             e.preventDefault();
             document.querySelector('#content')?.scrollIntoView({ behavior: 'smooth' });
