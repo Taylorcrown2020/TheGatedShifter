@@ -16,13 +16,13 @@
            ===================================================== */
         :root {
             /* Colors */
-            --carbon-black: #0B0C0E;
-            --heritage-charcoal: #141719;
-            --slate-gray: #2A2E33;
-            --muted-platinum: #BFC3C7;
-            --ivory: #EDEBE7;
-            --muted-stone: #A7ABB2;
-            --divider-color: rgba(42, 46, 51, 0.55);
+            --carbon-black: #000000;
+            --heritage-charcoal: #0A0A0A;
+            --slate-gray: #1A1A1A;
+            --muted-platinum: #C5C5C5;
+            --ivory: #F5F5F5;
+            --muted-stone: #999999;
+            --divider-color: rgba(255, 255, 255, 0.08);
             
             /* Typography */
             --font-headline: 'Playfair Display', 'Big Caslon', Georgia, serif;
@@ -52,15 +52,16 @@
         }
 
         body {
-            background-color: var(--carbon-black);
+            background-color: #000000;
             background-image: 
-                radial-gradient(circle at 20% 80%, rgba(42, 46, 51, 0.4) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(42, 46, 51, 0.3) 0%, transparent 50%),
-                linear-gradient(180deg, var(--carbon-black) 0%, var(--heritage-charcoal) 100%);
+                radial-gradient(ellipse at 50% -20%, rgba(40, 40, 45, 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at -20% 50%, rgba(30, 30, 35, 0.2) 0%, transparent 40%),
+                radial-gradient(ellipse at 120% 50%, rgba(35, 35, 40, 0.2) 0%, transparent 40%);
             color: var(--ivory);
             font-family: var(--font-body);
             line-height: 1.6;
             position: relative;
+            overflow-x: hidden;
         }
         
         body::before {
@@ -74,12 +75,53 @@
                 repeating-linear-gradient(
                     0deg,
                     transparent,
-                    transparent 2px,
-                    rgba(255, 255, 255, 0.01) 2px,
-                    rgba(255, 255, 255, 0.01) 4px
+                    transparent 1px,
+                    rgba(255, 255, 255, 0.015) 1px,
+                    rgba(255, 255, 255, 0.015) 2px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 1px,
+                    rgba(255, 255, 255, 0.015) 1px,
+                    rgba(255, 255, 255, 0.015) 2px
+                );
+            background-size: 100px 100px;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.4;
+            animation: gridPulse 8s ease-in-out infinite;
+        }
+        
+        @keyframes gridPulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.25; }
+        }
+        
+        body::after {
+            content: '';
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 150%;
+            height: 150%;
+            transform: translate(-50%, -50%);
+            background: 
+                conic-gradient(from 0deg at 50% 50%, 
+                    transparent 0deg,
+                    rgba(255, 255, 255, 0.02) 90deg,
+                    transparent 180deg,
+                    rgba(255, 255, 255, 0.015) 270deg,
+                    transparent 360deg
                 );
             pointer-events: none;
-            z-index: -1;
+            z-index: 0;
+            animation: rotate 120s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
         /* =====================================================
@@ -89,6 +131,8 @@
             width: 100%;
             opacity: 0;
             animation: fadeIn 200ms ease-out forwards;
+            position: relative;
+            z-index: 2;
         }
 
         @keyframes fadeIn {
@@ -172,8 +216,9 @@
         .hero__divider-diamond {
             width: 8px;
             height: 8px;
-            border: 1px solid var(--slate-gray);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             transform: rotate(45deg);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
         }
 
         .hero__support {
@@ -292,12 +337,14 @@
         .domain {
             width: 100%;
             max-width: var(--container-max);
-            background-color: var(--heritage-charcoal);
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.6) 0%, rgba(15, 15, 15, 0.4) 100%);
             border: 1px solid var(--divider-color);
-            border-radius: 16px;
+            border-radius: 2px;
             padding: 40px 32px;
             margin-bottom: 80px;
             text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
         }
 
         .body__p {
