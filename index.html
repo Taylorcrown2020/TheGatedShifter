@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Gated Shifter — Private Advisory</title>
+    
+    <!-- Fonts - Using closest available matches to Canela/Tiempos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =====================================================
+           DESIGN TOKENS — Per Spec Document
+           ===================================================== */
+        :root {
+            /* Colors - EXACT from spec */
+            --carbon-black: #0B0C0E;
+            --heritage-charcoal: #171A1F;
+            --slate-gray: #2A2E33;
+            --muted-platinum: #BFC3C7;
+            --ivory: #EDEBE7;
+            --muted-stone: #A7ABB2;
+            --divider-color: rgba(42, 46, 51, 0.55);
+            
+            /* Typography - Spec fallback stack */
+            --font-headline: 'Cormorant Garamond', 'Big Caslon', Georgia, serif;
+            --font-body: 'Cormorant Garamond', Georgia, serif;
+            --font-ui: 'IBM Plex Sans', 'Suisse Int\'l', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            
+            /* Spacing - EXACT from spec (8px baseline) */
+            --page-top-mobile: 64px;
+            --page-top-desktop: 96px;
+            --section-spacing-mobile: 56px;
+            --section-spacing-desktop: 72px;
+            --paragraph-spacing: 14px;
+            --heading-to-paragraph: 16px;
+            --divider-spacing: 28px;
+            
+            /* Layout - EXACT from spec */
+            --container-max: 680px;
+        }
+
+        /* =====================================================
+           BASE RESET & GLOBAL
+           ===================================================== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+
+        body {
+            /* Spec: "Solid #0B0C0E only" */
+            background-color: var(--carbon-black);
+            color: var(--ivory);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* =====================================================
+           PAGE CONTAINER — Spec: 92vw mobile, max 680px
+           ===================================================== */
+        .page {
+            width: 92vw;
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding-top: var(--page-top-mobile);
+            padding-bottom: 64px;
+            /* Spec: Optional single 200ms fade-in */
+            opacity: 0;
+            animation: fadeIn 200ms ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* =====================================================
+           SECTIONS
+           ===================================================== */
+        .section {
+            margin-bottom: var(--section-spacing-mobile);
+        }
+
+        /* =====================================================
+           DIVIDER — Spec: 1px, rgba(42,46,51,0.55), 100% width
+           ===================================================== */
+        .divider {
+            height: 1px;
+            width: 100%;
+            background-color: var(--divider-color);
+            margin-top: var(--divider-spacing);
+            margin-bottom: var(--divider-spacing);
+        }
+
+        /* =====================================================
+           HERO SECTION (Screen 1)
+           Mobile: H1 36px/42px/600, Subline 14px/22px/+0.14em
+           ===================================================== */
+        .hero__h1 {
+            font-family: var(--font-headline);
+            font-size: 36px;
+            line-height: 42px;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            color: var(--ivory);
+            margin-bottom: var(--heading-to-paragraph);
+        }
+
+        .hero__subline {
+            font-family: var(--font-ui);
+            font-size: 14px;
+            line-height: 22px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--muted-platinum);
+            margin-bottom: var(--heading-to-paragraph);
+        }
+
+        .hero__support {
+            font-family: var(--font-body);
+            font-size: 15px;
+            line-height: 26px;
+            color: var(--muted-stone);
+            max-width: 56ch;
+        }
+
+        /* =====================================================
+           DOMAIN SECTION (Screen 2) — Surface Card
+           Spec: bg #171A1F, 1px border rgba(42,46,51,0.55), 
+                 radius 14px, padding 22px mobile / 28px desktop
+           ===================================================== */
+        .domain {
+            background-color: var(--heritage-charcoal);
+            border: 1px solid var(--divider-color);
+            border-radius: 14px;
+            padding: 22px;
+        }
+
+        .section__label {
+            font-family: var(--font-ui);
+            font-size: 12px;
+            line-height: 16px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--muted-platinum);
+            margin-bottom: var(--heading-to-paragraph);
+        }
+
+        .body__p {
+            font-family: var(--font-body);
+            font-size: 15px;
+            line-height: 26px;
+            /* Spec: Secondary text #A7ABB2 @ 100% (don't fade further) */
+            color: var(--muted-stone);
+            max-width: 56ch;
+        }
+
+        .body__p + .body__p {
+            margin-top: var(--paragraph-spacing);
+        }
+
+        /* =====================================================
+           POSITIONING SECTION (Screen 3)
+           Stacked statements: 17px/28px, body serif, Ivory
+           ===================================================== */
+        .positioning .section__label {
+            margin-bottom: var(--heading-to-paragraph);
+        }
+
+        .stack__item {
+            font-family: var(--font-body);
+            font-size: 17px;
+            line-height: 28px;
+            color: var(--ivory);
+        }
+
+        .positioning__closing {
+            font-family: var(--font-body);
+            font-size: 15px;
+            line-height: 26px;
+            color: var(--muted-stone);
+            margin-top: var(--heading-to-paragraph);
+        }
+
+        /* =====================================================
+           FOOTER — Spec: Small, understated, no links
+           Footer micro: 11px/16px, UI sans, +0.12em, Platinum
+           ===================================================== */
+        .footer {
+            margin-top: var(--section-spacing-mobile);
+            padding-top: var(--divider-spacing);
+            border-top: 1px solid var(--divider-color);
+        }
+
+        .footer__title {
+            font-family: var(--font-headline);
+            font-size: 14px;
+            line-height: 20px;
+            font-weight: 500;
+            color: var(--ivory);
+            margin-bottom: 4px;
+        }
+
+        .footer__meta {
+            font-family: var(--font-ui);
+            font-size: 11px;
+            line-height: 16px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted-platinum);
+            margin-bottom: 8px;
+        }
+
+        .footer__micro {
+            font-family: var(--font-ui);
+            font-size: 11px;
+            line-height: 16px;
+            letter-spacing: 0.12em;
+            color: var(--muted-platinum);
+        }
+
+        /* =====================================================
+           TABLET BREAKPOINT (480px - 991px)
+           H1: 46px/52px, Body: 16px/28px, Stack: 18px/30px
+           ===================================================== */
+        @media (min-width: 480px) {
+            .hero__h1 {
+                font-size: 46px;
+                line-height: 52px;
+            }
+
+            .hero__support {
+                font-size: 16px;
+                line-height: 28px;
+            }
+
+            .body__p {
+                font-size: 16px;
+                line-height: 28px;
+            }
+
+            .stack__item {
+                font-size: 18px;
+                line-height: 30px;
+            }
+        }
+
+        /* =====================================================
+           DESKTOP BREAKPOINT (992px - 1440px)
+           H1: 58px/64px, Body: 17px/30px, Stack: 20px/34px
+           ===================================================== */
+        @media (min-width: 992px) {
+            .page {
+                padding-top: var(--page-top-desktop);
+                padding-bottom: 96px;
+            }
+
+            .section {
+                margin-bottom: var(--section-spacing-desktop);
+            }
+
+            .hero__h1 {
+                font-size: 58px;
+                line-height: 64px;
+            }
+
+            .hero__support {
+                font-size: 16px;
+                line-height: 28px;
+            }
+
+            .domain {
+                padding: 28px;
+            }
+
+            .body__p {
+                font-size: 17px;
+                line-height: 30px;
+            }
+
+            .stack__item {
+                font-size: 20px;
+                line-height: 34px;
+            }
+
+            .footer {
+                margin-top: var(--section-spacing-desktop);
+            }
+        }
+
+        /* =====================================================
+           LARGE SCREENS (1441px+)
+           Spec: "cap line lengths; don't scale type much"
+           ===================================================== */
+        @media (min-width: 1441px) {
+            .body__p,
+            .hero__support {
+                max-width: 62ch;
+            }
+        }
+
+        /* =====================================================
+           SELECTION STYLING
+           ===================================================== */
+        ::selection {
+            background-color: var(--muted-platinum);
+            color: var(--carbon-black);
+        }
+
+        /* =====================================================
+           REDUCED MOTION
+           ===================================================== */
+        @media (prefers-reduced-motion: reduce) {
+            .page {
+                opacity: 1;
+                animation: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <!-- SCREEN 1: HERO -->
+        <section class="section hero">
+            <h1 class="hero__h1">The Gated Shifter</h1>
+            <p class="hero__subline">Stewardship for Significant Italian Automobiles</p>
+            <p class="hero__support">A private advisory operating where mechanical truth, provenance, and long-term continuity define value.</p>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- SCREEN 2: OUR DOMAIN -->
+        <section class="section domain">
+            <p class="section__label">Our Domain</p>
+            <p class="body__p">The Gated Shifter serves collectors of historically significant automobiles, including Ferrari, Lamborghini, Maserati, Bizzarrini, Bugatti, Alfa Romeo Zagato, and air-cooled Porsche, among other rare and consequential motorcars.</p>
+            <p class="body__p">Our work is informed by more than five decades of direct mechanical, archival, and custodial experience—spanning the stewardship of some of the world's most significant private collections, concours-level judging, and leadership of the largest independent Ferrari workshop in the United States.</p>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- SCREEN 3: POSITIONING -->
+        <section class="section positioning">
+            <p class="section__label">Positioning</p>
+            <div class="stack">
+                <p class="stack__item">We do not authenticate stories.</p>
+                <p class="stack__item">We verify cars.</p>
+                <p class="stack__item">We do not manage collections for liquidity.</p>
+                <p class="stack__item">We manage them for continuity.</p>
+                <p class="stack__item">We do not scale.</p>
+                <p class="stack__item">We remain accountable.</p>
+            </div>
+            <p class="positioning__closing">Engagements are private and referral-based.</p>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <p class="footer__title">The Gated Shifter</p>
+            <p class="footer__meta">Private Advisory</p>
+            <p class="footer__micro">Discreet inquiries by introduction.</p>
+        </footer>
+    </main>
+</body>
+</html>
