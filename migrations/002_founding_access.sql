@@ -75,10 +75,14 @@ update member_intake
 /* ------------------------------------------------------------------ *
  * Status vocabulary. John's letter uses NEW, so the whole column is
  * uppercase. REVIEW is used when a returning email needs a human look.
+ *
+ * Order matters: 001's constraint only permits lowercase values, so it
+ * has to go before the rows can be uppercased. Doing it the other way
+ * round makes the update fail and rolls the whole migration back.
  * ------------------------------------------------------------------ */
-update member_intake set status = upper(status) where status <> upper(status);
-
 alter table member_intake drop constraint if exists member_intake_status_valid;
+
+update member_intake set status = upper(status) where status <> upper(status);
 
 alter table member_intake
   add constraint member_intake_status_valid
