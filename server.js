@@ -29,28 +29,39 @@ app.use(express.urlencoded({ extended: false, limit: '32kb' }));
 /* ------------------------------------------------------------------ *
  * Canonical host and HTTPS
  *
- * Every QR code points at https://www.gatedshifter.co/join. The apex and
- * the .com are redirected there so a scan never lands on a variant.
- * The Render *.onrender.com host is left alone so the service can be
- * tested before DNS is cut over.
+ * Every QR code points at https://www.gatedshifter.co/join.
+ *
+ * Only the .com is redirected here, and only because it never points at
+ * Render. The apex .co and the http→https upgrade are handled by the
+ * platform: Render designates one custom domain as primary and 301s the
+ * others to it, and it already redirects http to https.
+ *
+ * Two systems redirecting the same host is what produces
+ * ERR_TOO_MANY_REDIRECTS, so this file no longer touches either.
+ * In Render → Settings → Custom Domains, www.gatedshifter.co must be the
+ * primary domain, with gatedshifter.co redirecting to it.
+ *
+ * Set FORCE_CANONICAL_HOST=true only if the platform cannot do it, and if
+ * you do, turn Render's own redirect off first.
  * ------------------------------------------------------------------ */
-const REDIRECT_HOSTS = new Set([
-  'gatedshifter.co',
-  'gatedshifter.com',
-  'www.gatedshifter.com',
-]);
+const FORCE_CANONICAL_HOST = process.env.FORCE_CANONICAL_HOST === 'true';
+
+const REDIRECT_HOSTS = new Set(['gatedshifter.com', 'www.gatedshifter.com']);
 
 app.use((req, res, next) => {
   const host = (req.headers.host || '').toLowerCase().split(':')[0];
-  const proto = req.get('x-forwarded-proto') || req.protocol;
-  const isCanonical = host === CANONICAL_HOST;
-  const knownHost = isCanonical || REDIRECT_HOSTS.has(host);
+  const proto = (req.get('x-forwarded-proto') || req.protocol || '').toLowerCase();
 
-  if (knownHost && (!isCanonical || proto !== 'https')) {
+  const wrongDomain = REDIRECT_HOSTS.has(host);
+  const wrongHost = FORCE_CANONICAL_HOST && host.endsWith('gatedshifter.co') && host !== CANONICAL_HOST;
+
+  if (wrongDomain || wrongHost) {
     return res.redirect(301, `https://${CANONICAL_HOST}${req.originalUrl}`);
   }
 
-  if (isCanonical) {
+  // Sent only when the request genuinely arrived over TLS. Announcing HSTS
+  // on a plain-http request is how a misconfigured proxy turns into a loop.
+  if (proto === 'https') {
     res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
   }
 
