@@ -5,6 +5,12 @@ import { fileURLToPath } from 'node:url';
 import { pool, query, healthcheck } from './src/db.js';
 import { runMigrations } from './src/migrate.js';
 import {
+  adminRouter,
+  buildIntakeCsv,
+  ensureBootstrapAdmin,
+  startSessionReaper,
+} from './src/admin.js';
+import {
   mailerConfigured,
   sendMemberConfirmation,
   notifyPrivateInbox,
@@ -99,7 +105,7 @@ app.use((_req, res, next) => {
  * ------------------------------------------------------------------ */
 const hits = new Map();
 const WINDOW_MS = 10 * 60 * 1000;
-const MAX_PER_WINDOW = 20; // a tablet enrolling a queue of people is normal
+const MAX_PER_WINDOW = 40; // one tablet enrolling a queue shares a single IP
 
 setInterval(() => {
   const cutoff = Date.now() - WINDOW_MS;
@@ -145,7 +151,18 @@ const truthy = (value) => value === true || value === 'true' || value === 'on' |
 
 // Lot 01 / 02 / 03 controlled picks — kept short so a bad client can't
 // stuff free text into what the admin views treat as a filterable field.
-const COLLECTION_SIZES = ['1–3 cars', '4–10 cars', '11–25 cars', '25+ cars'];
+const COLLECTION_SIZES = [
+  '1–3 automobiles',
+  '4–10 automobiles',
+  '11–25 automobiles',
+  '25+ automobiles',
+  // Earlier wording. Kept so a cached page or a printed QR journey that
+  // lands on an old copy still submits instead of erroring.
+  '1–3 cars',
+  '4–10 cars',
+  '11–25 cars',
+  '25+ cars',
+];
 const DISCIPLINES = [
   'Restoration',
   'Mechanical / engine',
@@ -157,7 +174,19 @@ const DISCIPLINES = [
   'Transport / logistics',
   'Other',
 ];
-const PARTNER_AREAS = ['Insurance', 'Transport', 'Auction house', 'Storage', 'Events', 'Other'];
+const PARTNER_AREAS = [
+  'Insurance',
+  'Transport & logistics',
+  'Auction & brokerage',
+  'Storage & facilities',
+  'Events & rallies',
+  'Other',
+  // Earlier wording, accepted for the same reason as above.
+  'Transport',
+  'Auction house',
+  'Storage',
+  'Events',
+];
 
 // Tracking values arrive from the URL, so they are never trusted as text —
 // each one is reduced to a short slug before it goes near the database.
@@ -365,7 +394,15 @@ app.post('/api/intake', async (req, res) => {
       ]
     );
 
-    const record = { ...data, ...rows[0] };
+    /* The notification email reads the column names (specialist_needs,
+     * partner_specialty), so both are carried alongside the form names.
+     * Without this the Discipline and Organization lines were blank. */
+    const record = {
+      ...data,
+      specialist_needs: data.discipline,
+      partner_specialty: data.organization,
+      ...rows[0],
+    };
     console.log(
       `Intake #${record.id} recorded — ${data.member_type} / ${data.source}/${data.channel}` +
         `${data.placement ? '/' + data.placement : ''} (${record.status})`
@@ -509,29 +546,9 @@ app.get('/api/intake.csv', async (req, res) => {
   }
 
   try {
-    const { rows } = await query(
-      `select id,
-              to_char(created_at, 'YYYY-MM-DD HH24:MI:SS') as created_at_utc,
-              member_type, first_name, last_name, email, mobile_phone,
-              city, state_region, country,
-              primary_marques, collection_size, defining_vehicle, referred_by,
-              specialist_needs as discipline, workshop_practice, proud_work, vouch_referral,
-              partner_specialty as organization, partner_area, partnership_notes,
-              array_to_string(looking_for_now, ' | ') as looking_for_now,
-              additional_notes,
-              founding_access, status,
-              privacy_consent, marketing_consent,
-              to_char(consent_timestamp, 'YYYY-MM-DD HH24:MI:SS') as consent_timestamp_utc,
-              source, channel, campaign, placement, captured_by, referral_code,
-              to_char(confirmation_sent_at, 'YYYY-MM-DD HH24:MI:SS') as confirmation_sent_at_utc
-         from member_intake
-        order by created_at desc`
-    );
-
-    const escape = (value) => `"${String(value ?? '').replace(/"/g, '""')}"`;
-    const header = Object.keys(rows[0] || { id: '' }).join(',');
-    const csv = [header, ...rows.map((row) => Object.values(row).map(escape).join(','))].join('\n');
+    const { csv, count } = await buildIntakeCsv();
     const stamp = new Date().toISOString().slice(0, 10);
+    console.log(`CSV export by static token — ${count} records`);
 
     res.setHeader('Content-Type', 'text/csv; charset=utf-8');
     res.setHeader('Content-Disposition', `attachment; filename="member_intake_${stamp}.csv"`);
@@ -541,6 +558,13 @@ app.get('/api/intake.csv', async (req, res) => {
     return res.status(503).json({ ok: false, message: 'Export unavailable.' });
   }
 });
+
+/* ------------------------------------------------------------------ *
+ * Admin portal — session-gated export at /admin.
+ * Mounted before the static handler so /api/admin/* is never treated
+ * as a file lookup.
+ * ------------------------------------------------------------------ */
+app.use(adminRouter);
 
 /* ------------------------------------------------------------------ *
  * Health check — Render pings this to confirm the instance is live
@@ -593,6 +617,7 @@ app.get('/join', (req, res) => {
   return res.redirect(302, qs ? `/?${qs}#apply` : '/#apply');
 });
 
+app.get('/admin', page('admin.html'));
 app.get('/remove', page('remove.html'));
 app.get('/privacy', page('privacy.html'));
 app.get('/', page('index.html'));
@@ -618,6 +643,11 @@ async function start() {
       // not take the site down mid-event. Submissions return 503 and log.
       console.error('Startup migrations failed:', err.message);
     }
+
+    // Creates the first operator only when ADMIN_BOOTSTRAP_* are set and
+    // no admin account exists yet. Never overwrites an existing one.
+    await ensureBootstrapAdmin().catch((err) => console.error('Admin bootstrap failed:', err.message));
+    startSessionReaper();
   }
 
   const server = app.listen(PORT, '0.0.0.0', () => {

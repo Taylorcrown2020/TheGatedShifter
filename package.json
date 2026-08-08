@@ -2,7 +2,7 @@
   "name": "gatedshifter",
   "version": "1.0.0",
   "private": true,
-  "description": "The Gated Shifter — private advisory site with Postgres-backed introduction requests",
+  "description": "The Gated Shifter — private ownership platform with Postgres-backed Founding Access applications",
   "type": "module",
   "engines": {
     "node": ">=20"
@@ -11,7 +11,8 @@
     "start": "node server.js",
     "dev": "node --watch server.js",
     "migrate": "node src/migrate.js",
-    "export": "node src/export.js"
+    "export": "node src/export.js",
+    "admin": "node src/admin.js"
   },
   "dependencies": {
     "express": "^4.19.2",

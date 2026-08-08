@@ -6,11 +6,14 @@
     <title>Delete my information — The Gated Shifter</title>
     <meta name="robots" content="noindex, nofollow">
     <meta name="theme-color" content="#0B0C0E">
+
     <link rel="icon" href="/assets/favicon.ico" sizes="any">
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=EB+Garamond:wght@400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=EB+Garamond:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --carbon-black: #0B0C0E;
@@ -20,101 +23,179 @@
             --ivory: #EDEBE7;
             --muted-stone: #A7ABB2;
             --oxblood: #A8474B;
-            --font-headline: 'Cormorant Garamond', Georgia, serif;
+            --hairline: rgba(191, 195, 199, 0.14);
+            --hairline-strong: rgba(191, 195, 199, 0.28);
+
+            --font-headline: 'Cormorant Garamond', 'Big Caslon', Georgia, serif;
             --font-body: 'EB Garamond', Georgia, serif;
-            --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
+
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html { font-size: 16px; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; scrollbar-width: none; -ms-overflow-style: none; }
+
+        html {
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-size-adjust: 100%;
+            scrollbar-width: none; -ms-overflow-style: none;
+        }
         html::-webkit-scrollbar { display: none; }
+
         body { background-color: var(--carbon-black); color: var(--ivory); font-family: var(--font-body); line-height: 1.6; }
         :focus-visible { outline: 1px solid var(--muted-platinum); outline-offset: 3px; }
-        .page { width: 92vw; max-width: 560px; margin: 0 auto; padding: 48px 0 72px; }
-        h1 { font-family: var(--font-headline); font-size: 32px; line-height: 38px; font-weight: 600; margin-bottom: 14px; }
-        p { font-family: var(--font-body); font-size: 15px; line-height: 26px; color: var(--muted-stone); max-width: 58ch; }
-        p + p { margin-top: 12px; }
-        .card { background-color: var(--heritage-charcoal); border: 1px solid rgba(42,46,51,0.55); border-radius: 14px; padding: 22px; margin-top: 24px; }
-        .list { font-family: var(--font-body); font-size: 15px; line-height: 26px; color: var(--muted-stone); margin: 12px 0 0 20px; }
-        .actions { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 12px; }
-        button, .link-btn {
-            font-family: var(--font-ui); font-size: 12px; font-weight: 500; letter-spacing: 0.16em;
-            text-transform: uppercase; border-radius: 8px; padding: 16px 26px; cursor: pointer;
-            text-decoration: none; display: inline-flex; align-items: center; justify-content: center;
-        }
-        .danger { color: var(--ivory); background-color: transparent; border: 1px solid var(--oxblood); }
-        .danger:hover:not(:disabled) { background-color: var(--oxblood); }
-        .danger:disabled { opacity: 0.45; cursor: default; }
-        .primary { color: var(--carbon-black); background-color: var(--ivory); border: 1px solid var(--ivory); }
-        .quiet { color: var(--ivory); background-color: transparent; border: 1px solid var(--slate-gray); }
-        .note { font-family: var(--font-ui); font-size: 12px; line-height: 20px; color: var(--muted-platinum); margin-top: 16px; letter-spacing: 0.04em; }
-        .error { display: none; font-family: var(--font-ui); font-size: 13px; line-height: 20px; color: var(--ivory);
-                 background-color: rgba(168,71,75,0.14); border: 1px solid var(--oxblood); border-radius: 8px; padding: 14px; margin-top: 20px; }
-        .error.is-visible { display: block; }
-        .hidden { display: none !important; }
-        @media (min-width: 480px) { h1 { font-size: 38px; line-height: 44px; } }
 
-        /* ---------- Masthead: mark plus a way back home ---------- */
-        .masthead { display: flex; align-items: center; justify-content: space-between; gap: 16px;
-                    padding: 0 0 clamp(16px, 3vw, 22px) 0; margin-bottom: clamp(26px, 5vh, 44px);
-                    border-bottom: 1px solid rgba(191,195,199,0.14); }
-        .masthead .mark { display: block; width: clamp(96px, 22vw, 128px); height: auto; min-width: 0; }
-        .btn-home { font-family: var(--font-ui); font-size: 10px; font-weight: 500; letter-spacing: 0.18em;
-                    text-transform: uppercase; color: var(--muted-platinum); text-decoration: none;
-                    min-height: 46px; padding: 0 clamp(14px, 3vw, 20px); border: 1px solid rgba(191,195,199,0.28);
-                    border-radius: 2px; white-space: nowrap; display: inline-flex; align-items: center; gap: 10px;
-                    flex-shrink: 0;
-                    transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease; }
-        .btn-home:focus-visible { color: var(--carbon-black); background-color: var(--ivory); border-color: var(--ivory); }
-        .btn-home:hover { color: var(--carbon-black); background-color: var(--ivory); border-color: var(--ivory); }
+        .page {
+            width: 92vw; max-width: 1120px; margin: 40px auto 72px;
+            background-color: var(--heritage-charcoal);
+            border-top: 2px solid var(--ivory);
+            padding: 60px 48px 52px;
+        }
+        .hidden { display: none !important; }
+
+        .masthead {
+            width: 92vw; max-width: 1120px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between; gap: 16px;
+            padding: 22px 0; border-bottom: 1px solid var(--hairline);
+        }
+        .masthead .mark { display: block; width: clamp(96px, 22vw, 128px); height: auto; }
+        .btn-home {
+            font-family: var(--font-ui); font-size: 10px; font-weight: 500; letter-spacing: 0.18em;
+            text-transform: uppercase; color: var(--muted-platinum); text-decoration: none;
+            min-height: 46px; padding: 0 clamp(14px, 3vw, 20px); border: 1px solid var(--hairline-strong);
+            border-radius: 0; white-space: nowrap; display: inline-flex; align-items: center; gap: 10px;
+            flex-shrink: 0; transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease;
+        }
+        .btn-home:hover, .btn-home:focus-visible { color: var(--carbon-black); background-color: var(--ivory); border-color: var(--ivory); }
         .btn-home__arrow { width: 14px; height: 1px; background-color: currentColor; }
+
+        .app-view__eyebrow {
+            font-family: var(--font-ui); font-size: 11px; font-weight: 500; letter-spacing: 0.16em;
+            line-height: 16px; text-transform: uppercase; color: var(--muted-stone); margin-bottom: 12px;
+        }
+        .app-view__h1 {
+            font-family: var(--font-headline); font-weight: 600;
+            font-size: clamp(1.6rem, 1.3rem + 1vw, 1.875rem); margin-bottom: 12px;
+        }
+        .app-view__lede { font-size: 13px; line-height: 21px; color: var(--muted-stone); max-width: 640px; margin-bottom: 32px; }
+
+        .field__label {
+            display: block; font-family: var(--font-ui); font-size: 11px; line-height: 16px; font-weight: 500;
+            letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted-platinum); margin-bottom: 10px;
+        }
+        .prose { font-size: 15px; line-height: 26px; color: var(--muted-stone); max-width: 62ch; }
+        .prose + .prose { margin-top: 12px; }
+        .prose a { color: var(--ivory); text-decoration: none; border-bottom: 1px solid rgba(191, 195, 199, 0.35); }
+
+        .removes { border-top: 1px solid var(--hairline); margin-top: 4px; padding-top: 24px; }
+        .removes ul { list-style: none; max-width: 62ch; }
+        .removes li {
+            font-size: 15px; line-height: 24px; color: var(--muted-stone);
+            padding: 10px 0 10px 22px; position: relative; border-bottom: 1px solid var(--hairline);
+        }
+        .removes li:last-child { border-bottom: 0; }
+        .removes li::before {
+            content: ''; position: absolute; left: 0; top: 21px; width: 10px; height: 1px;
+            background-color: var(--hairline-strong);
+        }
+
+        .form__footer {
+            display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+            margin-top: 30px; padding-top: 24px; border-top: 1px solid var(--hairline);
+        }
+        .form__note { font-size: 13px; line-height: 18px; color: var(--muted-stone); max-width: 460px; }
+
+        .actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+        .btn-danger, .submit, .btn-quiet {
+            font-family: var(--font-ui); font-size: 12px; font-weight: 500; letter-spacing: 0.16em;
+            text-transform: uppercase; border-radius: 0; padding: 16px 32px; cursor: pointer;
+            text-decoration: none; display: inline-flex; align-items: center; justify-content: center;
+            white-space: nowrap; transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease, opacity 150ms ease;
+        }
+        .btn-danger { color: var(--ivory); background-color: transparent; border: 1px solid var(--oxblood); }
+        .btn-danger:hover:not(:disabled) { background-color: var(--oxblood); }
+        .btn-danger:disabled { opacity: 0.45; cursor: default; }
+        .submit { color: var(--carbon-black); background-color: var(--ivory); border: 1px solid var(--ivory); }
+        .btn-quiet { color: var(--ivory); background-color: transparent; border: 1px solid var(--slate-gray); }
+        .btn-quiet:hover { border-color: var(--hairline-strong); }
+
+        .alert {
+            display: none; font-family: var(--font-ui); font-size: 13px; line-height: 20px; color: var(--ivory);
+            background-color: rgba(168, 71, 75, 0.14); border: 1px solid var(--oxblood); border-radius: 0;
+            padding: 14px; margin-top: 20px;
+        }
+        .alert.is-visible { display: block; }
+
+        @media (max-width: 700px) {
+            .page { padding: 40px 24px 48px; margin: 24px auto 56px; }
+            .form__footer { flex-direction: column; align-items: stretch; }
+            .actions { flex-direction: column; align-items: stretch; }
+            .btn-danger, .submit, .btn-quiet { width: 100%; }
+        }
     </style>
 </head>
 <body>
+    <div class="masthead">
+        <img class="mark" src="/assets/logo.svg" alt="The Gated Shifter" width="1370" height="657">
+        <a class="btn-home" href="/"><span class="btn-home__arrow"></span>Home</a>
+    </div>
+
     <main class="page">
-        <header class="masthead">
-            <img class="mark" src="/assets/logo.svg" alt="The Gated Shifter" width="1370" height="657">
-            <a class="btn-home" href="/"><span class="btn-home__arrow"></span>Home</a>
-        </header>
 
         <!-- CONFIRM -->
         <section id="view-confirm" class="hidden">
-            <h1>Delete my information</h1>
-            <p>This removes your record from The Gated Shifter database. Nothing is kept for later.</p>
-            <div class="card">
-                <p>Deleting removes:</p>
-                <ul class="list">
-                    <li>your name, email, mobile and city</li>
+            <p class="app-view__eyebrow">Privacy &middot; Deletion</p>
+            <h1 class="app-view__h1">Delete my information</h1>
+            <p class="app-view__lede">This removes your record from The Gated Shifter database. Nothing is kept for later.</p>
+
+            <div class="removes">
+                <p class="field__label">Deleting removes</p>
+                <ul>
+                    <li>your name, email, phone and location</li>
                     <li>your marques, interests and notes</li>
-                    <li>your Founding Access request</li>
+                    <li>your Founding Access application</li>
                     <li>your contact record in our email system</li>
                 </ul>
-                <div class="actions">
-                    <button class="danger" type="button" id="confirm-delete">Delete my information</button>
-                    <a class="link-btn quiet" href="/">Keep my information</a>
-                </div>
-                <p class="note">You will receive one final email confirming the deletion.</p>
             </div>
-            <div class="error" id="error" role="alert"></div>
+
+            <div class="form__footer">
+                <p class="form__note">You will receive one final email confirming the deletion. This cannot be undone — you are welcome to apply again afterwards.</p>
+                <div class="actions">
+                    <a class="btn-quiet" href="/">Keep my information</a>
+                    <button class="btn-danger" type="button" id="confirm-delete">Delete my information</button>
+                </div>
+            </div>
+
+            <div class="alert" id="error" role="alert"></div>
         </section>
 
         <!-- DONE -->
         <section id="view-done" class="hidden">
-            <h1>Your information has been deleted.</h1>
-            <p>Your record has been removed from The Gated Shifter database and from our email system. A confirmation email is on its way.</p>
-            <p>If you would like to be part of the Founders Registry later, you are welcome to sign up again at any time.</p>
-            <div class="actions">
-                <a class="link-btn primary" href="/join?source=rejoin&amp;channel=email">Sign up again</a>
-                <a class="link-btn quiet" href="/">Return to gatedshifter.co</a>
+            <p class="app-view__eyebrow">Privacy &middot; Deletion</p>
+            <h1 class="app-view__h1">Your information has been deleted.</h1>
+            <p class="prose">Your record has been removed from The Gated Shifter database and from our email system. A confirmation email is on its way.</p>
+            <p class="prose">If you would like to be part of the Founders Registry later, you are welcome to apply again at any time.</p>
+
+            <div class="form__footer">
+                <p class="form__note">Nothing was retained beyond a record that a deletion occurred, which holds no personal information.</p>
+                <div class="actions">
+                    <a class="btn-quiet" href="/">Return to gatedshifter.co</a>
+                    <a class="submit" href="/join?source=rejoin&amp;channel=email">Apply again</a>
+                </div>
             </div>
         </section>
 
         <!-- BAD OR USED LINK -->
         <section id="view-invalid" class="hidden">
-            <h1>This link is no longer valid.</h1>
-            <p>Either the record has already been deleted, or the link was incomplete. Nothing further is needed — if your information had still been in the database, this link would have worked.</p>
-            <p>If you would like this checked by a person, write to <a href="mailto:private@gatedshifter.co" style="color:var(--ivory)">private@gatedshifter.co</a>.</p>
-            <div class="actions">
-                <a class="link-btn quiet" href="/">Return to gatedshifter.co</a>
+            <p class="app-view__eyebrow">Privacy &middot; Deletion</p>
+            <h1 class="app-view__h1">This link is no longer valid.</h1>
+            <p class="prose">Either the record has already been deleted, or the link was incomplete. Nothing further is needed — if your information had still been in the database, this link would have worked.</p>
+            <p class="prose">If you would like this checked by a person, write to <a href="mailto:private@gatedshifter.co">private@gatedshifter.co</a>.</p>
+
+            <div class="form__footer">
+                <p class="form__note">Deletion links are single use and stop working once the record is gone.</p>
+                <div class="actions">
+                    <a class="btn-quiet" href="/">Return to gatedshifter.co</a>
+                </div>
             </div>
         </section>
     </main>

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Administration — The Gated Shifter</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#0B0C0E">
+    <meta name="referrer" content="no-referrer">
+
+    <link rel="icon" href="/assets/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=EB+Garamond:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --carbon-black: #0B0C0E;
+            --heritage-charcoal: #171A1F;
+            --slate-gray: #2A2E33;
+            --muted-platinum: #BFC3C7;
+            --ivory: #EDEBE7;
+            --muted-stone: #A7ABB2;
+            --oxblood: #A8474B;
+            --hairline: rgba(191, 195, 199, 0.14);
+            --hairline-strong: rgba(191, 195, 199, 0.28);
+
+            --font-headline: 'Cormorant Garamond', 'Big Caslon', Georgia, serif;
+            --font-body: 'EB Garamond', Georgia, serif;
+            --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-size-adjust: 100%;
+            scrollbar-width: none; -ms-overflow-style: none;
+        }
+        html::-webkit-scrollbar { display: none; }
+
+        body { background-color: var(--carbon-black); color: var(--ivory); font-family: var(--font-body); line-height: 1.6; }
+        :focus-visible { outline: 1px solid var(--muted-platinum); outline-offset: 3px; }
+
+        .page {
+            width: 92vw; max-width: 1120px; margin: 40px auto 72px;
+            background-color: var(--heritage-charcoal);
+            border-top: 2px solid var(--ivory);
+            padding: 60px 48px 52px;
+        }
+        .hidden { display: none !important; }
+
+        .masthead {
+            width: 92vw; max-width: 1120px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between; gap: 16px;
+            padding: 22px 0; border-bottom: 1px solid var(--hairline);
+        }
+        .masthead .mark { display: block; width: clamp(96px, 22vw, 128px); height: auto; }
+        .btn-home {
+            font-family: var(--font-ui); font-size: 10px; font-weight: 500; letter-spacing: 0.18em;
+            text-transform: uppercase; color: var(--muted-platinum); text-decoration: none;
+            min-height: 46px; padding: 0 clamp(14px, 3vw, 20px); border: 1px solid var(--hairline-strong);
+            border-radius: 0; white-space: nowrap; display: inline-flex; align-items: center; gap: 10px;
+            flex-shrink: 0; transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease;
+        }
+        .btn-home:hover, .btn-home:focus-visible { color: var(--carbon-black); background-color: var(--ivory); border-color: var(--ivory); }
+        .btn-home__arrow { width: 14px; height: 1px; background-color: currentColor; }
+
+        .app-view__eyebrow {
+            font-family: var(--font-ui); font-size: 11px; font-weight: 500; letter-spacing: 0.16em;
+            line-height: 16px; text-transform: uppercase; color: var(--muted-stone); margin-bottom: 12px;
+        }
+        .app-view__h1 {
+            font-family: var(--font-headline); font-weight: 600;
+            font-size: clamp(1.6rem, 1.3rem + 1vw, 1.875rem); margin-bottom: 12px;
+        }
+        .app-view__lede { font-size: 13px; line-height: 21px; color: var(--muted-stone); max-width: 640px; margin-bottom: 32px; }
+
+        .field { margin-bottom: 22px; max-width: 420px; }
+        .field__label {
+            display: block; font-family: var(--font-ui); font-size: 11px; line-height: 16px; font-weight: 500;
+            letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted-platinum); margin-bottom: 10px;
+        }
+        .field__req { color: var(--oxblood); }
+        .field__input {
+            width: 100%; background-color: var(--carbon-black); border: 1px solid var(--slate-gray);
+            border-radius: 0; padding: 12px 14px; font-family: var(--font-body); font-size: 16px; line-height: 21px;
+            color: var(--ivory); transition: border-color 150ms ease-out; appearance: none; -webkit-appearance: none;
+        }
+        .field__input::placeholder { color: #6b6f75; }
+        .field__input:hover { border-color: rgba(191, 195, 199, 0.4); }
+        .field__input:focus { outline: none; border-color: var(--ivory); }
+
+        .form__footer {
+            display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+            margin-top: 30px; padding-top: 24px; border-top: 1px solid var(--hairline);
+        }
+        .form__note { font-size: 13px; line-height: 18px; color: var(--muted-stone); max-width: 460px; }
+        .submit {
+            font-family: var(--font-ui); font-size: 12px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
+            color: var(--carbon-black); background-color: var(--ivory); border: 1px solid var(--ivory);
+            border-radius: 0; padding: 16px 38px; cursor: pointer; white-space: nowrap; transition: opacity 150ms ease-out;
+        }
+        .submit:disabled { opacity: 0.45; cursor: default; }
+        .btn-quiet {
+            font-family: var(--font-ui); font-size: 12px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
+            color: var(--ivory); background-color: transparent; border: 1px solid var(--slate-gray); border-radius: 0;
+            padding: 16px 32px; text-decoration: none; cursor: pointer; display: inline-flex; align-items: center;
+        }
+        .btn-quiet:hover { border-color: var(--hairline-strong); }
+
+        .alert {
+            display: none; font-family: var(--font-ui); font-size: 13px; line-height: 20px; color: var(--ivory);
+            background-color: rgba(168, 71, 75, 0.14); border: 1px solid var(--oxblood); border-radius: 0;
+            padding: 14px; margin-bottom: 20px;
+        }
+        .alert.is-visible { display: block; }
+
+        /* ---------- Signed-in view ---------- */
+        .session-line {
+            font-family: var(--font-ui); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+            color: var(--muted-stone); margin-bottom: 32px; padding-bottom: 22px; border-bottom: 1px solid var(--hairline);
+        }
+        .session-line strong { color: var(--ivory); font-weight: 500; }
+
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background-color: var(--hairline); margin-bottom: 32px; }
+        .stat { background-color: var(--heritage-charcoal); padding: 20px 18px; }
+        .stat__n { font-family: var(--font-headline); font-size: 30px; line-height: 1.1; font-weight: 600; color: var(--ivory); }
+        .stat__k {
+            font-family: var(--font-ui); font-size: 10px; font-weight: 500; letter-spacing: 0.14em;
+            text-transform: uppercase; color: var(--muted-stone); margin-top: 8px;
+        }
+
+        .section-label {
+            font-family: var(--font-ui); font-size: 11px; font-weight: 500; letter-spacing: 0.14em;
+            text-transform: uppercase; color: var(--muted-platinum); margin: 0 0 12px;
+        }
+        .log { border: 1px solid var(--slate-gray); max-height: 260px; overflow-y: auto; }
+        .log__row {
+            display: flex; gap: 16px; flex-wrap: wrap;
+            font-family: var(--font-ui); font-size: 12px; line-height: 18px; color: var(--muted-stone);
+            padding: 10px 14px; border-bottom: 1px solid var(--hairline);
+        }
+        .log__row:last-child { border-bottom: 0; }
+        .log__at { color: var(--muted-platinum); white-space: nowrap; }
+        .log__action { color: var(--ivory); min-width: 130px; }
+
+        @media (max-width: 700px) {
+            .page { padding: 40px 24px 48px; margin: 24px auto 56px; }
+            .form__footer { flex-direction: column; align-items: stretch; }
+            .submit, .btn-quiet { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="masthead">
+        <img class="mark" src="/assets/logo.svg" alt="The Gated Shifter" width="1370" height="657">
+        <a class="btn-home" href="/"><span class="btn-home__arrow"></span>Home</a>
+    </div>
+
+    <main class="page">
+
+        <!-- SIGN IN -->
+        <section id="view-login" class="hidden">
+            <p class="app-view__eyebrow">The Gated Shifter &middot; Administration</p>
+            <h1 class="app-view__h1">Sign in</h1>
+            <p class="app-view__lede">Access to member records is restricted to named operators. Sign-ins and exports are recorded.</p>
+
+            <div class="alert" id="login-alert" role="alert"></div>
+
+            <form id="login-form" novalidate autocomplete="on">
+                <div class="field">
+                    <label class="field__label" for="f-email">Email <span class="field__req" aria-hidden="true">*</span></label>
+                    <input class="field__input" type="email" id="f-email" name="email" autocomplete="username" autocapitalize="none" spellcheck="false" required>
+                </div>
+                <div class="field">
+                    <label class="field__label" for="f-password">Password <span class="field__req" aria-hidden="true">*</span></label>
+                    <input class="field__input" type="password" id="f-password" name="password" autocomplete="current-password" required>
+                </div>
+                <div class="form__footer">
+                    <p class="form__note">Five failed attempts lock the account for fifteen minutes. Sessions end after 30 minutes of inactivity.</p>
+                    <button class="submit" type="submit">Sign in</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- SIGNED IN -->
+        <section id="view-admin" class="hidden">
+            <p class="app-view__eyebrow">The Gated Shifter &middot; Administration</p>
+            <h1 class="app-view__h1">Member records</h1>
+
+            <p class="session-line" id="session-line">Signed in</p>
+
+            <div class="alert" id="admin-alert" role="alert"></div>
+
+            <div class="stats" id="stats" aria-live="polite"></div>
+
+            <p class="section-label">Export</p>
+            <p class="app-view__lede">The CSV contains every field a member submitted, including their name, email and phone. Treat the file as confidential — each download is recorded against your account.</p>
+            <div class="form__footer" style="margin-top: 0;">
+                <p class="form__note">Opens as a download. Nothing is deleted or altered by exporting.</p>
+                <button class="submit" type="button" id="export-btn">Download CSV</button>
+            </div>
+
+            <div style="margin-top: 40px;">
+                <p class="section-label">Recent access</p>
+                <div class="log" id="log"></div>
+            </div>
+
+            <div class="form__footer">
+                <p class="form__note">Signing out ends this session immediately on the server.</p>
+                <button class="btn-quiet" type="button" id="logout-btn">Sign out</button>
+            </div>
+        </section>
+    </main>
+
+    <script>
+    (function () {
+        'use strict';
+
+        var loginView = document.getElementById('view-login');
+        var adminView = document.getElementById('view-admin');
+        var loginForm = document.getElementById('login-form');
+        var loginAlert = document.getElementById('login-alert');
+        var adminAlert = document.getElementById('admin-alert');
+        var sessionLine = document.getElementById('session-line');
+        var statsBox = document.getElementById('stats');
+        var logBox = document.getElementById('log');
+        var loginButton = loginForm.querySelector('.submit');
+        var exportButton = document.getElementById('export-btn');
+        var logoutButton = document.getElementById('logout-btn');
+
+        function api(path, options) {
+            options = options || {};
+            options.credentials = 'same-origin';
+            options.cache = 'no-store';
+            options.headers = Object.assign({ 'x-gs-admin': '1' }, options.headers || {});
+            return fetch(path, options).then(function (response) {
+                return response.text().then(function (text) {
+                    var body = {};
+                    try { body = text ? JSON.parse(text) : {}; } catch (e) { body = {}; }
+                    return { ok: response.ok, status: response.status, body: body };
+                });
+            });
+        }
+
+        function show(box, message) {
+            box.textContent = message;
+            box.classList.add('is-visible');
+        }
+        function hide(box) {
+            box.textContent = '';
+            box.classList.remove('is-visible');
+        }
+
+        function showLogin(message) {
+            adminView.classList.add('hidden');
+            loginView.classList.remove('hidden');
+            if (message) show(loginAlert, message); else hide(loginAlert);
+            var email = document.getElementById('f-email');
+            if (email && !email.value) email.focus();
+        }
+
+        function escapeText(value) {
+            return String(value === null || value === undefined ? '' : value);
+        }
+
+        function renderStats(data) {
+            var cells = [
+                { n: data.total, k: 'Total records' },
+                { n: data.new_count, k: 'New' },
+                { n: data.review_count, k: 'Needs review' },
+                { n: data.last_seven_days, k: 'Last 7 days' }
+            ];
+            (data.by_type || []).forEach(function (row) {
+                cells.push({ n: row.count, k: row.member_type || 'Unspecified' });
+            });
+
+            statsBox.textContent = '';
+            cells.forEach(function (cell) {
+                var wrap = document.createElement('div');
+                wrap.className = 'stat';
+                var n = document.createElement('div');
+                n.className = 'stat__n';
+                n.textContent = escapeText(cell.n);
+                var k = document.createElement('div');
+                k.className = 'stat__k';
+                k.textContent = cell.k;
+                wrap.appendChild(n);
+                wrap.appendChild(k);
+                statsBox.appendChild(wrap);
+            });
+        }
+
+        function renderLog(entries) {
+            logBox.textContent = '';
+            if (!entries || !entries.length) {
+                var empty = document.createElement('div');
+                empty.className = 'log__row';
+                empty.textContent = 'No entries yet.';
+                logBox.appendChild(empty);
+                return;
+            }
+            entries.forEach(function (entry) {
+                var row = document.createElement('div');
+                row.className = 'log__row';
+
+                var at = document.createElement('span');
+                at.className = 'log__at';
+                at.textContent = escapeText(entry.at_utc) + ' UTC';
+
+                var action = document.createElement('span');
+                action.className = 'log__action';
+                action.textContent = escapeText(entry.action);
+
+                var who = document.createElement('span');
+                who.textContent = [escapeText(entry.actor), escapeText(entry.detail)].filter(Boolean).join(' — ');
+
+                row.appendChild(at);
+                row.appendChild(action);
+                row.appendChild(who);
+                logBox.appendChild(row);
+            });
+        }
+
+        function loadAdmin(session) {
+            loginView.classList.add('hidden');
+            adminView.classList.remove('hidden');
+            hide(adminAlert);
+
+            sessionLine.textContent = 'Signed in as ' + session.email +
+                (session.last_login_at ? ' · previous sign-in ' + String(session.last_login_at).replace('T', ' ').slice(0, 16) + ' UTC' : '');
+
+            api('/api/admin/summary').then(function (result) {
+                if (result.status === 401) return showLogin('Your session expired. Sign in again.');
+                if (result.ok && result.body.ok) renderStats(result.body);
+                return undefined;
+            });
+
+            api('/api/admin/audit').then(function (result) {
+                if (result.ok && result.body.ok) renderLog(result.body.entries);
+                return undefined;
+            });
+        }
+
+        loginForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            hide(loginAlert);
+            loginButton.disabled = true;
+            loginButton.textContent = 'Signing in…';
+
+            api('/api/admin/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: document.getElementById('f-email').value.trim(),
+                    password: document.getElementById('f-password').value
+                })
+            })
+                .then(function (result) {
+                    loginButton.disabled = false;
+                    loginButton.textContent = 'Sign in';
+                    document.getElementById('f-password').value = '';
+
+                    if (result.ok && result.body.ok) {
+                        return loadAdmin({ email: result.body.email, last_login_at: result.body.previous_login_at });
+                    }
+                    return show(loginAlert, result.body.message || 'Sign-in failed. Try again.');
+                })
+                .catch(function () {
+                    loginButton.disabled = false;
+                    loginButton.textContent = 'Sign in';
+                    show(loginAlert, 'We couldn’t reach the server. Check your connection and try again.');
+                });
+        });
+
+        exportButton.addEventListener('click', function () {
+            hide(adminAlert);
+            // Confirm the session is still valid before navigating, so an
+            // expired session shows the sign-in screen instead of a raw 401.
+            api('/api/admin/session').then(function (result) {
+                if (!result.ok) return showLogin('Your session expired. Sign in again.');
+                window.location.href = '/api/admin/export.csv';
+                setTimeout(function () {
+                    api('/api/admin/audit').then(function (r) {
+                        if (r.ok && r.body.ok) renderLog(r.body.entries);
+                        return undefined;
+                    });
+                }, 1500);
+                return undefined;
+            });
+        });
+
+        logoutButton.addEventListener('click', function () {
+            api('/api/admin/logout', { method: 'POST' }).then(function () {
+                showLogin('You have been signed out.');
+            });
+        });
+
+        // Decide which view to show on load.
+        api('/api/admin/session').then(function (result) {
+            if (result.ok && result.body.ok) loadAdmin(result.body);
+            else showLogin('');
+        }).catch(function () {
+            showLogin('');
+        });
+    })();
+    </script>
+</body>
+</html>

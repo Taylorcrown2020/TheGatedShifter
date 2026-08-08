@@ -7,83 +7,173 @@
     <meta name="description" content="What The Gated Shifter collects, why, and how to have your information deleted.">
     <meta name="theme-color" content="#0B0C0E">
     <link rel="canonical" href="https://www.gatedshifter.co/privacy">
+
     <link rel="icon" href="/assets/favicon.ico" sizes="any">
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=EB+Garamond:wght@400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=EB+Garamond:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --carbon-black: #0B0C0E; --heritage-charcoal: #171A1F; --slate-gray: #2A2E33;
-            --muted-platinum: #BFC3C7; --ivory: #EDEBE7; --muted-stone: #A7ABB2;
-            --font-headline: 'Cormorant Garamond', Georgia, serif;
+            --carbon-black: #0B0C0E;
+            --heritage-charcoal: #171A1F;
+            --slate-gray: #2A2E33;
+            --muted-platinum: #BFC3C7;
+            --ivory: #EDEBE7;
+            --muted-stone: #A7ABB2;
+            --oxblood: #A8474B;
+            --hairline: rgba(191, 195, 199, 0.14);
+            --hairline-strong: rgba(191, 195, 199, 0.28);
+
+            --font-headline: 'Cormorant Garamond', 'Big Caslon', Georgia, serif;
             --font-body: 'EB Garamond', Georgia, serif;
-            --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
+
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html { font-size: 16px; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; scrollbar-width: none; -ms-overflow-style: none; }
+
+        html {
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-size-adjust: 100%;
+            scrollbar-width: none; -ms-overflow-style: none;
+        }
         html::-webkit-scrollbar { display: none; }
+
         body { background-color: var(--carbon-black); color: var(--ivory); font-family: var(--font-body); line-height: 1.6; }
         :focus-visible { outline: 1px solid var(--muted-platinum); outline-offset: 3px; }
-        .page { width: 92vw; max-width: 620px; margin: 0 auto; padding: 48px 0 72px; }
-        h1 { font-family: var(--font-headline); font-size: 34px; line-height: 40px; font-weight: 600; margin-bottom: 8px; }
-        .updated { font-family: var(--font-ui); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted-platinum); margin-bottom: 28px; }
-        h2 { font-family: var(--font-ui); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted-platinum); margin: 32px 0 12px; font-weight: 500; }
-        p, li { font-family: var(--font-body); font-size: 15px; line-height: 26px; color: var(--muted-stone); }
-        p + p { margin-top: 12px; }
-        ul { margin: 12px 0 0 20px; }
-        a { color: var(--ivory); text-decoration: none; border-bottom: 1px solid rgba(191,195,199,0.35); }
-        @media (min-width: 480px) { h1 { font-size: 40px; line-height: 46px; } }
 
-        /* ---------- Masthead: mark plus a way back home ---------- */
-        .masthead { display: flex; align-items: center; justify-content: space-between; gap: 16px;
-                    padding: 0 0 clamp(16px, 3vw, 22px) 0; margin-bottom: clamp(26px, 5vh, 44px);
-                    border-bottom: 1px solid rgba(191,195,199,0.14); }
-        .masthead .mark { display: block; width: clamp(96px, 22vw, 128px); height: auto; min-width: 0; }
-        .btn-home { font-family: var(--font-ui); font-size: 10px; font-weight: 500; letter-spacing: 0.18em;
-                    text-transform: uppercase; color: var(--muted-platinum); text-decoration: none;
-                    min-height: 46px; padding: 0 clamp(14px, 3vw, 20px); border: 1px solid rgba(191,195,199,0.28);
-                    border-radius: 2px; white-space: nowrap; display: inline-flex; align-items: center; gap: 10px;
-                    flex-shrink: 0;
-                    transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease; }
-        .btn-home:focus-visible { color: var(--carbon-black); background-color: var(--ivory); border-color: var(--ivory); }
-        .btn-home:hover { color: var(--carbon-black); background-color: var(--ivory); border-color: var(--ivory); }
+        .page {
+            width: 92vw; max-width: 1120px; margin: 40px auto 72px;
+            background-color: var(--heritage-charcoal);
+            border-top: 2px solid var(--ivory);
+            padding: 60px 48px 52px;
+        }
+
+        .masthead {
+            width: 92vw; max-width: 1120px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between; gap: 16px;
+            padding: 22px 0; border-bottom: 1px solid var(--hairline);
+        }
+        .masthead .mark { display: block; width: clamp(96px, 22vw, 128px); height: auto; }
+        .btn-home {
+            font-family: var(--font-ui); font-size: 10px; font-weight: 500; letter-spacing: 0.18em;
+            text-transform: uppercase; color: var(--muted-platinum); text-decoration: none;
+            min-height: 46px; padding: 0 clamp(14px, 3vw, 20px); border: 1px solid var(--hairline-strong);
+            border-radius: 0; white-space: nowrap; display: inline-flex; align-items: center; gap: 10px;
+            flex-shrink: 0; transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease;
+        }
+        .btn-home:hover, .btn-home:focus-visible { color: var(--carbon-black); background-color: var(--ivory); border-color: var(--ivory); }
         .btn-home__arrow { width: 14px; height: 1px; background-color: currentColor; }
+
+        .app-view__eyebrow {
+            font-family: var(--font-ui); font-size: 11px; font-weight: 500; letter-spacing: 0.16em;
+            line-height: 16px; text-transform: uppercase; color: var(--muted-stone); margin-bottom: 12px;
+        }
+        .app-view__h1 {
+            font-family: var(--font-headline); font-weight: 600;
+            font-size: clamp(1.6rem, 1.3rem + 1vw, 1.875rem); margin-bottom: 12px;
+        }
+        .app-view__lede { font-size: 13px; line-height: 21px; color: var(--muted-stone); max-width: 640px; }
+
+        .updated {
+            font-family: var(--font-ui); font-size: 11px; font-weight: 500; letter-spacing: 0.14em;
+            text-transform: uppercase; color: var(--muted-platinum);
+            margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--hairline);
+        }
+
+        .section { margin-top: 32px; }
+        .section__label {
+            font-family: var(--font-ui); font-size: 11px; font-weight: 500; letter-spacing: 0.14em;
+            text-transform: uppercase; color: var(--muted-platinum); margin-bottom: 10px;
+        }
+        p, li { font-family: var(--font-body); font-size: 15px; line-height: 26px; color: var(--muted-stone); max-width: 68ch; }
+        p + p { margin-top: 12px; }
+        ul { list-style: none; margin-top: 10px; }
+        li { padding-left: 22px; position: relative; }
+        li + li { margin-top: 4px; }
+        li::before {
+            content: ''; position: absolute; left: 0; top: 13px; width: 10px; height: 1px;
+            background-color: var(--hairline-strong);
+        }
+        a { color: var(--ivory); text-decoration: none; border-bottom: 1px solid rgba(191, 195, 199, 0.35); }
+
+        .footer-line {
+            margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--hairline);
+            display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+        }
+        .footer-line p { font-size: 13px; line-height: 18px; max-width: 460px; }
+        .btn-quiet {
+            font-family: var(--font-ui); font-size: 12px; font-weight: 500; letter-spacing: 0.16em;
+            text-transform: uppercase; color: var(--ivory); background-color: transparent;
+            border: 1px solid var(--slate-gray); border-radius: 0; padding: 16px 32px;
+            text-decoration: none; display: inline-flex; align-items: center; white-space: nowrap;
+        }
+        .btn-quiet:hover { border-color: var(--hairline-strong); }
+
+        @media (max-width: 700px) {
+            .page { padding: 40px 24px 48px; margin: 24px auto 56px; }
+            .footer-line { flex-direction: column; align-items: stretch; }
+            .btn-quiet { width: 100%; justify-content: center; }
+        }
     </style>
 </head>
 <body>
-    <main class="page">
-        <header class="masthead">
-            <img class="mark" src="/assets/logo.svg" alt="The Gated Shifter" width="1370" height="657">
-            <a class="btn-home" href="/"><span class="btn-home__arrow"></span>Home</a>
-        </header>
+    <div class="masthead">
+        <img class="mark" src="/assets/logo.svg" alt="The Gated Shifter" width="1370" height="657">
+        <a class="btn-home" href="/"><span class="btn-home__arrow"></span>Home</a>
+    </div>
 
-        <h1>Privacy</h1>
+    <main class="page">
+        <p class="app-view__eyebrow">The Gated Shifter &middot; Privacy</p>
+        <h1 class="app-view__h1">Privacy</h1>
+        <p class="app-view__lede">The Gated Shifter is a private ownership platform in development. This page describes what we collect through the Founding Access applications and what happens to it.</p>
+
         <p class="updated">Last updated 8 August 2026</p>
 
-        <p>The Gated Shifter is a private ownership platform in development. This page describes what we collect through the Founding Access form and what happens to it.</p>
+        <div class="section">
+            <p class="section__label">What we collect</p>
+            <p>Only what you enter on the application: which path you applied through, your name, email, phone, location, and the details relevant to that path — your collection size, marques and defining automobile; your discipline, workshop and the work you are proud of; or your organization and area of partnership. We also record how you reached the form — a QR code placement, a tablet at an event, or the open web — and the date and time of your application.</p>
+        </div>
 
-        <h2>What we collect</h2>
-        <p>Only what you enter on the form: member type, name, email, mobile, city, marques or specialty, what you are looking for right now, and any notes. We also record how you reached the form — a QR code placement, a tablet at an event, or the open web — and the date and time of your request.</p>
+        <div class="section">
+            <p class="section__label">Why we collect it</p>
+            <p>To reply to your application, to consider you for the Founders Registry, and to introduce you to the collectors, specialists and partners relevant to what you are looking for. Marketing updates are sent only if you ask for them.</p>
+        </div>
 
-        <h2>Why we collect it</h2>
-        <p>To reply to your request, to consider you for the Founders Registry, and to introduce you to the collectors, specialists and partners relevant to what you are looking for. Marketing updates are sent only if you check that box.</p>
+        <div class="section">
+            <p class="section__label">Who sees it</p>
+            <p>The Gated Shifter, and the email service that delivers our messages to you. Your details are never sold, rented, or shared with other members without your agreement.</p>
+        </div>
 
-        <h2>Who sees it</h2>
-        <p>The Gated Shifter, and the email service that delivers our messages to you. Your details are never sold, rented, or shared with other members without your agreement.</p>
+        <div class="section">
+            <p class="section__label">Deleting your information</p>
+            <p>Every email we send includes a deletion link in the footer. Opening it and confirming removes your record from our database and your contact record from our email system, and sends you one final confirmation. You may apply again at any time afterwards.</p>
+            <p>You can also write to <a href="mailto:private@gatedshifter.co">private@gatedshifter.co</a> and ask us to delete your information.</p>
+            <p>After a deletion we keep only a record that a deletion happened, which holds no personal information — a one-way hash instead of your email — so we can evidence the request without keeping you.</p>
+        </div>
 
-        <h2>Deleting your information</h2>
-        <p>Every email we send includes a deletion link in the footer. Opening it and confirming removes your record from our database and your contact record from our email system, and sends you one final confirmation. You may sign up again at any time afterwards.</p>
-        <p>You can also write to <a href="mailto:private@gatedshifter.co">private@gatedshifter.co</a> and ask us to delete your information.</p>
+        <div class="section">
+            <p class="section__label">How long we keep it</p>
+            <p>Until you ask us to delete it, or until it is no longer needed to consider or serve your application.</p>
+        </div>
 
-        <h2>How long we keep it</h2>
-        <p>Until you ask us to delete it, or until it is no longer needed to consider or serve your request.</p>
+        <div class="section">
+            <p class="section__label">Security</p>
+            <p>The site is served over HTTPS. Applications are written by our own server to a private database that is not reachable from a browser. Access to member records is limited to named operators who sign in individually, and every sign-in and every export is recorded. IP addresses are stored only as a one-way hash, used to limit abuse of the form.</p>
+        </div>
 
-        <h2>Security</h2>
-        <p>The site is served over HTTPS. Submissions are written by our own server to a private database that is not reachable from a browser. IP addresses are stored only as a one-way hash, used to limit abuse of the form.</p>
+        <div class="section">
+            <p class="section__label">Contact</p>
+            <p><a href="mailto:private@gatedshifter.co">private@gatedshifter.co</a></p>
+        </div>
 
-        <h2>Contact</h2>
-        <p><a href="mailto:private@gatedshifter.co">private@gatedshifter.co</a></p>
+        <div class="footer-line">
+            <p>Questions about anything on this page are answered by a person, not a form.</p>
+            <a class="btn-quiet" href="/">Return to gatedshifter.co</a>
+        </div>
     </main>
 </body>
 </html>
