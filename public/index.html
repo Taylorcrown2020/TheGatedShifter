@@ -134,7 +134,7 @@
             align-items: center;
             justify-content: space-between;
             gap: 20px;
-            padding: clamp(14px, 2vw, 22px) clamp(0px, 2vw, 36px) clamp(14px, 2vw, 22px) 0;
+            padding: clamp(14px, 2vw, 22px) clamp(0px, 2vw, 36px) clamp(14px, 2vw, 22px) var(--gutter);
         }
 
         .mark { display: block; height: auto; }
@@ -166,13 +166,8 @@
             border-color: var(--ivory);
         }
 
-        .btn-line__short { display: inline; }
-        .btn-line__full { display: none; }
-
-        @media (min-width: 420px) {
-            .btn-line__short { display: none; }
-            .btn-line__full { display: inline; }
-        }
+        .btn-line__short { display: none; }
+        .btn-line__full { display: inline; }
 
         /* =====================================================
            HERO — the trademark itself, ghosted, behind the type
