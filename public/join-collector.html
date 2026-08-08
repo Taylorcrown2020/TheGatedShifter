@@ -51,7 +51,7 @@
             width: 92vw; max-width: 1120px; margin: 40px auto 72px;
             background-color: var(--heritage-charcoal);
             border-top: 2px solid var(--ivory);
-            padding: 60px 48px 64px;
+            padding: 60px 48px 52px;
         }
         .hidden { display: none !important; }
 
@@ -83,7 +83,7 @@
             font-family: var(--font-headline); font-weight: 600;
             font-size: clamp(1.6rem, 1.3rem + 1vw, 1.875rem); margin-bottom: 12px;
         }
-        .app-view__lede { font-size: 14px; line-height: 24px; color: var(--muted-stone); max-width: 62ch; margin-bottom: 32px; }
+        .app-view__lede { font-size: 13px; line-height: 21px; color: var(--muted-stone); max-width: 540px; margin-bottom: 32px; }
 
         .field { margin-bottom: 22px; }
         .field:last-child { margin-bottom: 0; }
@@ -99,12 +99,10 @@
             color: var(--ivory); transition: border-color 150ms ease-out;
         }
         .field__input, .field__textarea { appearance: none; -webkit-appearance: none; }
-        .field__select { border-color: var(--ivory); }
         .field__select option { background-color: var(--carbon-black); color: var(--ivory); }
         .field__input::placeholder, .field__textarea::placeholder { color: #6b6f75; }
         .field__input:hover, .field__textarea:hover { border-color: rgba(191, 195, 199, 0.4); }
-        .field__input:focus, .field__textarea:focus { outline: none; border-color: var(--muted-platinum); }
-        .field__select:focus { outline: none; border-color: var(--ivory); }
+        .field__input:focus, .field__textarea:focus, .field__select:focus { outline: none; border-color: var(--ivory); }
         .field__textarea { min-height: 100px; resize: vertical; }
         .field__error {
             display: none; font-family: var(--font-ui); font-size: 12px; line-height: 18px; color: var(--oxblood); margin-top: 8px;
@@ -123,7 +121,7 @@
             display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
             margin-top: 30px; padding-top: 24px; border-top: 1px solid var(--hairline);
         }
-        .form__note { font-size: 13px; line-height: 20px; color: var(--muted-stone); max-width: 440px; }
+        .form__note { font-size: 13px; line-height: 18px; color: var(--muted-stone); max-width: 460px; }
         .submit {
             font-family: var(--font-ui); font-size: 12px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
             color: var(--carbon-black); background-color: var(--ivory); border: 1px solid var(--ivory);
@@ -159,7 +157,7 @@
 </head>
 <body>
     <div class="masthead">
-        <img class="mark" src="/public/assets/logo.svg" alt="The Gated Shifter" width="1370" height="657">
+        <img class="mark" src="/assets/logo.svg" alt="The Gated Shifter" width="1370" height="657">
         <a class="btn-home" href="/"><span class="btn-home__arrow"></span>Home</a>
     </div>
 
