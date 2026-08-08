@@ -3,38 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>The Gated Shifter — The Trusted Ecosystem for Analog Collectors</title>
-    <meta name="description" content="A private ownership platform connecting exceptional automobiles with the collectors, specialists, heritage organizations, intelligence, and experiences that define extraordinary ownership.">
+    <title>The Gated Shifter — One Trusted Ecosystem for Analog Ownership</title>
+    <meta name="description" content="A private ownership platform connecting exceptional automobiles with the collectors, specialists, and heritage partners who define analog ownership. Founding places are numbered and capped.">
     <meta name="theme-color" content="#0B0C0E">
     <link rel="canonical" href="https://www.gatedshifter.co/">
 
-    <link rel="icon" href="/public/assets/favicon.ico" sizes="any">
-    <link rel="icon" type="image/png" sizes="32x32" href="/public/assets/favicon-32.png">
-    <link rel="apple-touch-icon" href="/public/assets/apple-touch-icon.png">
+    <link rel="icon" href="/assets/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="The Gated Shifter">
     <meta property="og:title" content="The Gated Shifter">
-    <meta property="og:description" content="Building the world's most trusted ecosystem for analog collectors.">
+    <meta property="og:description" content="One trusted ecosystem. Every aspect of analog ownership.">
     <meta property="og:url" content="https://www.gatedshifter.co/">
     <meta property="og:image" content="https://www.gatedshifter.co/assets/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="The Gated Shifter">
-    <meta name="twitter:description" content="Building the world's most trusted ecosystem for analog collectors.">
     <meta name="twitter:image" content="https://www.gatedshifter.co/assets/og-image.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,600;1,300&family=EB+Garamond:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=EB+Garamond:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
     <style>
-        /* =====================================================
-           TOKENS
-           ===================================================== */
         :root {
             --carbon-black: #0B0C0E;
+            --heritage-charcoal: #171A1F;
+            --slate-gray: #2A2E33;
             --muted-platinum: #BFC3C7;
             --ivory: #EDEBE7;
             --muted-stone: #A7ABB2;
@@ -75,30 +71,15 @@
 
         :focus-visible { outline: 1px solid var(--muted-platinum); outline-offset: 4px; }
 
-        .shell {
-            width: 100%;
-            max-width: var(--shell);
-            margin: 0 auto;
-            padding: 0 var(--gutter);
-        }
+        .shell { width: 100%; max-width: var(--shell); margin: 0 auto; padding: 0 var(--gutter); }
 
-        /* =====================================================
-           TYPE
-           ===================================================== */
         .eyebrow {
             font-family: var(--font-ui);
-            font-size: clamp(9px, 8px + 0.2vw, 10px);
+            font-size: clamp(9px, 8px + 0.2vw, 11px);
             font-weight: 500;
             letter-spacing: 0.26em;
             text-transform: uppercase;
             color: var(--muted-stone);
-        }
-
-        .lede {
-            font-family: var(--font-body);
-            font-size: clamp(1.02rem, 0.96rem + 0.4vw, 1.22rem);
-            line-height: 1.75;
-            color: var(--muted-platinum);
         }
 
         .prose {
@@ -110,396 +91,212 @@
 
         /* =====================================================
            MASTHEAD
-           The mark is not a link. On phones the invitation moves
-           to a bar at the bottom of the screen, where a thumb is.
            ===================================================== */
         .masthead {
             position: sticky;
             top: 0;
             z-index: 30;
-            border-bottom: 1px solid transparent;
+            border-bottom: 1px solid var(--hairline);
             background-color: rgba(11, 12, 14, 0);
-            transition: background-color 400ms ease, border-color 400ms ease;
+            transition: background-color 300ms ease, border-color 300ms ease;
         }
-
         .masthead.is-stuck {
-            background-color: rgba(11, 12, 14, 0.92);
+            background-color: rgba(11, 12, 14, 0.94);
             border-bottom-color: var(--hairline);
             backdrop-filter: saturate(140%) blur(12px);
             -webkit-backdrop-filter: saturate(140%) blur(12px);
         }
-
         .masthead__inner {
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 20px;
-            padding: clamp(14px, 2vw, 22px) clamp(0px, 2vw, 36px) clamp(14px, 2vw, 22px) var(--gutter);
+            padding: clamp(14px, 2vw, 22px) var(--gutter);
         }
+        .mark { display: block; height: auto; width: clamp(44px, 3.65vw, 78px); }
 
-        .mark { display: block; height: auto; }
-        .masthead .mark { width: clamp(88px, 20vw, 128px); }
-
-        .btn-line {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-family: var(--font-ui);
-            font-size: clamp(9px, 8px + 0.2vw, 10px);
-            font-weight: 500;
-            letter-spacing: 0.16em;
-            text-transform: uppercase;
-            color: var(--muted-platinum);
-            text-decoration: none;
-            min-height: var(--tap);
-            padding: 0 clamp(12px, 2.6vw, 22px);
-            border: 1px solid var(--hairline-strong);
-            border-radius: 2px;
-            white-space: nowrap;
-            flex-shrink: 0;
-            transition: color 200ms ease, border-color 200ms ease, background-color 200ms ease;
+        .btn-solid {
+            display: inline-flex; align-items: center; justify-content: center;
+            font-family: var(--font-ui); font-size: clamp(9px, 8px + 0.2vw, 11px); font-weight: 500;
+            letter-spacing: 0.16em; text-transform: uppercase;
+            color: var(--carbon-black); background-color: var(--ivory); border: 1px solid var(--ivory);
+            min-height: var(--tap); padding: 0 clamp(16px, 2.6vw, 26px);
+            border-radius: 2px; white-space: nowrap; text-decoration: none;
+            transition: opacity 150ms ease;
         }
+        .btn-solid:hover, .btn-solid:focus-visible { opacity: 0.86; }
 
-        .btn-line:hover, .btn-line:focus-visible {
-            color: var(--carbon-black);
-            background-color: var(--ivory);
-            border-color: var(--ivory);
+        .btn-outline {
+            display: inline-flex; align-items: center; justify-content: center;
+            font-family: var(--font-ui); font-size: 12px; font-weight: 500;
+            letter-spacing: 0.16em; text-transform: uppercase;
+            color: var(--ivory); background-color: transparent; border: 1px solid var(--hairline-strong);
+            min-height: var(--tap); padding: 0 26px;
+            border-radius: 2px; white-space: nowrap; text-decoration: none;
+            transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease;
         }
-
-        .btn-line__short { display: none; }
-        .btn-line__full { display: inline; }
+        .btn-outline:hover, .btn-outline:focus-visible {
+            color: var(--carbon-black); background-color: var(--ivory); border-color: var(--ivory);
+        }
 
         /* =====================================================
-           HERO — the trademark itself, ghosted, behind the type
+           HERO
            ===================================================== */
-        .hero {
-            position: relative;
-            padding: clamp(40px, 9vh, 132px) 0 clamp(48px, 9vh, 112px);
-        }
-
-        .hero__inner { position: relative; z-index: 1; }
-
-        .hero__eyebrow { display: block; margin-bottom: clamp(18px, 3.5vh, 38px); }
+        .hero { padding: clamp(48px, 9vh, 96px) 0 clamp(40px, 7vh, 72px); text-align: center; }
+        .hero__mark { width: clamp(100px, 8.15vw, 170px); height: auto; margin: 0 auto clamp(28px, 4vh, 44px); display: block; }
+        .hero__eyebrow { display: block; margin-bottom: clamp(20px, 4vh, 36px); }
 
         .hero__h1 {
             font-family: var(--font-headline);
-            font-weight: 500;
-            font-size: clamp(2.2rem, 1.05rem + 5vw, 5rem);
-            line-height: 1.06;
-            letter-spacing: -0.015em;
+            font-weight: 600;
             color: var(--ivory);
-            max-width: 19ch;
+            font-size: clamp(2.7rem, 2.1rem + 2.8vw, 4.9rem);
+            line-height: 1.1;
+            margin-bottom: 2px;
         }
-
-        .hero__h1 em { font-style: italic; font-weight: 300; color: var(--muted-platinum); }
-
-        .hero__rule {
-            width: clamp(64px, 8vw, 96px);
-            height: 1px;
-            background-color: var(--hairline-strong);
-            margin: clamp(26px, 4.5vh, 50px) 0 clamp(22px, 3.5vh, 34px);
-        }
-
-        .hero__body { max-width: 60ch; }
-        .hero__body p + p { margin-top: 1.05em; }
-        .hero__body .lede { color: var(--ivory); }
-
-        /* =====================================================
-           BANDS
-           ===================================================== */
-        .band { padding: clamp(48px, 9vh, 124px) 0; border-top: 1px solid var(--hairline); }
-        .band__head { margin-bottom: clamp(26px, 4vh, 56px); }
-
-        .band__title {
-            font-family: var(--font-headline);
-            font-weight: 500;
-            font-size: clamp(1.65rem, 1.1rem + 1.9vw, 2.85rem);
-            line-height: 1.12;
-            letter-spacing: -0.01em;
-            color: var(--ivory);
-        }
-
-        /* =====================================================
-           THE INDEX — name against definition, hairlines only
-           ===================================================== */
-        .index { border-top: 1px solid var(--hairline); }
-
-        .index__row {
-            display: grid;
-            gap: 10px;
-            padding: clamp(24px, 3.6vw, 44px) 0;
-            border-bottom: 1px solid var(--hairline);
-        }
-
-        .index__name {
-            font-family: var(--font-headline);
-            font-weight: 500;
-            font-size: clamp(1.4rem, 1.05rem + 1.25vw, 2.1rem);
-            line-height: 1.16;
-            letter-spacing: -0.008em;
-            color: var(--ivory);
-            text-wrap: balance;
-        }
-
-        .index__def { max-width: 56ch; }
-
-        /* =====================================================
-           REGISTRY
-           ===================================================== */
-        .registry {
-            border: 1px solid var(--hairline-strong);
-            border-radius: 3px;
-            background: linear-gradient(180deg, rgba(23, 26, 31, 0.9) 0%, rgba(11, 12, 14, 0.5) 100%);
-            padding: clamp(24px, 4.4vw, 58px);
-            display: grid;
-            gap: clamp(22px, 3.5vw, 42px);
-        }
-
-        .registry__p {
-            font-family: var(--font-body);
-            font-size: clamp(1.04rem, 0.95rem + 0.5vw, 1.32rem);
-            line-height: 1.7;
-            color: var(--ivory);
-            max-width: 46ch;
-        }
-
-        .registry__status {
-            display: flex;
-            align-items: center;
-            gap: 11px;
-            font-family: var(--font-ui);
-            font-size: clamp(9px, 8px + 0.2vw, 10px);
-            font-weight: 500;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--muted-platinum);
-            align-self: end;
-        }
-
-        .status__dot {
-            width: 5px; height: 5px;
-            border-radius: 50%;
-            background-color: var(--oxblood);
-            flex-shrink: 0;
-            animation: pulse 3.2s ease-out infinite;
-        }
-
-        @keyframes pulse {
-            0%   { box-shadow: 0 0 0 0 rgba(168, 71, 75, 0.45); }
-            70%  { box-shadow: 0 0 0 9px rgba(168, 71, 75, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(168, 71, 75, 0); }
-        }
-
-        /* =====================================================
-           INVITATION
-           ===================================================== */
-        .invite { display: grid; gap: clamp(22px, 3.5vw, 42px); }
-        .invite__p { margin-top: 0.85em; max-width: 56ch; }
-        .invite__alt { font-family: var(--font-body); font-size: 0.95rem; color: var(--muted-stone); margin-top: 1.3em; }
-
-        .cta {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 14px;
-            font-family: var(--font-ui);
-            font-size: clamp(10px, 9px + 0.2vw, 11px);
-            font-weight: 500;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--carbon-black);
-            background-color: var(--ivory);
-            border: 1px solid var(--ivory);
-            border-radius: 2px;
-            min-height: 56px;
-            padding: 0 clamp(24px, 2.5vw, 34px);
-            text-decoration: none;
-            justify-self: stretch;
-            text-align: center;
-            transition: background-color 240ms ease, color 240ms ease, gap 240ms ease;
-        }
-
-        .cta:hover, .cta:focus-visible { background-color: transparent; color: var(--ivory); gap: 20px; }
-        .cta__arrow { width: 18px; height: 1px; background-color: currentColor; flex-shrink: 0; }
-
-        a.email {
-            color: var(--muted-platinum);
+        .hero__h1--italic {
+            display: block;
             font-style: italic;
-            text-decoration: none;
-            border-bottom: 1px solid var(--hairline-strong);
-            word-break: break-word;
+            font-weight: 500;
+            color: var(--ivory);
+            font-size: 1.08em;
         }
 
-        a.email:hover { color: var(--ivory); border-bottom-color: var(--ivory); }
+        .hero__body { max-width: 62ch; margin: clamp(24px, 4vh, 40px) auto 0; }
+        .hero__body p + p { margin-top: 12px; }
+        .hero__body .lede {
+            font-family: var(--font-ui);
+            font-size: clamp(10px, 9px + 0.15vw, 12px);
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            line-height: 1.75;
+            color: var(--muted-stone);
+        }
+
+        .hero__actions {
+            margin-top: clamp(32px, 5vh, 48px);
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;
+        }
+        .hero__actions .btn-solid, .hero__actions .btn-outline { min-height: 58px; padding: 0 32px; }
 
         /* =====================================================
-           CLOSING
+           THREE WAYS IN
            ===================================================== */
-        .closing { padding: clamp(56px, 11vh, 150px) 0; border-top: 1px solid var(--hairline); text-align: center; }
+        .band { padding: clamp(48px, 8vh, 84px) 0; border-top: 1px solid var(--hairline); }
 
-        .closing__line {
-            font-family: var(--font-headline);
-            font-weight: 300;
-            font-size: clamp(1.45rem, 0.9rem + 2.4vw, 2.95rem);
-            line-height: 1.26;
-            color: var(--ivory);
+        .notice {
+            text-align: center;
+            font-family: var(--font-ui);
+            font-size: clamp(10px, 9px + 0.15vw, 12px);
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--muted-stone);
+            margin-bottom: clamp(36px, 6vh, 56px);
+        }
+        .notice em { font-style: normal; color: var(--oxblood); }
+
+        .lots__head {
+            display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+            gap: 12px 24px; margin-bottom: clamp(20px, 3vh, 32px);
+        }
+        .lots__title {
+            font-family: var(--font-headline); font-weight: 600; font-size: clamp(1.8rem, 1.5rem + 1.2vw, 2.6rem);
+        }
+        .lots__meta {
+            font-family: var(--font-ui); font-size: 11px; font-weight: 500; letter-spacing: 0.14em;
+            text-transform: uppercase; color: var(--muted-stone);
         }
 
-        .closing__line span { display: block; }
-        .closing__line span + span { color: var(--muted-platinum); font-style: italic; }
+        .lot {
+            display: grid;
+            grid-template-columns: 56px 1fr;
+            gap: 6px 24px;
+            padding: clamp(18px, 2.4vh, 26px) 0;
+            border-top: 1px solid var(--hairline);
+        }
+        .lot:last-child { border-bottom: 1px solid var(--hairline); }
+
+        .lot__num {
+            font-family: var(--font-headline); font-style: italic; font-weight: 500;
+            font-size: clamp(1.3rem, 1.15rem + 0.5vw, 1.6rem); color: var(--muted-platinum); line-height: 1;
+        }
+        .lot__lot {
+            grid-column: 1; font-family: var(--font-ui); font-size: 9px; letter-spacing: 0.16em;
+            text-transform: uppercase; color: var(--muted-stone); margin-top: 6px;
+        }
+
+        .lot__body { grid-column: 2; }
+        .lot__title { font-family: var(--font-headline); font-weight: 600; font-size: clamp(1.15rem, 1.05rem + 0.35vw, 1.4rem); margin-bottom: 6px; }
+        .lot__desc { max-width: 56ch; font-size: 0.92rem; line-height: 1.6; }
+
+        .lot__apply {
+            grid-column: 2;
+            margin-top: clamp(12px, 1.8vh, 18px);
+            display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+        }
+
+        .lot__qr { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .lot__qr .swatch {
+            display: block; width: 64px; height: 64px; padding: 10px; box-sizing: content-box;
+            background: var(--ivory); border-radius: 4px; object-fit: contain;
+        }
+        .lot__qr span {
+            font-family: var(--font-ui); font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;
+            color: var(--muted-stone);
+        }
+
+        @media (min-width: 620px) {
+            .lot { grid-template-columns: 80px 1fr auto; align-items: center; }
+            .lot__num { grid-row: 1; }
+            .lot__lot { grid-column: 1; grid-row: 2; margin-top: 0; }
+            .lot__body { grid-column: 2; grid-row: 1 / span 2; padding-right: 24px; }
+            .lot__apply { grid-column: 3; grid-row: 1 / span 2; margin-top: 0; flex-direction: row; align-items: center; }
+        }
+
+        /* =====================================================
+           SMALL PHONES (iPhone SE and up)
+           ===================================================== */
+        @media (max-width: 480px) {
+            .hero__h1--italic { font-size: 1em; }
+            .hero__actions { flex-direction: column; align-items: stretch; }
+            .hero__actions .btn-solid, .hero__actions .btn-outline { width: 100%; }
+            .masthead__inner .btn-solid { padding: 0 clamp(12px, 4vw, 20px); font-size: 9px; }
+            .lot__apply { justify-content: center; align-items: center; flex-wrap: nowrap; gap: 12px; width: 100%; }
+            .lot__apply .btn-solid { padding: 0 14px; font-size: 9px; white-space: normal; text-align: center; line-height: 1.3; }
+            .lot__qr .swatch { width: 52px; height: 52px; padding: 8px; }
+        }
+
+        /* =====================================================
+           CLOSING QUOTE
+           ===================================================== */
+        .closing { padding: clamp(64px, 12vh, 120px) 0; text-align: center; border-top: 1px solid var(--hairline); }
+        .closing__eyebrow { display: block; margin-bottom: clamp(20px, 4vh, 32px); }
+        .closing__quote {
+            font-family: var(--font-headline); font-style: italic; font-weight: 500;
+            font-size: clamp(1.8rem, 1.4rem + 2vw, 3.2rem); line-height: 1.35; color: var(--ivory);
+            max-width: 34ch; margin: 0 auto;
+        }
 
         /* =====================================================
            FOOTER
            ===================================================== */
-        .footer {
-            border-top: 1px solid var(--hairline);
-            padding: clamp(48px, 7vw, 76px) 0 clamp(28px, 4vw, 36px);
+        .footer { padding: clamp(36px, 6vh, 56px) 0; border-top: 1px solid var(--hairline); text-align: center; }
+        .footer .mark { margin: 0 auto 18px; width: clamp(52px, 4.35vw, 92px); }
+        .footer__meta {
+            font-family: var(--font-ui); font-size: 10.5px; font-weight: 500; letter-spacing: 0.16em;
+            text-transform: uppercase; color: var(--muted-stone);
         }
+        .footer__meta a { color: var(--muted-stone); text-decoration: none; border-bottom: 1px solid var(--hairline-strong); }
+        .footer__meta a:hover { color: var(--ivory); }
 
-        .footer__top {
-            display: grid;
-            gap: clamp(36px, 6vw, 56px);
-            padding-bottom: clamp(36px, 6vw, 56px);
-        }
-
-        .footer__brand .mark { width: clamp(96px, 22vw, 118px); margin-bottom: 18px; }
-
-        .footer__tagline {
-            font-family: var(--font-body);
-            font-size: 0.95rem;
-            line-height: 1.65;
-            color: var(--muted-stone);
-            max-width: 34ch;
-            margin-bottom: 22px;
-        }
-
-        .footer__social { display: flex; gap: 10px; }
-
-        .footer__social a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 38px;
-            height: 38px;
-            border: 1px solid var(--hairline-strong);
-            border-radius: 50%;
-            color: var(--muted-platinum);
-            transition: color 200ms ease, border-color 200ms ease, background-color 200ms ease;
-        }
-
-        .footer__social a:hover, .footer__social a:focus-visible {
-            color: var(--carbon-black);
-            background-color: var(--ivory);
-            border-color: var(--ivory);
-        }
-
-        .footer__social svg { width: 16px; height: 16px; }
-
-        .footer__col { display: flex; flex-direction: column; gap: 14px; }
-
-        .footer__heading {
-            font-family: var(--font-ui);
-            font-size: 10px;
-            font-weight: 500;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--muted-platinum);
-            margin-bottom: 4px;
-        }
-
-        .footer__col a {
-            font-family: var(--font-body);
-            font-size: 0.92rem;
-            color: var(--muted-stone);
-            text-decoration: none;
-            width: fit-content;
-            border-bottom: 1px solid transparent;
-            transition: color 200ms ease, border-color 200ms ease;
-        }
-
-        .footer__col a:hover, .footer__col a:focus-visible { color: var(--ivory); border-bottom-color: var(--hairline-strong); }
-
-        .footer__bottom {
-            display: flex;
-            flex-direction: column-reverse;
-            gap: 14px;
-            padding-top: clamp(24px, 4vw, 32px);
-            border-top: 1px solid var(--hairline);
-        }
-
-        .footer__copy, .footer__status {
-            font-family: var(--font-ui);
-            font-size: 9px;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--muted-stone);
-        }
-
-        /* =====================================================
-           MOTION
-           ===================================================== */
-        .reveal { opacity: 0; transform: translateY(14px); transition: opacity 800ms ease, transform 800ms cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal { opacity: 0; transform: translateY(14px); transition: opacity 600ms ease, transform 600ms ease; }
         .reveal.is-in { opacity: 1; transform: none; }
-
-        .hero__eyebrow, .hero__h1, .hero__rule, .hero__body { opacity: 0; animation: rise 950ms cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .hero__eyebrow { animation-delay: 60ms; }
-        .hero__h1 { animation-delay: 140ms; }
-        .hero__rule { animation-delay: 360ms; }
-        .hero__body { animation-delay: 440ms; }
-
-        @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
-
-        /* =====================================================
-           BREAKPOINTS
-           360–600  small to large phones: single column, header CTA
-           601–833  small tablets, phone landscape
-           834–1023 medium tablets: registry and footer go two-up
-           1024+    large tablets, laptops: index two-up, ghost mark
-           1600+    monitors: wider shell, slightly larger measure
-           ===================================================== */
-        @media (min-width: 601px) {
-            .cta { justify-self: start; }
-            .footer__top { grid-template-columns: repeat(2, 1fr); }
-            .footer__brand { grid-column: 1 / -1; }
-            .footer__tagline { max-width: 48ch; }
-            .footer__bottom { flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: wrap; }
-        }
-
-        @media (min-width: 834px) {
-            .registry { grid-template-columns: 1.4fr 1fr; align-items: end; }
-            .index__row {
-                grid-template-columns: minmax(220px, 33%) 1fr;
-                gap: clamp(26px, 4vw, 68px);
-                align-items: baseline;
-            }
-            .footer__top { grid-template-columns: 1.3fr 1fr 1fr; }
-            .footer__brand { grid-column: auto; }
-            .footer__tagline { max-width: 34ch; }
-        }
-
-        @media (min-width: 1024px) {
-            .hero { padding-top: clamp(56px, 10vh, 140px); }
-            .invite { grid-template-columns: 1.1fr auto; align-items: end; }
-            .invite__copy { max-width: 52ch; }
-        }
-
-        @media (min-width: 1600px) {
-            :root { --shell: 1380px; --gutter: clamp(80px, 6vw, 120px); }
-            .hero__h1 { font-size: 5.1rem; }
-        }
-
-        /* Short viewports — phone and tablet landscape */
-        @media (max-height: 560px) and (orientation: landscape) {
-            .hero { padding: 28px 0 36px; }
-            .band, .closing { padding: 40px 0; }
-            .masthead { position: static; }
-        }
 
         @media (prefers-reduced-motion: reduce) {
             html { scroll-behavior: auto; }
             .reveal { opacity: 1; transform: none; transition: none; }
-            .hero__eyebrow, .hero__h1, .hero__rule, .hero__body { opacity: 1; animation: none; }
-            .status__dot { animation: none; }
             * { transition: none !important; }
         }
     </style>
@@ -508,155 +305,118 @@
 
     <header class="masthead" id="masthead">
         <div class="shell masthead__inner">
-            <img class="mark" src="/assets/logo.svg" alt="The Gated Shifter" width="1370" height="657">
-            <a class="btn-line" href="/join"><span class="btn-line__short">Apply</span><span class="btn-line__full">Request an Invitation</span></a>
+            <img class="mark" src="/public/assets/logo.svg" alt="The Gated Shifter" width="1370" height="657">
+            <a class="btn-solid" href="#apply">Request an Invitation</a>
         </div>
     </header>
 
     <main>
-
         <section class="hero">
-            <div class="shell hero__inner">
-                <span class="eyebrow hero__eyebrow">The Gated Shifter</span>
-                <h1 class="hero__h1">Building the world&rsquo;s most trusted ecosystem for <em>analog collectors.</em></h1>
-                <div class="hero__rule"></div>
+            <div class="shell">
+                <img class="hero__mark" src="/public/assets/logo.svg" alt="" aria-hidden="true" width="1370" height="657">
+                <span class="eyebrow hero__eyebrow">By Invitation &amp; Application &middot; MMXXVI</span>
+                <h1 class="hero__h1">One trusted ecosystem.<span class="hero__h1--italic">Every aspect of analog ownership.</span></h1>
                 <div class="hero__body">
-                    <p class="lede">The analog collector world deserves more than another marketplace.</p>
-                    <p class="prose">The Gated Shifter is developing a private ownership platform connecting exceptional automobiles with the collectors, specialists, heritage organizations, intelligence, and experiences that define extraordinary ownership.</p>
+                    <p class="lede">The Gated Shifter is a private registry for significant analog automobiles and the people who keep them. Membership is limited. Founding Collections are being selected now.</p>
+                </div>
+                <div class="hero__actions">
+                    <a class="btn-solid" href="/public/join-collector">Apply as a Collector</a>
+                    <a class="btn-outline" href="#apply">Specialist &amp; Partner Paths</a>
                 </div>
             </div>
         </section>
 
-        <section class="band">
+        <section class="band" id="apply">
             <div class="shell">
-                <div class="index">
-                    <div class="index__row reveal">
-                        <h2 class="index__name">Curated Marketplace</h2>
-                        <p class="prose index__def">Private and carefully selected opportunities for significant analog automobiles.</p>
-                    </div>
-                    <div class="index__row reveal">
-                        <h2 class="index__name">Collector Intelligence</h2>
-                        <p class="prose index__def">Better information and trusted expertise for better collection decisions.</p>
-                    </div>
-                    <div class="index__row reveal">
-                        <h2 class="index__name">Trusted Network</h2>
-                        <p class="prose index__def">A qualified ecosystem of specialists, restorers, advisors, ownership-service providers, and heritage partners.</p>
-                    </div>
-                    <div class="index__row reveal">
-                        <h2 class="index__name">Collection Stewardship</h2>
-                        <p class="prose index__def">A living record of the history, documentation, maintenance, and provenance surrounding each automobile.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+                <p class="notice reveal">Founding places are <em>numbered and capped</em> — selection closes when the registry is full</p>
 
-        <section class="band">
-            <div class="shell">
-                <div class="band__head reveal">
-                    <span class="eyebrow">The Founders Registry</span>
+                <div class="lots__head reveal">
+                    <h2 class="lots__title">Three Ways In</h2>
+                    <span class="lots__meta">Lots 01&thinsp;&mdash;&thinsp;03 &middot; Open for Application</span>
                 </div>
-                <div class="registry reveal">
-                    <p class="registry__p">The first phase will include a limited number of Founding Collections, Founding Automobiles, Certified Specialists, and Heritage Partners selected to help shape the platform.</p>
-                    <p class="registry__status"><span class="status__dot"></span>Private development is underway</p>
-                </div>
-            </div>
-        </section>
 
-        <section class="band" id="invitation">
-            <div class="shell invite reveal">
-                <div class="invite__copy">
-                    <h2 class="band__title">Request an Invitation</h2>
-                    <p class="prose invite__p">Currently accepting inquiries from collectors, specialists, heritage organizations, strategic partners, and experience providers interested in participating in the private launch.</p>
-                    <p class="invite__alt">Or write to <a class="email" href="mailto:private@gatedshifter.co">private@gatedshifter.co</a>.</p>
+                <div class="lot reveal">
+                    <span class="lot__num">01</span>
+                    <span class="lot__lot">Lot</span>
+                    <div class="lot__body">
+                        <h3 class="lot__title">Collector</h3>
+                        <p class="prose lot__desc">Founding Collections shape the registry before it opens. If you keep automobiles of significance, apply for one of the numbered founding places.</p>
+                    </div>
+                    <div class="lot__apply">
+                        <div class="lot__qr"><img class="swatch" src="/public/assets/qr-collector.svg" alt="QR code linking to the Collector application" width="96" height="96"><span>Scan to Apply</span></div>
+                        <a class="btn-solid" href="/join-collector">Begin Application</a>
+                    </div>
                 </div>
-                <a class="cta" href="/join">Request Founding Access<span class="cta__arrow"></span></a>
+
+                <div class="lot reveal">
+                    <span class="lot__num">02</span>
+                    <span class="lot__lot">Lot</span>
+                    <div class="lot__body">
+                        <h3 class="lot__title">Specialist</h3>
+                        <p class="prose lot__desc">Restorers, historians, marque experts and craftsmen. The registry is only as good as the expertise inside it. A small number will be accredited.</p>
+                    </div>
+                    <div class="lot__apply">
+                        <div class="lot__qr"><img class="swatch" src="/public/assets/qr-specialist.svg" alt="QR code linking to the Specialist application" width="96" height="96"><span>Scan to Apply</span></div>
+                        <a class="btn-solid" href="/join-specialist">Begin Application</a>
+                    </div>
+                </div>
+
+                <div class="lot reveal">
+                    <span class="lot__num">03</span>
+                    <span class="lot__lot">Lot</span>
+                    <div class="lot__body">
+                        <h3 class="lot__title">Partner</h3>
+                        <p class="prose lot__desc">Insurers, transporters, auction houses and institutions serving analog ownership. Partnership is selective and by conversation first.</p>
+                    </div>
+                    <div class="lot__apply">
+                        <div class="lot__qr"><img class="swatch" src="/public/assets/qr-partner.svg" alt="QR code linking to the Partner application" width="96" height="96"><span>Scan to Apply</span></div>
+                        <a class="btn-solid" href="/join-partner">Begin Application</a>
+                    </div>
+                </div>
             </div>
         </section>
 
         <section class="closing">
             <div class="shell">
-                <p class="closing__line reveal">
-                    <span>One trusted ecosystem.</span>
-                    <span>Every aspect of analog ownership.</span>
-                </p>
+                <span class="eyebrow closing__eyebrow reveal">Our Only Promise</span>
+                <p class="closing__quote reveal">&ldquo;The platform is shaped by the people in it &mdash; not the other way around.&rdquo;</p>
             </div>
         </section>
     </main>
 
     <footer class="footer">
         <div class="shell">
-            <div class="footer__top">
-                <div class="footer__brand">
-                    <img class="mark" src="/assets/logo.svg" alt="The Gated Shifter" width="1370" height="657">
-                    <p class="footer__tagline">A private ownership platform connecting exceptional automobiles with the collectors, specialists, and heritage organizations who define analog ownership.</p>
-                    <div class="footer__social">
-                        <a href="#" aria-label="The Gated Shifter on Facebook" target="_blank" rel="noopener">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.5 21v-7h2.4l.4-3H14.5v-1.9c0-.87.24-1.46 1.5-1.46h1.6V4.9c-.28-.04-1.23-.12-2.34-.12-2.32 0-3.91 1.42-3.91 4.02V11H9v3h2.35v7h3.15z"/></svg>
-                        </a>
-                        <a href="#" aria-label="The Gated Shifter on Instagram" target="_blank" rel="noopener">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
-                        </a>
-                        <a href="#" aria-label="The Gated Shifter on LinkedIn" target="_blank" rel="noopener">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="7.5" y1="10" x2="7.5" y2="17"/><circle cx="7.5" cy="6.7" r="0.6" fill="currentColor" stroke="none"/><path d="M11.5 17v-4.2c0-1.6 1-2.4 2.3-2.4 1.3 0 2.2.8 2.2 2.4V17"/></svg>
-                        </a>
-                    </div>
-                </div>
-
-                <nav class="footer__col" aria-label="Explore">
-                    <h3 class="footer__heading">Explore</h3>
-                    <a href="/">Home</a>
-                    <a href="/#invitation">Founders Registry</a>
-                    <a href="/join">Request an Invitation</a>
-                </nav>
-
-                <nav class="footer__col" aria-label="Company">
-                    <h3 class="footer__heading">Company</h3>
-                    <a href="/privacy">Privacy</a>
-                    <a href="/remove">Delete My Information</a>
-                    <a href="mailto:private@gatedshifter.co">Contact</a>
-                </nav>
-            </div>
-
-            <div class="footer__bottom">
-                <p class="footer__status">Private Ownership Platform &middot; In Development</p>
-                <p class="footer__copy">&copy; 2026 The Gated Shifter&trade;. All rights reserved.</p>
-            </div>
+            <img class="mark" src="/public/assets/logo.svg" alt="The Gated Shifter" width="1370" height="657">
+            <p class="footer__meta">Private &amp; Confidential &middot; Membership by Invitation</p>
+            <p class="footer__meta"><a href="mailto:private@gatedshifter.co">private@gatedshifter.co</a></p>
         </div>
     </footer>
 
     <script>
     (function () {
         'use strict';
-
         var masthead = document.getElementById('masthead');
-
         var onScroll = function () {
-            var y = window.scrollY;
-            if (y > 24) masthead.classList.add('is-stuck');
+            if (window.scrollY > 24) masthead.classList.add('is-stuck');
             else masthead.classList.remove('is-stuck');
         };
-
         window.addEventListener('scroll', onScroll, { passive: true });
-        window.addEventListener('resize', onScroll, { passive: true });
         onScroll();
 
         var items = document.querySelectorAll('.reveal');
         var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
         if (!('IntersectionObserver' in window) || reduced) {
             for (var i = 0; i < items.length; i++) items[i].classList.add('is-in');
-            return;
+        } else {
+            var observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add('is-in');
+                    observer.unobserve(entry.target);
+                });
+            }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
+            for (var j = 0; j < items.length; j++) observer.observe(items[j]);
         }
-
-        var observer = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-                if (!entry.isIntersecting) return;
-                entry.target.classList.add('is-in');
-                observer.unobserve(entry.target);
-            });
-        }, { rootMargin: '0px 0px -10% 0px', threshold: 0.06 });
-
-        for (var j = 0; j < items.length; j++) observer.observe(items[j]);
     })();
     </script>
 </body>

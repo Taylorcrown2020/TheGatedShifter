@@ -204,7 +204,17 @@ export async function notifyPrivateInbox(record) {
         ${row('Email', record.email)}
         ${row('Mobile', record.mobile_phone)}
         ${row('City', record.city)}
-        ${row('Marques / specialty', record.primary_marques)}
+        ${row('Marques of focus', record.primary_marques)}
+        ${row('Collection size', record.collection_size)}
+        ${row('Defining vehicle', record.defining_vehicle)}
+        ${row('How they heard of us', record.referred_by)}
+        ${row('Discipline', record.specialist_needs)}
+        ${row('Workshop / practice', record.workshop_practice)}
+        ${row('Proud work', record.proud_work)}
+        ${row('Vouched for by', record.vouch_referral)}
+        ${row('Organization', record.partner_specialty)}
+        ${row('Partner area', record.partner_area)}
+        ${row('Partnership notes', record.partnership_notes)}
         ${row('Looking for now', record.looking_for_now)}
         ${row('Notes', record.additional_notes)}
         ${row('Status', record.status)}

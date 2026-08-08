@@ -143,6 +143,22 @@ const clean = (value, max) => (typeof value === 'string' ? value.trim().replace(
 const cleanMultiline = (value, max) => (typeof value === 'string' ? value.trim().slice(0, max) : '');
 const truthy = (value) => value === true || value === 'true' || value === 'on' || value === 1;
 
+// Lot 01 / 02 / 03 controlled picks — kept short so a bad client can't
+// stuff free text into what the admin views treat as a filterable field.
+const COLLECTION_SIZES = ['1–3 cars', '4–10 cars', '11–25 cars', '25+ cars'];
+const DISCIPLINES = [
+  'Restoration',
+  'Mechanical / engine',
+  'Bodywork & paint',
+  'Upholstery & trim',
+  'Detailing',
+  'Historian / research',
+  'Appraisal / valuation',
+  'Transport / logistics',
+  'Other',
+];
+const PARTNER_AREAS = ['Insurance', 'Transport', 'Auction house', 'Storage', 'Events', 'Other'];
+
 // Tracking values arrive from the URL, so they are never trusted as text —
 // each one is reduced to a short slug before it goes near the database.
 const slug = (value, fallback = '') => {
@@ -177,6 +193,22 @@ function validate(body) {
     captured_by: slug(body.captured_by),
     referral_code: slug(body.referral_code),
     page_path: clean(body.page_path, 200),
+
+    // Lot 01 — Collector
+    referred_by: clean(body.referred_by, 160),
+    collection_size: clean(body.collection_size, 40),
+    defining_vehicle: cleanMultiline(body.defining_vehicle, 600),
+
+    // Lot 02 — Specialist (stored in the pre-existing specialist_needs column)
+    discipline: clean(body.discipline, 40),
+    workshop_practice: clean(body.workshop_practice, 200),
+    proud_work: cleanMultiline(body.proud_work, 600),
+    vouch_referral: clean(body.vouch_referral, 160),
+
+    // Lot 03 — Partner (organization stored in the pre-existing partner_specialty column)
+    organization: clean(body.organization, 160),
+    partner_area: clean(body.partner_area, 40),
+    partnership_notes: cleanMultiline(body.partnership_notes, 600),
   };
 
   const errors = {};
@@ -189,6 +221,20 @@ function validate(body) {
   }
   if (!data.privacy_consent) {
     errors.privacy_consent = 'Please confirm we may contact you about your request.';
+  }
+
+  if (data.member_type === 'Collector') {
+    if (!data.city) errors.city = 'Enter a city and country.';
+    if (!COLLECTION_SIZES.includes(data.collection_size)) errors.collection_size = 'Choose a collection size.';
+  }
+
+  if (data.member_type === 'Specialist') {
+    if (!DISCIPLINES.includes(data.discipline)) errors.discipline = 'Choose a discipline.';
+  }
+
+  if (data.member_type === 'Partner') {
+    if (!data.organization) errors.organization = 'Enter your company or institution.';
+    if (!PARTNER_AREAS.includes(data.partner_area)) errors.partner_area = 'Choose an area.';
   }
 
   return { data, errors };
@@ -267,13 +313,19 @@ app.post('/api/intake', async (req, res) => {
           consent, privacy_consent, marketing_consent, consent_timestamp,
           founding_access, status,
           source, channel, campaign, placement, captured_by, referral_code,
-          page_path, user_agent, ip_hash)
+          page_path, user_agent, ip_hash,
+          referred_by, collection_size, defining_vehicle,
+          specialist_needs, workshop_practice, proud_work, vouch_referral,
+          partner_specialty, partner_area, partnership_notes)
        values ($1,$2,$3,$4,$5,$6,$7,$8,
                $9,$10,$11,$12,
                $13,$13,$14,now(),
                true,$15,
                $16,$17,$18,$19,$20,$21,
-               $22,$23,$24)
+               $22,$23,$24,
+               $25,$26,$27,
+               $28,$29,$30,$31,
+               $32,$33,$34)
        returning id, created_at, delete_token, status, founding_access`,
       [
         fullName,
@@ -300,6 +352,16 @@ app.post('/api/intake', async (req, res) => {
         data.page_path || null,
         userAgent || null,
         ipHash,
+        data.referred_by || null,
+        data.collection_size || null,
+        data.defining_vehicle || null,
+        data.discipline || null,
+        data.workshop_practice || null,
+        data.proud_work || null,
+        data.vouch_referral || null,
+        data.organization || null,
+        data.partner_area || null,
+        data.partnership_notes || null,
       ]
     );
 
@@ -452,7 +514,9 @@ app.get('/api/intake.csv', async (req, res) => {
               to_char(created_at, 'YYYY-MM-DD HH24:MI:SS') as created_at_utc,
               member_type, first_name, last_name, email, mobile_phone,
               city, state_region, country,
-              primary_marques,
+              primary_marques, collection_size, defining_vehicle, referred_by,
+              specialist_needs as discipline, workshop_practice, proud_work, vouch_referral,
+              partner_specialty as organization, partner_area, partnership_notes,
               array_to_string(looking_for_now, ' | ') as looking_for_now,
               additional_notes,
               founding_access, status,
@@ -508,8 +572,27 @@ const page = (file) => (_req, res) => {
   res.sendFile(join(publicDir, file));
 };
 
-// /join is the URL on every QR code and on the tablet.
-app.get('/join', page('join.html'));
+// Each lot has its own dedicated application page — these are the URLs on
+// the QR codes and "Begin Application" buttons on the home page.
+app.get('/join-collector', page('join-collector.html'));
+app.get('/join-specialist', page('join-specialist.html'));
+app.get('/join-partner', page('join-partner.html'));
+
+// /join used to be a chooser page. Old links (including any already-printed
+// ?type= QR codes) are redirected straight to the matching lot page, with
+// any tracking params carried along; unmatched links fall back to the
+// "Three Ways In" section on the home page.
+const JOIN_TYPE_PAGES = { collector: '/join-collector', specialist: '/join-specialist', partner: '/join-partner' };
+app.get('/join', (req, res) => {
+  const type = String(req.query.type || '').toLowerCase();
+  const target = JOIN_TYPE_PAGES[type];
+  const rest = new URLSearchParams(req.query);
+  rest.delete('type');
+  const qs = rest.toString();
+  if (target) return res.redirect(302, qs ? `${target}?${qs}` : target);
+  return res.redirect(302, qs ? `/?${qs}#apply` : '/#apply');
+});
+
 app.get('/remove', page('remove.html'));
 app.get('/privacy', page('privacy.html'));
 app.get('/', page('index.html'));

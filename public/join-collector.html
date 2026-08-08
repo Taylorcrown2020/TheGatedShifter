@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Collector Application — The Gated Shifter</title>
+    <meta name="description" content="Apply for Founding Access to The Gated Shifter as a Collector.">
+    <meta name="theme-color" content="#0B0C0E">
+    <meta name="robots" content="noindex">
+    <link rel="canonical" href="https://www.gatedshifter.co/join-collector">
+
+    <link rel="icon" href="/assets/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=EB+Garamond:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --carbon-black: #0B0C0E;
+            --heritage-charcoal: #171A1F;
+            --slate-gray: #2A2E33;
+            --muted-platinum: #BFC3C7;
+            --ivory: #EDEBE7;
+            --muted-stone: #A7ABB2;
+            --oxblood: #A8474B;
+            --hairline: rgba(191, 195, 199, 0.14);
+            --hairline-strong: rgba(191, 195, 199, 0.28);
+
+            --font-headline: 'Cormorant Garamond', 'Big Caslon', Georgia, serif;
+            --font-body: 'EB Garamond', Georgia, serif;
+            --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-size-adjust: 100%;
+            scrollbar-width: none; -ms-overflow-style: none;
+        }
+        html::-webkit-scrollbar { display: none; }
+
+        body { background-color: var(--carbon-black); color: var(--ivory); font-family: var(--font-body); line-height: 1.6; }
+        :focus-visible { outline: 1px solid var(--muted-platinum); outline-offset: 3px; }
+
+        .page { width: 92vw; max-width: 780px; margin: 0 auto; padding: 40px 0 72px; }
+        .hidden { display: none !important; }
+
+        /* ---------- Masthead ---------- */
+        .masthead {
+            width: 92vw; max-width: 1080px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between; gap: 16px;
+            padding: 22px 0; border-bottom: 1px solid var(--hairline);
+        }
+        .masthead .mark { display: block; width: clamp(96px, 22vw, 128px); height: auto; }
+        .btn-home {
+            font-family: var(--font-ui); font-size: 10px; font-weight: 500; letter-spacing: 0.18em;
+            text-transform: uppercase; color: var(--muted-platinum); text-decoration: none;
+            min-height: 46px; padding: 0 clamp(14px, 3vw, 20px); border: 1px solid rgba(191, 195, 199, 0.28);
+            border-radius: 2px; white-space: nowrap; display: inline-flex; align-items: center; gap: 10px;
+            flex-shrink: 0; transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease;
+        }
+        .btn-home:hover, .btn-home:focus-visible {
+            color: var(--carbon-black); background-color: var(--ivory); border-color: var(--ivory);
+        }
+        .btn-home__arrow { width: 14px; height: 1px; background-color: currentColor; }
+
+        /* ---------- Application view ---------- */
+        .app-view__eyebrow {
+            font-family: var(--font-ui); font-size: 11px; font-weight: 500; letter-spacing: 0.16em;
+            text-transform: uppercase; color: var(--muted-stone); margin-bottom: 12px;
+        }
+        .app-view__h1 { font-family: var(--font-headline); font-weight: 600; font-size: clamp(1.9rem, 1.6rem + 1.2vw, 2.5rem); margin-bottom: 12px; }
+        .app-view__lede { font-size: 15px; line-height: 26px; color: var(--muted-stone); max-width: 58ch; margin-bottom: 32px; }
+
+        .card { background-color: var(--heritage-charcoal); border: 1px solid rgba(42, 46, 51, 0.55); border-radius: 14px; padding: 24px 22px; }
+
+        .field { margin-bottom: 22px; }
+        .field:last-child { margin-bottom: 0; }
+        .field__label {
+            display: block; font-family: var(--font-ui); font-size: 11px; line-height: 16px; font-weight: 500;
+            letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted-platinum); margin-bottom: 10px;
+        }
+        .field__optional { font-weight: 400; letter-spacing: 0.08em; text-transform: none; color: var(--muted-stone); }
+
+        .field__input, .field__textarea, .field__select {
+            width: 100%; background-color: var(--carbon-black); border: 1px solid var(--slate-gray);
+            border-radius: 8px; padding: 13px 14px; font-family: var(--font-body); font-size: 16px; line-height: 24px;
+            color: var(--ivory); transition: border-color 150ms ease-out; appearance: none;
+        }
+        .field__select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%23BFC3C7' stroke-width='1.6' fill='none' fill-rule='evenodd'/%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 14px center; padding-right: 40px;
+        }
+        .field__select option { background-color: var(--carbon-black); color: var(--ivory); }
+        .field__input::placeholder, .field__textarea::placeholder { color: #6b6f75; }
+        .field__input:hover, .field__textarea:hover, .field__select:hover { border-color: rgba(191, 195, 199, 0.4); }
+        .field__input:focus, .field__textarea:focus, .field__select:focus { outline: none; border-color: var(--muted-platinum); }
+        .field__textarea { min-height: 96px; resize: vertical; }
+        .field__error {
+            display: none; font-family: var(--font-ui); font-size: 12px; line-height: 18px; color: var(--oxblood); margin-top: 8px;
+        }
+        .field.is-invalid .field__error { display: block; }
+        .field.is-invalid .field__input, .field.is-invalid .field__textarea, .field.is-invalid .field__select { border-color: var(--oxblood); }
+
+        @media (min-width: 480px) {
+            .field--split { display: grid; grid-template-columns: 1fr 1fr; gap: 0 20px; }
+            .field--split > .field { margin-bottom: 22px; }
+        }
+
+        .consent { display: flex; align-items: flex-start; gap: 12px; margin-top: 4px; }
+        .consent input { width: 20px; height: 20px; margin-top: 4px; flex-shrink: 0; accent-color: var(--muted-platinum); }
+        .consent label { font-family: var(--font-body); font-size: 13.5px; line-height: 22px; color: var(--muted-stone); }
+        .consent label a { color: var(--ivory); text-decoration: none; border-bottom: 1px solid rgba(191, 195, 199, 0.35); }
+        .field--consent .field__error { margin-left: 32px; }
+
+        .honeypot { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+        .form__footer {
+            display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+            margin-top: 28px; padding-top: 24px; border-top: 1px solid rgba(191, 195, 199, 0.1);
+        }
+        .form__note { font-size: 13px; line-height: 20px; color: var(--muted-stone); max-width: 36ch; }
+        .submit {
+            font-family: var(--font-ui); font-size: 12px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
+            color: var(--carbon-black); background-color: var(--ivory); border: 1px solid var(--ivory);
+            border-radius: 8px; padding: 17px 30px; cursor: pointer; white-space: nowrap; transition: opacity 150ms ease-out;
+        }
+        .submit:disabled { opacity: 0.45; cursor: default; }
+
+        .alert {
+            display: none; font-family: var(--font-ui); font-size: 13px; line-height: 20px; color: var(--ivory);
+            background-color: rgba(168, 71, 75, 0.14); border: 1px solid var(--oxblood); border-radius: 8px;
+            padding: 14px; margin-bottom: 20px;
+        }
+        .alert.is-visible { display: block; }
+
+        /* ---------- Success ---------- */
+        .welcome { display: none; }
+        .welcome.is-visible { display: block; }
+        .welcome__eyebrow { font-family: var(--font-ui); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted-platinum); margin-bottom: 16px; }
+        .welcome__h { font-family: var(--font-headline); font-size: clamp(1.8rem, 1.5rem + 1vw, 2.3rem); line-height: 1.25; font-weight: 600; color: var(--ivory); margin-bottom: 14px; }
+        .welcome__p { font-size: 16px; line-height: 28px; color: var(--muted-stone); max-width: 56ch; }
+        .welcome__p + .welcome__p { margin-top: 12px; }
+        .welcome__actions { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; }
+        .btn-quiet {
+            font-family: var(--font-ui); font-size: 12px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
+            color: var(--ivory); background-color: transparent; border: 1px solid var(--slate-gray); border-radius: 8px;
+            padding: 20px 32px; text-decoration: none; display: inline-flex; align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="masthead">
+        <img class="mark" src="/assets/logo.svg" alt="The Gated Shifter" width="1370" height="657">
+        <a class="btn-home" href="/"><span class="btn-home__arrow"></span>Home</a>
+    </div>
+
+    <main class="page">
+
+        <section id="view-application">
+            <p class="app-view__eyebrow">Lot 01 &middot; Founding Collection</p>
+            <h1 class="app-view__h1">Collector Application</h1>
+            <p class="app-view__lede">Tell us about you and your collection. Selected collectors are invited to a private conversation.</p>
+
+            <div class="alert" id="alert-box" role="alert"></div>
+
+            <form class="card" id="application-form" novalidate>
+                <div class="field--split">
+                    <div class="field" data-field="full_name">
+                        <label class="field__label" for="f-full-name">Full Name</label>
+                        <input class="field__input" type="text" id="f-full-name" name="full_name" placeholder="Your name" autocomplete="name">
+                        <p class="field__error"></p>
+                    </div>
+                    <div class="field" data-field="email">
+                        <label class="field__label" for="f-email">Email</label>
+                        <input class="field__input" type="email" id="f-email" name="email" placeholder="you@example.com" autocomplete="email">
+                        <p class="field__error"></p>
+                    </div>
+                </div>
+                <div class="field--split">
+                    <div class="field" data-field="mobile_phone">
+                        <label class="field__label" for="f-phone">Phone <span class="field__optional">— optional</span></label>
+                        <input class="field__input" type="tel" id="f-phone" name="mobile_phone" placeholder="+1 …" autocomplete="tel">
+                        <p class="field__error"></p>
+                    </div>
+                    <div class="field" data-field="city">
+                        <label class="field__label" for="f-location">Location</label>
+                        <input class="field__input" type="text" id="f-location" name="city" placeholder="City, Country" autocomplete="address-level2">
+                        <p class="field__error"></p>
+                    </div>
+                </div>
+                <div class="field--split">
+                    <div class="field" data-field="collection_size">
+                        <label class="field__label" for="f-collection-size">Collection Size</label>
+                        <select class="field__select" id="f-collection-size" name="collection_size">
+                            <option value="">Select…</option>
+                            <option>1–3 cars</option>
+                            <option>4–10 cars</option>
+                            <option>11–25 cars</option>
+                            <option>25+ cars</option>
+                        </select>
+                        <p class="field__error"></p>
+                    </div>
+                    <div class="field" data-field="primary_marques">
+                        <label class="field__label" for="f-marques">Marques of Focus <span class="field__optional">— optional</span></label>
+                        <input class="field__input" type="text" id="f-marques" name="primary_marques" placeholder="e.g. Ferrari, Porsche, pre-war Bentley">
+                        <p class="field__error"></p>
+                    </div>
+                </div>
+                <div class="field" data-field="defining_vehicle">
+                    <label class="field__label" for="f-defining">The automobile that defines your collection <span class="field__optional">— optional</span></label>
+                    <textarea class="field__textarea" id="f-defining" name="defining_vehicle" placeholder="Year, marque, model — and why it matters to you."></textarea>
+                    <p class="field__error"></p>
+                </div>
+                <div class="field" data-field="referred_by">
+                    <label class="field__label" for="f-referred">How did you hear of us? <span class="field__optional">— optional</span></label>
+                    <input class="field__input" type="text" id="f-referred" name="referred_by" placeholder="Name of the person or event">
+                    <p class="field__error"></p>
+                </div>
+
+                <div class="field field--consent" data-field="privacy_consent">
+                    <div class="consent">
+                        <input type="checkbox" id="f-privacy" name="privacy_consent">
+                        <label for="f-privacy">The Gated Shifter may contact me about this application. My details are held privately, never shared or sold, and I can have them deleted at any time. <a href="/privacy" target="_blank" rel="noopener">Privacy</a></label>
+                    </div>
+                    <p class="field__error">Please confirm we may contact you about your application.</p>
+                </div>
+
+                <div class="honeypot" aria-hidden="true">
+                    <label for="f-company">Company website</label>
+                    <input type="text" id="f-company" name="company_website" tabindex="-1" autocomplete="off">
+                </div>
+
+                <div class="form__footer">
+                    <p class="form__note">Held in strict confidence. Never shared, never published, never used beyond your application.</p>
+                    <button class="submit" type="submit">Submit Application</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- SUCCESS -->
+        <div class="welcome" id="view-welcome" role="status" aria-live="polite">
+            <p class="welcome__eyebrow">Welcome to The Gated Shifter</p>
+            <h2 class="welcome__h">Your application has been received.</h2>
+            <p class="welcome__p">A confirmation is on its way to <span id="welcome-email">your email</span>. Every message we send includes a link to delete your information from our database.</p>
+            <p class="welcome__p">We read every application personally — you will hear back directly.</p>
+            <div class="welcome__actions">
+                <a class="btn-quiet" href="/">Return to gatedshifter.co</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+    (function () {
+        'use strict';
+
+        var MEMBER_TYPE = 'Collector';
+        var params = new URLSearchParams(window.location.search);
+        var openedAt = Date.now();
+
+        var view = document.getElementById('view-application');
+        var welcome = document.getElementById('view-welcome');
+        var welcomeEmail = document.getElementById('welcome-email');
+        var form = document.getElementById('application-form');
+        var alertBox = document.getElementById('alert-box');
+        var button = form.querySelector('.submit');
+
+        function param(names, fallback) {
+            for (var i = 0; i < names.length; i++) {
+                var raw = params.get(names[i]);
+                if (raw) {
+                    var s = raw.toLowerCase().replace(/[^a-z0-9_.-]/g, '').slice(0, 40);
+                    if (s) return s;
+                }
+            }
+            return fallback;
+        }
+
+        var tracking = {
+            source: param(['source', 'src', 'utm_source'], 'web'),
+            channel: param(['channel', 'utm_medium'], 'web'),
+            campaign: param(['campaign', 'utm_campaign'], ''),
+            placement: param(['placement', 'utm_content'], ''),
+            captured_by: param(['captured_by'], ''),
+            referral_code: param(['referral_code', 'ref'], '')
+        };
+
+        function clearFieldError(name) {
+            var field = form.querySelector('[data-field="' + name + '"]');
+            if (field) field.classList.remove('is-invalid');
+        }
+
+        function clearAllErrors() {
+            form.querySelectorAll('.field').forEach(function (f) { f.classList.remove('is-invalid'); });
+            alertBox.classList.remove('is-visible');
+            alertBox.textContent = '';
+        }
+
+        function showFieldErrors(errors) {
+            var firstInput = null;
+            Object.keys(errors).forEach(function (name) {
+                var field = form.querySelector('[data-field="' + name + '"]');
+                if (!field) return;
+                field.classList.add('is-invalid');
+                var message = field.querySelector('.field__error');
+                if (message && errors[name]) message.textContent = errors[name];
+                if (!firstInput) firstInput = field.querySelector('input, textarea, select');
+            });
+            if (firstInput) { firstInput.focus(); firstInput.scrollIntoView({ block: 'center' }); }
+        }
+
+        function showAlert(text) {
+            alertBox.textContent = text;
+            alertBox.classList.add('is-visible');
+            alertBox.scrollIntoView({ block: 'center' });
+        }
+
+        form.querySelectorAll('input, textarea, select').forEach(function (el) {
+            el.addEventListener('input', function () { clearFieldError(el.closest('.field').getAttribute('data-field')); });
+            el.addEventListener('change', function () { clearFieldError(el.closest('.field').getAttribute('data-field')); });
+        });
+
+        var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
+
+        function splitName(full) {
+            full = full.trim().replace(/\s+/g, ' ');
+            if (!full) return { first: '', last: '' };
+            var parts = full.split(' ');
+            if (parts.length === 1) return { first: parts[0], last: parts[0] };
+            return { first: parts[0], last: parts.slice(1).join(' ') };
+        }
+
+        function localErrors(values, name) {
+            var errors = {};
+            if (!name.first) errors.full_name = 'Enter your full name.';
+            if (!EMAIL_RE.test(values.email)) errors.email = 'Enter an email address we can reply to.';
+            if (values.mobile_phone && values.mobile_phone.replace(/\D/g, '').length < 7) {
+                errors.mobile_phone = 'Enter a phone number with at least 7 digits, or leave it blank.';
+            }
+            if (!values.privacy_consent) errors.privacy_consent = 'Please confirm we may contact you about your application.';
+            if (!values.city) errors.city = 'Enter your location.';
+            if (!values.collection_size) errors.collection_size = 'Choose a collection size.';
+            return errors;
+        }
+
+        function readForm() {
+            var name = splitName(form.full_name.value);
+            var values = {
+                member_type: MEMBER_TYPE,
+                first_name: name.first,
+                last_name: name.last,
+                email: form.email.value.trim().toLowerCase(),
+                mobile_phone: form.mobile_phone.value.trim(),
+                privacy_consent: form.privacy_consent.checked,
+                company_website: form.company_website.value,
+                elapsed_ms: Date.now() - openedAt,
+                page_path: window.location.pathname,
+                source: tracking.source,
+                channel: tracking.channel,
+                campaign: tracking.campaign,
+                placement: tracking.placement,
+                captured_by: tracking.captured_by,
+                referral_code: tracking.referral_code,
+                city: form.city.value.trim(),
+                primary_marques: form.primary_marques.value.trim(),
+                collection_size: form.collection_size.value,
+                defining_vehicle: form.defining_vehicle.value.trim(),
+                referred_by: form.referred_by.value.trim()
+            };
+            return { values: values, name: name };
+        }
+
+        var inFlight = false;
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            if (inFlight) return;
+
+            clearAllErrors();
+            var parsed = readForm();
+            var values = parsed.values;
+
+            var errors = localErrors(values, parsed.name);
+            if (Object.keys(errors).length) { showFieldErrors(errors); return; }
+
+            inFlight = true;
+            button.disabled = true;
+            button.textContent = 'Sending…';
+
+            fetch('/api/intake', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                cache: 'no-store',
+                body: JSON.stringify(values)
+            })
+                .then(function (response) {
+                    return response.text().then(function (text) {
+                        var body = {};
+                        try { body = text ? JSON.parse(text) : {}; } catch (e) { body = {}; }
+                        return { ok: response.ok, status: response.status, body: body };
+                    });
+                })
+                .then(function (result) {
+                    inFlight = false;
+                    if (result.ok && result.body && result.body.ok) {
+                        welcomeEmail.textContent = values.email;
+                        view.classList.add('hidden');
+                        welcome.classList.add('is-visible');
+                        window.scrollTo(0, 0);
+                        return;
+                    }
+                    button.disabled = false;
+                    button.textContent = 'Submit Application';
+                    if (result.body && result.body.errors) {
+                        showFieldErrors(result.body.errors);
+                        showAlert('Please check the highlighted fields and send again.');
+                        return;
+                    }
+                    showAlert((result.body && result.body.message) || 'We couldn’t complete your application. Please try again.');
+                })
+                .catch(function () {
+                    inFlight = false;
+                    button.disabled = false;
+                    button.textContent = 'Submit Application';
+                    showAlert('We couldn’t reach the server. Check your connection and try again. Your details are still on this screen.');
+                });
+        });
+
+        window.addEventListener('pageshow', function (event) {
+            if (event.persisted) {
+                welcome.classList.remove('is-visible');
+                view.classList.remove('hidden');
+                form.reset();
+                clearAllErrors();
+                openedAt = Date.now();
+            }
+        });
+    })();
+    </script>
+</body>
+</html>
