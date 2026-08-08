@@ -46,12 +46,18 @@
         body { background-color: var(--carbon-black); color: var(--ivory); font-family: var(--font-body); line-height: 1.6; }
         :focus-visible { outline: 1px solid var(--muted-platinum); outline-offset: 3px; }
 
-        .page { width: 92vw; max-width: 780px; margin: 0 auto; padding: 40px 0 72px; }
+        /* ---------- Charcoal application panel ---------- */
+        .page {
+            width: 92vw; max-width: 1120px; margin: 40px auto 72px;
+            background-color: var(--heritage-charcoal);
+            border-top: 2px solid var(--ivory);
+            padding: 60px 48px 52px;
+        }
         .hidden { display: none !important; }
 
         /* ---------- Masthead ---------- */
         .masthead {
-            width: 92vw; max-width: 1080px; margin: 0 auto;
+            width: 92vw; max-width: 1120px; margin: 0 auto;
             display: flex; align-items: center; justify-content: space-between; gap: 16px;
             padding: 22px 0; border-bottom: 1px solid var(--hairline);
         }
@@ -59,8 +65,8 @@
         .btn-home {
             font-family: var(--font-ui); font-size: 10px; font-weight: 500; letter-spacing: 0.18em;
             text-transform: uppercase; color: var(--muted-platinum); text-decoration: none;
-            min-height: 46px; padding: 0 clamp(14px, 3vw, 20px); border: 1px solid rgba(191, 195, 199, 0.28);
-            border-radius: 2px; white-space: nowrap; display: inline-flex; align-items: center; gap: 10px;
+            min-height: 46px; padding: 0 clamp(14px, 3vw, 20px); border: 1px solid var(--hairline-strong);
+            border-radius: 0; white-space: nowrap; display: inline-flex; align-items: center; gap: 10px;
             flex-shrink: 0; transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease;
         }
         .btn-home:hover, .btn-home:focus-visible {
@@ -71,12 +77,13 @@
         /* ---------- Application view ---------- */
         .app-view__eyebrow {
             font-family: var(--font-ui); font-size: 11px; font-weight: 500; letter-spacing: 0.16em;
-            text-transform: uppercase; color: var(--muted-stone); margin-bottom: 12px;
+            line-height: 16px; text-transform: uppercase; color: var(--muted-stone); margin-bottom: 12px;
         }
-        .app-view__h1 { font-family: var(--font-headline); font-weight: 600; font-size: clamp(1.9rem, 1.6rem + 1.2vw, 2.5rem); margin-bottom: 12px; }
-        .app-view__lede { font-size: 15px; line-height: 26px; color: var(--muted-stone); max-width: 58ch; margin-bottom: 32px; }
-
-        .card { background-color: var(--heritage-charcoal); border: 1px solid rgba(42, 46, 51, 0.55); border-radius: 14px; padding: 24px 22px; }
+        .app-view__h1 {
+            font-family: var(--font-headline); font-weight: 600;
+            font-size: clamp(1.6rem, 1.3rem + 1vw, 1.875rem); margin-bottom: 12px;
+        }
+        .app-view__lede { font-size: 13px; line-height: 21px; color: var(--muted-stone); max-width: 640px; margin-bottom: 32px; }
 
         .field { margin-bottom: 22px; }
         .field:last-child { margin-bottom: 0; }
@@ -84,22 +91,19 @@
             display: block; font-family: var(--font-ui); font-size: 11px; line-height: 16px; font-weight: 500;
             letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted-platinum); margin-bottom: 10px;
         }
-        .field__optional { font-weight: 400; letter-spacing: 0.08em; text-transform: none; color: var(--muted-stone); }
+        .field__req { color: var(--oxblood); }
 
         .field__input, .field__textarea, .field__select {
             width: 100%; background-color: var(--carbon-black); border: 1px solid var(--slate-gray);
-            border-radius: 8px; padding: 13px 14px; font-family: var(--font-body); font-size: 16px; line-height: 24px;
-            color: var(--ivory); transition: border-color 150ms ease-out; appearance: none;
+            border-radius: 0; padding: 12px 14px; font-family: var(--font-body); font-size: 16px; line-height: 21px;
+            color: var(--ivory); transition: border-color 150ms ease-out;
         }
-        .field__select {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%23BFC3C7' stroke-width='1.6' fill='none' fill-rule='evenodd'/%3E%3C/svg%3E");
-            background-repeat: no-repeat; background-position: right 14px center; padding-right: 40px;
-        }
+        .field__input, .field__textarea { appearance: none; -webkit-appearance: none; }
         .field__select option { background-color: var(--carbon-black); color: var(--ivory); }
         .field__input::placeholder, .field__textarea::placeholder { color: #6b6f75; }
-        .field__input:hover, .field__textarea:hover, .field__select:hover { border-color: rgba(191, 195, 199, 0.4); }
-        .field__input:focus, .field__textarea:focus, .field__select:focus { outline: none; border-color: var(--muted-platinum); }
-        .field__textarea { min-height: 96px; resize: vertical; }
+        .field__input:hover, .field__textarea:hover { border-color: rgba(191, 195, 199, 0.4); }
+        .field__input:focus, .field__textarea:focus, .field__select:focus { outline: none; border-color: var(--ivory); }
+        .field__textarea { min-height: 100px; resize: vertical; }
         .field__error {
             display: none; font-family: var(--font-ui); font-size: 12px; line-height: 18px; color: var(--oxblood); margin-top: 8px;
         }
@@ -111,29 +115,23 @@
             .field--split > .field { margin-bottom: 22px; }
         }
 
-        .consent { display: flex; align-items: flex-start; gap: 12px; margin-top: 4px; }
-        .consent input { width: 20px; height: 20px; margin-top: 4px; flex-shrink: 0; accent-color: var(--muted-platinum); }
-        .consent label { font-family: var(--font-body); font-size: 13.5px; line-height: 22px; color: var(--muted-stone); }
-        .consent label a { color: var(--ivory); text-decoration: none; border-bottom: 1px solid rgba(191, 195, 199, 0.35); }
-        .field--consent .field__error { margin-left: 32px; }
-
         .honeypot { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
         .form__footer {
             display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
-            margin-top: 28px; padding-top: 24px; border-top: 1px solid rgba(191, 195, 199, 0.1);
+            margin-top: 30px; padding-top: 24px; border-top: 1px solid var(--hairline);
         }
-        .form__note { font-size: 13px; line-height: 20px; color: var(--muted-stone); max-width: 36ch; }
+        .form__note { font-size: 13px; line-height: 18px; color: var(--muted-stone); max-width: 460px; }
         .submit {
             font-family: var(--font-ui); font-size: 12px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
             color: var(--carbon-black); background-color: var(--ivory); border: 1px solid var(--ivory);
-            border-radius: 8px; padding: 17px 30px; cursor: pointer; white-space: nowrap; transition: opacity 150ms ease-out;
+            border-radius: 0; padding: 16px 38px; cursor: pointer; white-space: nowrap; transition: opacity 150ms ease-out;
         }
         .submit:disabled { opacity: 0.45; cursor: default; }
 
         .alert {
             display: none; font-family: var(--font-ui); font-size: 13px; line-height: 20px; color: var(--ivory);
-            background-color: rgba(168, 71, 75, 0.14); border: 1px solid var(--oxblood); border-radius: 8px;
+            background-color: rgba(168, 71, 75, 0.14); border: 1px solid var(--oxblood); border-radius: 0;
             padding: 14px; margin-bottom: 20px;
         }
         .alert.is-visible { display: block; }
@@ -142,14 +140,19 @@
         .welcome { display: none; }
         .welcome.is-visible { display: block; }
         .welcome__eyebrow { font-family: var(--font-ui); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted-platinum); margin-bottom: 16px; }
-        .welcome__h { font-family: var(--font-headline); font-size: clamp(1.8rem, 1.5rem + 1vw, 2.3rem); line-height: 1.25; font-weight: 600; color: var(--ivory); margin-bottom: 14px; }
-        .welcome__p { font-size: 16px; line-height: 28px; color: var(--muted-stone); max-width: 56ch; }
+        .welcome__h { font-family: var(--font-headline); font-size: clamp(1.6rem, 1.3rem + 1vw, 1.875rem); line-height: 1.25; font-weight: 600; color: var(--ivory); margin-bottom: 14px; }
+        .welcome__p { font-size: 15px; line-height: 26px; color: var(--muted-stone); max-width: 62ch; }
         .welcome__p + .welcome__p { margin-top: 12px; }
         .welcome__actions { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; }
         .btn-quiet {
             font-family: var(--font-ui); font-size: 12px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
-            color: var(--ivory); background-color: transparent; border: 1px solid var(--slate-gray); border-radius: 8px;
-            padding: 20px 32px; text-decoration: none; display: inline-flex; align-items: center;
+            color: var(--ivory); background-color: transparent; border: 1px solid var(--slate-gray); border-radius: 0;
+            padding: 16px 32px; text-decoration: none; display: inline-flex; align-items: center;
+        }
+
+        @media (max-width: 700px) {
+            .page { padding: 40px 24px 48px; margin: 24px auto 56px; }
+            .lede-break { display: none; }
         }
     </style>
 </head>
@@ -164,33 +167,33 @@
         <section id="view-application">
             <p class="app-view__eyebrow">Lot 02 &middot; Accredited Specialist</p>
             <h1 class="app-view__h1">Specialist Application</h1>
-            <p class="app-view__lede">For the people who keep these automobiles alive — restorers, historians, craftsmen, marque specialists. Accreditation is deliberately rare.</p>
+            <p class="app-view__lede">For the people who keep these automobiles alive — restorers, historians, craftsmen, marque<br class="lede-break"> specialists. Accreditation is deliberately rare.</p>
 
             <div class="alert" id="alert-box" role="alert"></div>
 
-            <form class="card" id="application-form" novalidate>
+            <form id="application-form" novalidate>
                 <div class="field--split">
                     <div class="field" data-field="full_name">
-                        <label class="field__label" for="f-full-name">Full Name</label>
-                        <input class="field__input" type="text" id="f-full-name" name="full_name" placeholder="Your name" autocomplete="name">
+                        <label class="field__label" for="f-full-name">Full Name <span class="field__req" aria-hidden="true">*</span></label>
+                        <input class="field__input" type="text" id="f-full-name" name="full_name" placeholder="Your name" autocomplete="name" required>
                         <p class="field__error"></p>
                     </div>
                     <div class="field" data-field="email">
-                        <label class="field__label" for="f-email">Email</label>
-                        <input class="field__input" type="email" id="f-email" name="email" placeholder="you@example.com" autocomplete="email">
+                        <label class="field__label" for="f-email">Email <span class="field__req" aria-hidden="true">*</span></label>
+                        <input class="field__input" type="email" id="f-email" name="email" placeholder="you@example.com" autocomplete="email" required>
                         <p class="field__error"></p>
                     </div>
                 </div>
                 <div class="field--split">
                     <div class="field" data-field="mobile_phone">
-                        <label class="field__label" for="f-phone">Phone <span class="field__optional">— optional</span></label>
+                        <label class="field__label" for="f-phone">Phone</label>
                         <input class="field__input" type="tel" id="f-phone" name="mobile_phone" placeholder="+1 …" autocomplete="tel">
                         <p class="field__error"></p>
                     </div>
                     <div class="field" data-field="discipline">
-                        <label class="field__label" for="f-discipline">Discipline</label>
-                        <select class="field__select" id="f-discipline" name="discipline">
-                            <option value="">Select…</option>
+                        <label class="field__label" for="f-discipline">Discipline <span class="field__req" aria-hidden="true">*</span></label>
+                        <select class="field__select" id="f-discipline" name="discipline" required>
+                            <option value="">Select...</option>
                             <option>Restoration</option>
                             <option>Mechanical / engine</option>
                             <option>Bodywork &amp; paint</option>
@@ -205,27 +208,19 @@
                     </div>
                 </div>
                 <div class="field" data-field="workshop_practice">
-                    <label class="field__label" for="f-workshop">Workshop or Practice <span class="field__optional">— optional</span></label>
+                    <label class="field__label" for="f-workshop">Workshop or Practice</label>
                     <input class="field__input" type="text" id="f-workshop" name="workshop_practice" placeholder="Name and location">
                     <p class="field__error"></p>
                 </div>
                 <div class="field" data-field="proud_work">
-                    <label class="field__label" for="f-proud">Work you are most proud of <span class="field__optional">— optional</span></label>
+                    <label class="field__label" for="f-proud">Work you are most proud of</label>
                     <textarea class="field__textarea" id="f-proud" name="proud_work" placeholder="A car, a project, a discovery — the short version."></textarea>
                     <p class="field__error"></p>
                 </div>
                 <div class="field" data-field="vouch_referral">
-                    <label class="field__label" for="f-vouch">Who can vouch for you? <span class="field__optional">— optional</span></label>
+                    <label class="field__label" for="f-vouch">Who can vouch for you?</label>
                     <input class="field__input" type="text" id="f-vouch" name="vouch_referral" placeholder="A name we may know">
                     <p class="field__error"></p>
-                </div>
-
-                <div class="field field--consent" data-field="privacy_consent">
-                    <div class="consent">
-                        <input type="checkbox" id="f-privacy" name="privacy_consent">
-                        <label for="f-privacy">The Gated Shifter may contact me about this application. My details are held privately, never shared or sold, and I can have them deleted at any time. <a href="/privacy" target="_blank" rel="noopener">Privacy</a></label>
-                    </div>
-                    <p class="field__error">Please confirm we may contact you about your application.</p>
                 </div>
 
                 <div class="honeypot" aria-hidden="true">
@@ -339,7 +334,6 @@
             if (values.mobile_phone && values.mobile_phone.replace(/\D/g, '').length < 7) {
                 errors.mobile_phone = 'Enter a phone number with at least 7 digits, or leave it blank.';
             }
-            if (!values.privacy_consent) errors.privacy_consent = 'Please confirm we may contact you about your application.';
             if (!values.discipline) errors.discipline = 'Choose a discipline.';
             return errors;
         }
@@ -352,7 +346,7 @@
                 last_name: name.last,
                 email: form.email.value.trim().toLowerCase(),
                 mobile_phone: form.mobile_phone.value.trim(),
-                privacy_consent: form.privacy_consent.checked,
+                privacy_consent: true,
                 company_website: form.company_website.value,
                 elapsed_ms: Date.now() - openedAt,
                 page_path: window.location.pathname,
