@@ -3,8 +3,8 @@ databases:
     databaseName: gatedshifter
     user: gatedshifter
     region: oregon
-    # Free Postgres is DELETED 30 days after creation. Use "basic-256mb" or
-    # larger for anything holding real inquiries. See README before changing.
+    # Free Postgres is DELETED 30 days after creation. Anything holding real
+    # member records stays on basic-256mb or larger.
     plan: basic-256mb
     postgresMajorVersion: "16"
 
@@ -13,12 +13,15 @@ services:
     name: gatedshifter
     runtime: node
     region: oregon # must match the database region to use the internal URL
-    plan: starter # free instances sleep after 15 min of inactivity
+    plan: starter # paid instance — it does not sleep. Free instances do.
     branch: main
     buildCommand: npm ci
     startCommand: npm start
     healthCheckPath: /healthz
     autoDeploy: true
+    domains:
+      - www.gatedshifter.co
+      - gatedshifter.co
     envVars:
       - key: NODE_VERSION
         value: "22"
@@ -26,11 +29,26 @@ services:
         fromDatabase:
           name: gatedshifter-db
           property: connectionString
+      # Everything public-facing is built from these two.
+      - key: SITE_URL
+        value: https://www.gatedshifter.co
+      - key: CANONICAL_HOST
+        value: www.gatedshifter.co
+      # Email
+      - key: MAIL_FROM_EMAIL
+        value: private@gatedshifter.co
+      - key: MAIL_FROM_NAME
+        value: The Gated Shifter
+      - key: MAIL_REPLY_TO
+        value: private@gatedshifter.co
+      - key: NOTIFY_EMAIL
+        value: private@gatedshifter.co
+      - key: BREVO_API_KEY
+        sync: false # set manually in the dashboard
+      - key: BREVO_LIST_ID
+        sync: false # numeric id of the Brevo list for marketing opt-ins
+      # Secrets
       - key: IP_HASH_SALT
         generateValue: true
       - key: ADMIN_EXPORT_TOKEN
         generateValue: true
-      - key: BREVO_API_KEY
-        sync: false # set manually in the dashboard
-      - key: BREVO_LIST_ID
-        sync: false

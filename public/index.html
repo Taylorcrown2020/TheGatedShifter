@@ -1,20 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0L8REWP251"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-0L8REWP251');
-</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Gated Shifter — Private Advisory</title>
-    <meta name="description" content="A private advisory for collectors of historically significant Italian automobiles. Engagements begin by referral or prior relationship.">
+    <title>The Gated Shifter — The Trusted Ecosystem for Analog Collectors</title>
+    <meta name="description" content="A private ownership platform connecting exceptional automobiles with the collectors, specialists, heritage organizations, intelligence, and experiences that define extraordinary ownership.">
     <meta name="theme-color" content="#0B0C0E">
+    <link rel="canonical" href="https://www.gatedshifter.co/">
+
+    <!-- Icons -->
+    <link rel="icon" href="/assets/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+
+    <!-- Social -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="The Gated Shifter">
+    <meta property="og:title" content="The Gated Shifter">
+    <meta property="og:description" content="Building the world's most trusted ecosystem for analog collectors.">
+    <meta property="og:url" content="https://www.gatedshifter.co/">
+    <meta property="og:image" content="https://www.gatedshifter.co/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Gated Shifter">
+    <meta name="twitter:description" content="Building the world's most trusted ecosystem for analog collectors.">
+    <meta name="twitter:image" content="https://www.gatedshifter.co/assets/og-image.png">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,7 +37,6 @@
            DESIGN TOKENS
            ===================================================== */
         :root {
-            /* Colors */
             --carbon-black: #0B0C0E;
             --heritage-charcoal: #171A1F;
             --slate-gray: #2A2E33;
@@ -35,25 +45,18 @@
             --muted-stone: #A7ABB2;
             --oxblood: #A8474B;
 
-            /* Typography */
             --font-headline: 'Cormorant Garamond', 'Adobe Caslon Pro', 'Big Caslon', Georgia, serif;
             --font-body: 'EB Garamond', 'Adobe Caslon Pro', Georgia, serif;
             --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
 
-        /* =====================================================
-           BASE
-           ===================================================== */
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         html {
             font-size: 16px;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            scroll-behavior: smooth;
         }
 
         body {
@@ -63,41 +66,37 @@
             line-height: 1.6;
         }
 
-        :focus-visible {
-            outline: 1px solid var(--muted-platinum);
-            outline-offset: 3px;
-        }
+        :focus-visible { outline: 1px solid var(--muted-platinum); outline-offset: 3px; }
 
-        /* =====================================================
-           PAGE
-           ===================================================== */
         .page {
             width: 100%;
             min-height: 100vh;
             opacity: 0;
-            animation: fadeIn 200ms ease-out forwards;
+            animation: fadeIn 240ms ease-out forwards;
         }
 
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
+        @keyframes fadeIn { to { opacity: 1; } }
 
-        /* =====================================================
-           CONTAINER
-           ===================================================== */
-        .container--680 {
+        .container {
             width: 92vw;
             max-width: 680px;
             margin: 0 auto;
-            padding-top: 64px;
+            padding-top: 48px;
             text-align: left;
         }
 
+        .section { margin-bottom: 56px; }
+
         /* =====================================================
-           SECTION
+           TRADEMARK LOCKUP
            ===================================================== */
-        .section {
-            margin-bottom: 56px;
+        .brand { margin-bottom: 40px; }
+
+        .brand__logo {
+            display: block;
+            width: 208px;
+            max-width: 62vw;
+            height: auto;
         }
 
         /* =====================================================
@@ -105,63 +104,87 @@
            ===================================================== */
         .hero__h1 {
             font-family: var(--font-headline);
-            font-size: 36px;
-            line-height: 42px;
+            font-size: 34px;
+            line-height: 40px;
             font-weight: 600;
             letter-spacing: 0.01em;
             color: var(--ivory);
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
 
-        .hero__subline {
-            font-family: var(--font-ui);
-            font-size: 14px;
-            line-height: 22px;
-            font-weight: 400;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--muted-platinum);
-            margin-bottom: 16px;
-        }
-
-        .hero__support {
+        .hero__lede {
             font-family: var(--font-body);
-            font-size: 15px;
-            line-height: 26px;
-            font-weight: 400;
+            font-size: 16px;
+            line-height: 28px;
             color: var(--muted-stone);
             max-width: 62ch;
-            margin-bottom: 28px;
         }
 
+        .hero__lede + .hero__lede { margin-top: 14px; }
+
+        .hero__lede strong { color: var(--ivory); font-weight: 400; }
+
         /* =====================================================
-           DIVIDER
+           GATE MOTIF — taken from the shift pattern in the mark.
+           Four gates, four parts of the ecosystem.
            ===================================================== */
-        .divider {
-            width: 100%;
-            height: 1px;
-            background-color: rgba(42, 46, 51, 0.55);
-            margin: 28px 0;
+        .gate {
+            display: block;
+            width: 132px;
+            height: 26px;
+            margin: 32px 0;
+        }
+
+        .gate__rail { stroke: var(--slate-gray); stroke-width: 2; }
+        .gate__post { stroke: var(--slate-gray); stroke-width: 2; stroke-linecap: round; }
+        .gate__post--on { stroke: var(--muted-platinum); }
+
+        .pillar__gate {
+            width: 84px;
+            height: 18px;
+            margin: 0 0 14px;
         }
 
         /* =====================================================
            SECTION LABEL
            ===================================================== */
-        .section__label {
+        .label {
             font-family: var(--font-ui);
             font-size: 12px;
             line-height: 16px;
-            font-weight: 400;
             letter-spacing: 0.16em;
             text-transform: uppercase;
             color: var(--muted-platinum);
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
 
         /* =====================================================
-           DOMAIN
+           PILLARS
            ===================================================== */
-        .domain {
+        .pillars { display: grid; gap: 1px; background-color: rgba(42, 46, 51, 0.55); border: 1px solid rgba(42, 46, 51, 0.55); border-radius: 14px; overflow: hidden; }
+
+        .pillar { background-color: var(--heritage-charcoal); padding: 22px; }
+
+        .pillar__h {
+            font-family: var(--font-headline);
+            font-size: 23px;
+            line-height: 30px;
+            font-weight: 600;
+            color: var(--ivory);
+            margin-bottom: 8px;
+        }
+
+        .pillar__p {
+            font-family: var(--font-body);
+            font-size: 15px;
+            line-height: 26px;
+            color: var(--muted-stone);
+        }
+
+        /* =====================================================
+           REGISTRY
+           ===================================================== */
+        .registry {
             background-color: var(--heritage-charcoal);
             border: 1px solid rgba(42, 46, 51, 0.55);
             border-radius: 14px;
@@ -172,274 +195,101 @@
             font-family: var(--font-body);
             font-size: 15px;
             line-height: 26px;
-            font-weight: 400;
             color: var(--muted-stone);
             max-width: 62ch;
         }
 
-        .body__p + .body__p {
-            margin-top: 14px;
-        }
+        .body__p + .body__p { margin-top: 14px; }
 
-        /* =====================================================
-           STACK (POSITIONING)
-           ===================================================== */
-        .stack {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-        }
-
-        .stack__pair {
-            margin-bottom: 14px;
-        }
-
-        .stack__pair:last-of-type {
-            margin-bottom: 0;
-        }
-
-        .stack__item {
-            font-family: var(--font-body);
-            font-size: 17px;
-            line-height: 28px;
-            font-weight: 400;
-            color: var(--ivory);
-        }
-
-        .stack__closing {
-            font-family: var(--font-body);
-            font-size: 15px;
-            line-height: 26px;
-            font-weight: 400;
-            color: var(--muted-stone);
-            margin-top: 14px;
-        }
-
-        /* =====================================================
-           CONTACT
-           ===================================================== */
-        .contact__text {
-            font-family: var(--font-body);
-            font-size: 15px;
-            line-height: 26px;
-            font-weight: 400;
-            color: var(--muted-stone);
-            max-width: 62ch;
-            margin-bottom: 24px;
-        }
-
-        .contact__email {
-            font-style: italic;
-            color: var(--ivory);
-        }
-
-        a.contact__email {
-            text-decoration: none;
-            border-bottom: 1px solid rgba(191, 195, 199, 0.35);
-        }
-
-        a.contact__email:hover {
-            border-bottom-color: var(--ivory);
-        }
-
-        /* =====================================================
-           FORM
-           ===================================================== */
-        .form {
-            background-color: var(--heritage-charcoal);
-            border: 1px solid rgba(42, 46, 51, 0.55);
-            border-radius: 14px;
-            padding: 22px;
-        }
-
-        .field {
-            margin-bottom: 20px;
-        }
-
-        .field:last-of-type {
-            margin-bottom: 0;
-        }
-
-        .field__label {
-            display: block;
+        .status {
             font-family: var(--font-ui);
-            font-size: 11px;
+            font-size: 12px;
             line-height: 16px;
-            font-weight: 500;
             letter-spacing: 0.14em;
             text-transform: uppercase;
             color: var(--muted-platinum);
-            margin-bottom: 8px;
-        }
-
-        .field__optional {
-            font-weight: 400;
-            letter-spacing: 0.08em;
-            text-transform: none;
-            color: var(--muted-stone);
-        }
-
-        .field__input,
-        .field__textarea {
-            width: 100%;
-            background-color: var(--carbon-black);
-            border: 1px solid var(--slate-gray);
-            border-radius: 8px;
-            padding: 12px 14px;
-            font-family: var(--font-body);
-            font-size: 16px;
-            line-height: 24px;
-            color: var(--ivory);
-            transition: border-color 150ms ease-out;
-        }
-
-        .field__input:hover,
-        .field__textarea:hover {
-            border-color: rgba(191, 195, 199, 0.4);
-        }
-
-        .field__input:focus,
-        .field__textarea:focus {
-            outline: none;
-            border-color: var(--muted-platinum);
-        }
-
-        .field__textarea {
-            min-height: 108px;
-            resize: vertical;
-        }
-
-        .field__error {
-            display: none;
-            font-family: var(--font-ui);
-            font-size: 12px;
-            line-height: 18px;
-            color: var(--oxblood);
-            margin-top: 6px;
-        }
-
-        .field.is-invalid .field__error {
-            display: block;
-        }
-
-        .field.is-invalid .field__input,
-        .field.is-invalid .field__textarea {
-            border-color: var(--oxblood);
-        }
-
-        .field--consent {
+            margin-top: 18px;
             display: flex;
-            align-items: flex-start;
-            gap: 12px;
+            align-items: center;
+            gap: 10px;
         }
 
-        .field--consent input {
-            width: 18px;
-            height: 18px;
-            margin-top: 5px;
+        .status__dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: var(--oxblood);
             flex-shrink: 0;
-            accent-color: var(--muted-platinum);
         }
 
-        .field--consent label {
-            font-family: var(--font-body);
-            font-size: 14px;
-            line-height: 24px;
-            color: var(--muted-stone);
+        /* =====================================================
+           INVITATION / CTA
+           ===================================================== */
+        .invite__h {
+            font-family: var(--font-headline);
+            font-size: 28px;
+            line-height: 36px;
+            font-weight: 600;
+            color: var(--ivory);
+            margin-bottom: 12px;
         }
 
-        .field--consent .field__error {
-            margin-left: 30px;
-        }
-
-        .honeypot {
-            position: absolute;
-            left: -9999px;
-            width: 1px;
-            height: 1px;
-            overflow: hidden;
-        }
-
-        .form__submit {
+        .cta {
+            display: inline-block;
             font-family: var(--font-ui);
             font-size: 12px;
             font-weight: 500;
             letter-spacing: 0.16em;
             text-transform: uppercase;
-            color: var(--ivory);
-            background-color: transparent;
-            border: 1px solid var(--muted-platinum);
+            color: var(--carbon-black);
+            background-color: var(--ivory);
+            border: 1px solid var(--ivory);
             border-radius: 8px;
-            padding: 14px 28px;
-            cursor: pointer;
+            padding: 15px 30px;
+            margin-top: 24px;
+            text-decoration: none;
             transition: background-color 150ms ease-out, color 150ms ease-out;
         }
 
-        .form__submit:hover:not(:disabled) {
-            background-color: var(--ivory);
-            color: var(--carbon-black);
-        }
+        .cta:hover { background-color: transparent; color: var(--ivory); }
 
-        .form__submit:disabled {
-            opacity: 0.5;
-            cursor: default;
-        }
-
-        .form__footnote {
+        .invite__note {
             font-family: var(--font-body);
-            font-size: 13px;
-            line-height: 22px;
+            font-size: 14px;
+            line-height: 24px;
             color: var(--muted-stone);
-            margin-top: 14px;
+            margin-top: 16px;
         }
 
-        .form__status {
-            display: none;
-            font-family: var(--font-ui);
-            font-size: 13px;
-            line-height: 20px;
-            color: var(--oxblood);
-            margin-top: 14px;
+        a.email {
+            font-style: italic;
+            color: var(--ivory);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(191, 195, 199, 0.35);
         }
 
-        .form__status.is-visible {
-            display: block;
-        }
+        a.email:hover { border-bottom-color: var(--ivory); }
 
-        /* Success panel replaces the form once a request is recorded */
-        .received {
-            display: none;
-            background-color: var(--heritage-charcoal);
-            border: 1px solid rgba(42, 46, 51, 0.55);
-            border-radius: 14px;
-            padding: 22px;
-        }
-
-        .received.is-visible {
-            display: block;
-        }
-
-        .received__h {
+        /* =====================================================
+           CLOSING
+           ===================================================== */
+        .closing {
             font-family: var(--font-headline);
-            font-size: 26px;
+            font-size: 24px;
             line-height: 34px;
             font-weight: 600;
             color: var(--ivory);
-            margin-bottom: 10px;
         }
 
         /* =====================================================
            FOOTER
            ===================================================== */
-        .footer {
-            margin-bottom: 64px;
-        }
+        .footer { margin-bottom: 64px; }
 
         .footer__title {
             font-family: var(--font-body);
             font-size: 15px;
             line-height: 26px;
-            font-weight: 400;
             color: var(--ivory);
             margin-bottom: 4px;
         }
@@ -447,341 +297,163 @@
         .footer__meta {
             font-family: var(--font-ui);
             font-size: 11px;
-            line-height: 16px;
-            font-weight: 400;
+            line-height: 18px;
             letter-spacing: 0.12em;
             text-transform: uppercase;
             color: var(--muted-platinum);
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
 
         .footer__micro {
             font-family: var(--font-body);
-            font-size: 11px;
-            line-height: 16px;
-            font-weight: 400;
+            font-size: 12px;
+            line-height: 20px;
             color: var(--muted-stone);
         }
+
+        .footer__micro a { color: var(--muted-stone); text-decoration: none; border-bottom: 1px solid rgba(167, 171, 178, 0.3); }
+        .footer__micro a:hover { color: var(--ivory); }
 
         /* =====================================================
            TABLET (480px+)
            ===================================================== */
         @media (min-width: 480px) {
-            .hero__h1 {
-                font-size: 46px;
-                line-height: 52px;
-            }
-
-            .hero__support {
-                font-size: 16px;
-                line-height: 28px;
-            }
-
-            .body__p {
-                font-size: 16px;
-                line-height: 28px;
-            }
-
-            .stack__item {
-                font-size: 18px;
-                line-height: 30px;
-            }
-
-            .stack__closing {
-                font-size: 16px;
-                line-height: 28px;
-            }
-
-            .contact__text {
-                font-size: 16px;
-                line-height: 28px;
-            }
-
-            .field--split {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 20px;
-            }
+            .container { padding-top: 64px; }
+            .brand__logo { width: 240px; }
+            .hero__h1 { font-size: 44px; line-height: 50px; }
+            .pillars { grid-template-columns: 1fr 1fr; }
+            .pillar__p, .body__p { font-size: 16px; line-height: 28px; }
+            .closing { font-size: 28px; line-height: 38px; }
         }
 
         /* =====================================================
            DESKTOP (992px+)
            ===================================================== */
         @media (min-width: 992px) {
-            .container--680 {
-                padding-top: 96px;
-            }
-
-            .section {
-                margin-bottom: 72px;
-            }
-
-            .hero__h1 {
-                font-size: 58px;
-                line-height: 64px;
-            }
-
-            .domain,
-            .form,
-            .received {
-                padding: 28px;
-            }
-
-            .body__p {
-                font-size: 17px;
-                line-height: 30px;
-                max-width: 56ch;
-            }
-
-            .stack__item {
-                font-size: 20px;
-                line-height: 34px;
-            }
-
-            .contact__text {
-                font-size: 17px;
-                line-height: 30px;
-            }
-
-            .footer {
-                margin-bottom: 96px;
-            }
+            .container { padding-top: 96px; }
+            .section { margin-bottom: 72px; }
+            .brand__logo { width: 268px; }
+            .hero__h1 { font-size: 54px; line-height: 60px; }
+            .hero__lede { font-size: 17px; line-height: 30px; }
+            .pillar, .registry { padding: 28px; }
+            .footer { margin-bottom: 96px; }
         }
 
-        /* =====================================================
-           UTILITIES
-           ===================================================== */
         @media (prefers-reduced-motion: reduce) {
-            .page {
-                opacity: 1;
-                animation: none;
-            }
-
-            * {
-                transition: none !important;
-            }
+            html { scroll-behavior: auto; }
+            .page { opacity: 1; animation: none; }
+            * { transition: none !important; }
         }
     </style>
 </head>
 <body>
     <main class="page">
-        <div class="container--680">
+        <div class="container">
+
+            <!-- TRADEMARK -->
+            <header class="brand">
+                <img class="brand__logo" src="assets/gated-shifter-logo.png" alt="The Gated Shifter" width="1029" height="495">
+            </header>
 
             <!-- HERO -->
             <section class="section">
-                <h1 class="hero__h1">The Gated Shifter</h1>
-                <p class="hero__subline">Stewardship for Significant Italian Automobiles</p>
-                <p class="hero__support">A private advisory operating where mechanical truth, provenance, and long-term continuity define value.</p>
-                <div class="divider"></div>
+                <h1 class="hero__h1">Building the world&rsquo;s most trusted ecosystem for analog collectors.</h1>
+                <p class="hero__lede">The analog collector world deserves more than another marketplace.</p>
+                <p class="hero__lede">The Gated Shifter is developing a private ownership platform connecting exceptional automobiles with the collectors, specialists, heritage organizations, intelligence, and experiences that define extraordinary ownership.</p>
+
+                <svg class="gate" viewBox="0 0 132 26" aria-hidden="true" focusable="false">
+                    <line class="gate__rail" x1="8" y1="13" x2="124" y2="13"></line>
+                    <line class="gate__post gate__post--on" x1="18" y1="4" x2="18" y2="22"></line>
+                    <line class="gate__post gate__post--on" x1="53" y1="4" x2="53" y2="22"></line>
+                    <line class="gate__post gate__post--on" x1="88" y1="4" x2="88" y2="22"></line>
+                    <line class="gate__post gate__post--on" x1="123" y1="4" x2="123" y2="22"></line>
+                </svg>
             </section>
 
-            <!-- OUR DOMAIN -->
+            <!-- FOUR PILLARS -->
             <section class="section">
-                <div class="domain">
-                    <p class="section__label">Our Domain</p>
-                    <p class="body__p">The Gated Shifter serves collectors of historically significant automobiles, including Ferrari, Lamborghini, Maserati, Bizzarrini, Bugatti, Alfa Romeo, and air-cooled Porsche, among other rare and consequential motorcars.</p>
-                    <p class="body__p">Our work is informed by more than five decades of direct mechanical, archival, and custodial experience—spanning the stewardship of some of the world's most significant private collections, concours-level judging, and leadership of the largest independent Ferrari workshop in the United States.</p>
+                <p class="label">One ecosystem, four gates</p>
+                <div class="pillars">
+                    <article class="pillar">
+                        <svg class="gate pillar__gate" viewBox="0 0 132 26" aria-hidden="true" focusable="false">
+                            <line class="gate__rail" x1="8" y1="13" x2="124" y2="13"></line>
+                            <line class="gate__post gate__post--on" x1="18" y1="4" x2="18" y2="22"></line>
+                            <line class="gate__post" x1="53" y1="4" x2="53" y2="22"></line>
+                            <line class="gate__post" x1="88" y1="4" x2="88" y2="22"></line>
+                            <line class="gate__post" x1="123" y1="4" x2="123" y2="22"></line>
+                        </svg>
+                        <h2 class="pillar__h">Curated Marketplace</h2>
+                        <p class="pillar__p">Private and carefully selected opportunities for significant analog automobiles.</p>
+                    </article>
+
+                    <article class="pillar">
+                        <svg class="gate pillar__gate" viewBox="0 0 132 26" aria-hidden="true" focusable="false">
+                            <line class="gate__rail" x1="8" y1="13" x2="124" y2="13"></line>
+                            <line class="gate__post" x1="18" y1="4" x2="18" y2="22"></line>
+                            <line class="gate__post gate__post--on" x1="53" y1="4" x2="53" y2="22"></line>
+                            <line class="gate__post" x1="88" y1="4" x2="88" y2="22"></line>
+                            <line class="gate__post" x1="123" y1="4" x2="123" y2="22"></line>
+                        </svg>
+                        <h2 class="pillar__h">Collector Intelligence</h2>
+                        <p class="pillar__p">Better information and trusted expertise for better collection decisions.</p>
+                    </article>
+
+                    <article class="pillar">
+                        <svg class="gate pillar__gate" viewBox="0 0 132 26" aria-hidden="true" focusable="false">
+                            <line class="gate__rail" x1="8" y1="13" x2="124" y2="13"></line>
+                            <line class="gate__post" x1="18" y1="4" x2="18" y2="22"></line>
+                            <line class="gate__post" x1="53" y1="4" x2="53" y2="22"></line>
+                            <line class="gate__post gate__post--on" x1="88" y1="4" x2="88" y2="22"></line>
+                            <line class="gate__post" x1="123" y1="4" x2="123" y2="22"></line>
+                        </svg>
+                        <h2 class="pillar__h">Trusted Network</h2>
+                        <p class="pillar__p">A qualified ecosystem of specialists, restorers, advisors, ownership-service providers, and heritage partners.</p>
+                    </article>
+
+                    <article class="pillar">
+                        <svg class="gate pillar__gate" viewBox="0 0 132 26" aria-hidden="true" focusable="false">
+                            <line class="gate__rail" x1="8" y1="13" x2="124" y2="13"></line>
+                            <line class="gate__post" x1="18" y1="4" x2="18" y2="22"></line>
+                            <line class="gate__post" x1="53" y1="4" x2="53" y2="22"></line>
+                            <line class="gate__post" x1="88" y1="4" x2="88" y2="22"></line>
+                            <line class="gate__post gate__post--on" x1="123" y1="4" x2="123" y2="22"></line>
+                        </svg>
+                        <h2 class="pillar__h">Collection Stewardship</h2>
+                        <p class="pillar__p">A living record of the history, documentation, maintenance, and provenance surrounding each automobile.</p>
+                    </article>
                 </div>
-                <div class="divider"></div>
             </section>
 
-            <!-- POSITIONING -->
+            <!-- FOUNDERS REGISTRY -->
             <section class="section">
-                <p class="section__label">Positioning</p>
-                <div class="stack">
-                    <div class="stack__pair">
-                        <p class="stack__item">We do not authenticate stories.<br>We verify cars.</p>
-                    </div>
-                    <div class="stack__pair">
-                        <p class="stack__item">We do not manage collections for liquidity.<br>We manage them for continuity.</p>
-                    </div>
-                    <div class="stack__pair">
-                        <p class="stack__item">We do not scale.<br>We remain accountable.</p>
-                    </div>
+                <p class="label">The Founders Registry</p>
+                <div class="registry">
+                    <p class="body__p">The first phase will include a limited number of Founding Collections, Founding Automobiles, Certified Specialists, and Heritage Partners selected to help shape the platform.</p>
+                    <p class="status"><span class="status__dot"></span>Private development is underway</p>
                 </div>
-                <p class="stack__closing">Engagements are private and referral-based.</p>
-                <div class="divider"></div>
             </section>
 
-            <!-- CONTACT -->
-            <section class="section" id="introduction">
-                <p class="section__label">Request a Private Introduction</p>
-                <p class="contact__text">Engagements begin by referral or prior relationship. Leave your details and we will reply directly, or write to <a class="contact__email" href="mailto:private@gatedshifter.co">private@gatedshifter.co</a>.</p>
+            <!-- INVITATION -->
+            <section class="section" id="invitation">
+                <h2 class="invite__h">Request an Invitation</h2>
+                <p class="body__p">Currently accepting inquiries from collectors, specialists, heritage organizations, strategic partners, and experience providers interested in participating in the private launch.</p>
+                <a class="cta" href="/join">Request Founding Access</a>
+                <p class="invite__note">Or write to <a class="email" href="mailto:private@gatedshifter.co">private@gatedshifter.co</a>.</p>
+            </section>
 
-                <form class="form" id="intake-form" novalidate>
-                    <div class="field--split">
-                        <div class="field" data-field="full_name">
-                            <label class="field__label" for="full_name">Name</label>
-                            <input class="field__input" type="text" id="full_name" name="full_name" autocomplete="name" required>
-                            <p class="field__error" data-error-for="full_name">Enter your full name.</p>
-                        </div>
-
-                        <div class="field" data-field="email">
-                            <label class="field__label" for="email">Email</label>
-                            <input class="field__input" type="email" id="email" name="email" autocomplete="email" inputmode="email" required>
-                            <p class="field__error" data-error-for="email">Enter an email address we can reply to.</p>
-                        </div>
-                    </div>
-
-                    <div class="field--split">
-                        <div class="field" data-field="phone">
-                            <label class="field__label" for="phone">Telephone <span class="field__optional">— optional</span></label>
-                            <input class="field__input" type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel">
-                            <p class="field__error" data-error-for="phone">Enter a phone number with at least 7 digits, or leave it blank.</p>
-                        </div>
-
-                        <div class="field" data-field="referred_by">
-                            <label class="field__label" for="referred_by">Referred by <span class="field__optional">— optional</span></label>
-                            <input class="field__input" type="text" id="referred_by" name="referred_by" autocomplete="off">
-                            <p class="field__error" data-error-for="referred_by"></p>
-                        </div>
-                    </div>
-
-                    <div class="field" data-field="marques">
-                        <label class="field__label" for="marques">Marques in your care <span class="field__optional">— optional</span></label>
-                        <input class="field__input" type="text" id="marques" name="marques" autocomplete="off" placeholder="365 GTB/4, 275 GTB, Miura P400S">
-                        <p class="field__error" data-error-for="marques"></p>
-                    </div>
-
-                    <div class="field" data-field="message">
-                        <label class="field__label" for="message">What you would like to discuss <span class="field__optional">— optional</span></label>
-                        <textarea class="field__textarea" id="message" name="message"></textarea>
-                        <p class="field__error" data-error-for="message"></p>
-                    </div>
-
-                    <div class="field field--consent" data-field="consent">
-                        <input type="checkbox" id="consent" name="consent" required>
-                        <label for="consent">You may contact me about this inquiry. My details will be held privately and never shared or sold.</label>
-                        <p class="field__error" data-error-for="consent">Please confirm we may contact you about your inquiry.</p>
-                    </div>
-
-                    <!-- Bot trap. Hidden from people, tempting to scripts. -->
-                    <div class="honeypot" aria-hidden="true">
-                        <label for="company_website">Company website</label>
-                        <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off">
-                    </div>
-
-                    <div class="field">
-                        <button class="form__submit" type="submit" id="submit-button">Send request</button>
-                        <p class="form__footnote">We reply personally. No newsletters, no lists.</p>
-                        <p class="form__status" id="form-status" role="alert" aria-live="polite"></p>
-                    </div>
-                </form>
-
-                <div class="received" id="received" role="status" aria-live="polite">
-                    <p class="received__h">Request received.</p>
-                    <p class="body__p">Thank you. Your details are with us and you will hear back directly. If your inquiry is time-sensitive, write to <a class="contact__email" href="mailto:private@gatedshifter.co">private@gatedshifter.co</a>.</p>
-                </div>
+            <!-- CLOSING -->
+            <section class="section">
+                <p class="closing">One trusted ecosystem.<br>Every aspect of analog ownership.</p>
             </section>
 
             <!-- FOOTER -->
             <footer class="footer">
-                <p class="footer__title">The Gated Shifter</p>
-                <p class="footer__meta">Private Advisory</p>
-                <p class="footer__micro">Discreet inquiries by introduction.</p>
+                <p class="footer__title">The Gated Shifter&trade;</p>
+                <p class="footer__meta">Private Ownership Platform &middot; In Development</p>
+                <p class="footer__micro">Inquiries are held privately and never shared or sold. <a href="/privacy">Privacy</a> &middot; <a href="mailto:private@gatedshifter.co">private@gatedshifter.co</a></p>
             </footer>
 
         </div>
     </main>
-
-    <script>
-        (function () {
-            var form = document.getElementById('intake-form');
-            var button = document.getElementById('submit-button');
-            var status = document.getElementById('form-status');
-            var received = document.getElementById('received');
-            var openedAt = Date.now();
-
-            // Capture which QR code or device the visitor arrived from:
-            // gatedshifter.co/join?src=van-qr, ?src=tablet, ?src=card-qr, etc.
-            var params = new URLSearchParams(window.location.search);
-            var source = (params.get('src') || params.get('utm_source') || 'web')
-                .toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 40) || 'web';
-
-            function clearErrors() {
-                var fields = form.querySelectorAll('.field');
-                for (var i = 0; i < fields.length; i++) {
-                    fields[i].classList.remove('is-invalid');
-                }
-                status.classList.remove('is-visible');
-                status.textContent = '';
-            }
-
-            function showErrors(errors) {
-                var first = null;
-                Object.keys(errors).forEach(function (name) {
-                    var field = form.querySelector('[data-field="' + name + '"]');
-                    if (!field) return;
-                    field.classList.add('is-invalid');
-                    var message = field.querySelector('[data-error-for="' + name + '"]');
-                    if (message && errors[name]) message.textContent = errors[name];
-                    if (!first) first = field.querySelector('input, textarea');
-                });
-                if (first) first.focus();
-            }
-
-            form.addEventListener('submit', function (event) {
-                event.preventDefault();
-                clearErrors();
-
-                var payload = {
-                    full_name: form.full_name.value,
-                    email: form.email.value,
-                    phone: form.phone.value,
-                    referred_by: form.referred_by.value,
-                    marques: form.marques.value,
-                    message: form.message.value,
-                    consent: form.consent.checked,
-                    company_website: form.company_website.value,
-                    source: source,
-                    page_path: window.location.pathname,
-                    elapsed_ms: Date.now() - openedAt
-                };
-
-                button.disabled = true;
-                button.textContent = 'Sending…';
-
-                fetch('/api/intake', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                })
-                    .then(function (response) {
-                        return response.json().then(function (body) {
-                            return { ok: response.ok, status: response.status, body: body };
-                        });
-                    })
-                    .then(function (result) {
-                        if (result.ok) {
-                            form.style.display = 'none';
-                            received.classList.add('is-visible');
-                            received.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                            if (typeof gtag === 'function') {
-                                gtag('event', 'introduction_request', { source: source });
-                            }
-                            return;
-                        }
-
-                        button.disabled = false;
-                        button.textContent = 'Send request';
-
-                        if (result.body && result.body.errors) {
-                            showErrors(result.body.errors);
-                            return;
-                        }
-
-                        status.textContent = (result.body && result.body.message) ||
-                            'Something went wrong on our end. Please try again, or write to private@gatedshifter.co.';
-                        status.classList.add('is-visible');
-                    })
-                    .catch(function () {
-                        button.disabled = false;
-                        button.textContent = 'Send request';
-                        status.textContent = 'No connection. Check your network and try again, or write to private@gatedshifter.co.';
-                        status.classList.add('is-visible');
-                    });
-            });
-        })();
-    </script>
 </body>
 </html>
