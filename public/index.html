@@ -32,9 +32,6 @@
     <style>
         /* =====================================================
            TOKENS
-           --mark-ghost controls how strongly the trademark shows
-           through behind the hero. 0.16 reads as a watermark;
-           raise it toward 0.4 for a bolder mark.
            ===================================================== */
         :root {
             --carbon-black: #0B0C0E;
@@ -52,7 +49,6 @@
 
             --gutter: clamp(24px, 6vw, 80px);
             --shell: 1240px;
-            --mark-ghost: 0.16;
             --tap: 46px;
         }
 
@@ -139,7 +135,7 @@
         }
 
         .mark { display: block; height: auto; }
-        .masthead .mark { width: clamp(126px, 32vw, 172px); }
+        .masthead .mark { width: clamp(96px, 22vw, 128px); }
 
         .btn-line {
             display: none; /* phones use the bottom bar instead */
@@ -172,27 +168,6 @@
             position: relative;
             padding: clamp(40px, 9vh, 132px) 0 clamp(48px, 9vh, 112px);
         }
-
-        .hero__ghost {
-            position: absolute;
-            inset: 0;
-            overflow: hidden;
-            pointer-events: none;
-            z-index: 0;
-            display: none;
-        }
-
-        .hero__ghost .mark {
-            position: absolute;
-            top: 50%;
-            right: clamp(-40px, -2vw, 0px);
-            transform: translateY(-44%);
-            width: min(620px, 46vw);
-            opacity: 0;
-            animation: ghost 1600ms ease-out 320ms forwards;
-        }
-
-        @keyframes ghost { to { opacity: var(--mark-ghost); } }
 
         .hero__inner { position: relative; z-index: 1; }
 
@@ -370,23 +345,87 @@
            ===================================================== */
         .footer {
             border-top: 1px solid var(--hairline);
-            padding: clamp(34px, 5vw, 46px) 0 clamp(40px, 6vw, 56px);
+            padding: clamp(48px, 7vw, 76px) 0 clamp(28px, 4vw, 36px);
         }
 
-        .footer__inner { display: grid; gap: 22px; align-items: end; }
-        .footer .mark { width: clamp(124px, 30vw, 150px); }
+        .footer__top {
+            display: grid;
+            gap: clamp(36px, 6vw, 56px);
+            padding-bottom: clamp(36px, 6vw, 56px);
+        }
 
-        .footer__meta {
+        .footer__brand .mark { width: clamp(96px, 22vw, 118px); margin-bottom: 18px; }
+
+        .footer__tagline {
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            line-height: 1.65;
+            color: var(--muted-stone);
+            max-width: 34ch;
+            margin-bottom: 22px;
+        }
+
+        .footer__social { display: flex; gap: 10px; }
+
+        .footer__social a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border: 1px solid var(--hairline-strong);
+            border-radius: 50%;
+            color: var(--muted-platinum);
+            transition: color 200ms ease, border-color 200ms ease, background-color 200ms ease;
+        }
+
+        .footer__social a:hover, .footer__social a:focus-visible {
+            color: var(--carbon-black);
+            background-color: var(--ivory);
+            border-color: var(--ivory);
+        }
+
+        .footer__social svg { width: 16px; height: 16px; }
+
+        .footer__col { display: flex; flex-direction: column; gap: 14px; }
+
+        .footer__heading {
             font-family: var(--font-ui);
-            font-size: clamp(9px, 8px + 0.2vw, 10px);
-            letter-spacing: 0.18em;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted-platinum);
+            margin-bottom: 4px;
+        }
+
+        .footer__col a {
+            font-family: var(--font-body);
+            font-size: 0.92rem;
+            color: var(--muted-stone);
+            text-decoration: none;
+            width: fit-content;
+            border-bottom: 1px solid transparent;
+            transition: color 200ms ease, border-color 200ms ease;
+        }
+
+        .footer__col a:hover, .footer__col a:focus-visible { color: var(--ivory); border-bottom-color: var(--hairline-strong); }
+
+        .footer__bottom {
+            display: flex;
+            flex-direction: column-reverse;
+            gap: 14px;
+            padding-top: clamp(24px, 4vw, 32px);
+            border-top: 1px solid var(--hairline);
+        }
+
+        .footer__copy, .footer__status {
+            font-family: var(--font-ui);
+            font-size: 9px;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
             color: var(--muted-stone);
         }
-
-        .footer__micro { font-family: var(--font-body); font-size: 0.87rem; line-height: 1.7; color: var(--muted-stone); }
-        .footer__micro a { color: var(--muted-stone); text-decoration: none; border-bottom: 1px solid var(--hairline); }
-        .footer__micro a:hover { color: var(--ivory); }
 
         /* =====================================================
            PHONE BOTTOM BAR — the invitation, within thumb reach
@@ -432,8 +471,7 @@
         @media (min-width: 601px) {
             .btn-line { display: inline-flex; }
             .cta { justify-self: start; }
-            .footer__inner { grid-template-columns: auto 1fr; }
-            .footer__text { justify-self: end; text-align: right; }
+            .footer__bottom { flex-direction: row; align-items: center; justify-content: space-between; }
         }
 
         @media (min-width: 834px) {
@@ -443,10 +481,10 @@
                 gap: clamp(26px, 4vw, 68px);
                 align-items: baseline;
             }
+            .footer__top { grid-template-columns: 1.3fr 1fr 1fr; }
         }
 
         @media (min-width: 1024px) {
-            .hero__ghost { display: block; }
             .hero { padding-top: clamp(56px, 10vh, 140px); }
             .invite { grid-template-columns: 1.1fr auto; align-items: end; }
             .invite__copy { max-width: 52ch; }
@@ -455,7 +493,6 @@
         @media (min-width: 1600px) {
             :root { --shell: 1380px; --gutter: clamp(80px, 6vw, 120px); }
             .hero__h1 { font-size: 5.1rem; }
-            .hero__ghost .mark { width: min(680px, 40vw); }
         }
 
         /* Short viewports — phone and tablet landscape */
@@ -470,7 +507,6 @@
             html { scroll-behavior: auto; }
             .reveal { opacity: 1; transform: none; transition: none; }
             .hero__eyebrow, .hero__h1, .hero__rule, .hero__body { opacity: 1; animation: none; }
-            .hero__ghost .mark { opacity: var(--mark-ghost); animation: none; }
             .dock { transition: none; }
             .status__dot { animation: none; }
             * { transition: none !important; }
@@ -489,12 +525,6 @@
     <main>
 
         <section class="hero">
-            <!-- The trademark itself, ghosted. No frame, no outline: the SVG
-                 has no background, so only the mark and the wordmark show. -->
-            <div class="hero__ghost" aria-hidden="true">
-                <img class="mark" src="assets/logo.svg" alt="" width="1370" height="657">
-            </div>
-
             <div class="shell hero__inner">
                 <span class="eyebrow hero__eyebrow">The Gated Shifter</span>
                 <h1 class="hero__h1">Building the world&rsquo;s most trusted ecosystem for <em>analog collectors.</em></h1>
@@ -563,12 +593,42 @@
     </main>
 
     <footer class="footer">
-        <div class="shell footer__inner">
-            <img class="mark" src="assets/logo.svg" alt="The Gated Shifter" width="1370" height="657">
-            <div class="footer__text">
-                <p class="footer__meta">Private Ownership Platform &middot; In Development</p>
-                <p class="footer__micro">Inquiries are held privately and never shared or sold.<br>
-                    <a href="/privacy">Privacy</a> &middot; <a href="mailto:private@gatedshifter.co">private@gatedshifter.co</a> &middot; The Gated Shifter&trade;</p>
+        <div class="shell">
+            <div class="footer__top">
+                <div class="footer__brand">
+                    <img class="mark" src="assets/logo.svg" alt="The Gated Shifter" width="1370" height="657">
+                    <p class="footer__tagline">A private ownership platform connecting exceptional automobiles with the collectors, specialists, and heritage organizations who define analog ownership.</p>
+                    <div class="footer__social">
+                        <a href="#" aria-label="The Gated Shifter on Facebook" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.5 21v-7h2.4l.4-3H14.5v-1.9c0-.87.24-1.46 1.5-1.46h1.6V4.9c-.28-.04-1.23-.12-2.34-.12-2.32 0-3.91 1.42-3.91 4.02V11H9v3h2.35v7h3.15z"/></svg>
+                        </a>
+                        <a href="#" aria-label="The Gated Shifter on Instagram" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+                        </a>
+                        <a href="#" aria-label="The Gated Shifter on LinkedIn" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="7.5" y1="10" x2="7.5" y2="17"/><circle cx="7.5" cy="6.7" r="0.6" fill="currentColor" stroke="none"/><path d="M11.5 17v-4.2c0-1.6 1-2.4 2.3-2.4 1.3 0 2.2.8 2.2 2.4V17"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <nav class="footer__col" aria-label="Explore">
+                    <h3 class="footer__heading">Explore</h3>
+                    <a href="/">Home</a>
+                    <a href="/#invitation">Founders Registry</a>
+                    <a href="/join">Request an Invitation</a>
+                </nav>
+
+                <nav class="footer__col" aria-label="Company">
+                    <h3 class="footer__heading">Company</h3>
+                    <a href="/privacy">Privacy</a>
+                    <a href="/remove">Delete My Information</a>
+                    <a href="mailto:private@gatedshifter.co">Contact</a>
+                </nav>
+            </div>
+
+            <div class="footer__bottom">
+                <p class="footer__status">Private Ownership Platform &middot; In Development</p>
+                <p class="footer__copy">&copy; 2026 The Gated Shifter&trade;. All rights reserved.</p>
             </div>
         </div>
     </footer>
