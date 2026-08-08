@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Privacy — The Gated Shifter</title>
     <meta name="description" content="What The Gated Shifter collects, why, and how to have your information deleted.">
     <meta name="theme-color" content="#0B0C0E">
@@ -21,11 +21,10 @@
             --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+        html { font-size: 16px; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; }
         body { background-color: var(--carbon-black); color: var(--ivory); font-family: var(--font-body); line-height: 1.6; }
         :focus-visible { outline: 1px solid var(--muted-platinum); outline-offset: 3px; }
         .page { width: 92vw; max-width: 620px; margin: 0 auto; padding: 48px 0 72px; }
-        .brand__logo { display: block; width: 176px; max-width: 56vw; height: auto; margin-bottom: 36px; }
         h1 { font-family: var(--font-headline); font-size: 34px; line-height: 40px; font-weight: 600; margin-bottom: 8px; }
         .updated { font-family: var(--font-ui); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted-platinum); margin-bottom: 28px; }
         h2 { font-family: var(--font-ui); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted-platinum); margin: 32px 0 12px; font-weight: 500; }
@@ -35,11 +34,30 @@
         a { color: var(--ivory); text-decoration: none; border-bottom: 1px solid rgba(191,195,199,0.35); }
         .footer { margin-top: 44px; font-family: var(--font-ui); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted-platinum); }
         @media (min-width: 480px) { h1 { font-size: 40px; line-height: 46px; } }
+
+        /* ---------- Masthead: mark plus a way back home ---------- */
+        .masthead { display: flex; align-items: center; justify-content: space-between; gap: 16px;
+                    padding: 0 0 clamp(16px, 3vw, 22px) 0; margin-bottom: clamp(26px, 5vh, 44px);
+                    border-bottom: 1px solid rgba(191,195,199,0.14); }
+        .masthead .mark { display: block; width: clamp(120px, 30vw, 168px); height: auto; min-width: 0; }
+        .btn-home { font-family: var(--font-ui); font-size: 10px; font-weight: 500; letter-spacing: 0.18em;
+                    text-transform: uppercase; color: var(--muted-platinum); text-decoration: none;
+                    min-height: 46px; padding: 0 clamp(14px, 3vw, 20px); border: 1px solid rgba(191,195,199,0.28);
+                    border-radius: 2px; white-space: nowrap; display: inline-flex; align-items: center; gap: 10px;
+                    flex-shrink: 0;
+                    transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease; }
+        .btn-home:focus-visible { color: var(--carbon-black); background-color: var(--ivory); border-color: var(--ivory); }
+        .btn-home:hover { color: var(--carbon-black); background-color: var(--ivory); border-color: var(--ivory); }
+        .btn-home__arrow { width: 14px; height: 1px; background-color: currentColor; }
+        .footer .mark { display: block; width: 140px; height: auto; margin-bottom: 14px; }
     </style>
 </head>
 <body>
     <main class="page">
-        <a href="/"><img class="brand__logo" src="/assets/gated-shifter-logo.png" alt="The Gated Shifter" width="1029" height="495"></a>
+        <header class="masthead">
+            <img class="mark" src="/assets/logo.svg" alt="The Gated Shifter" width="1370" height="657">
+            <a class="btn-home" href="/"><span class="btn-home__arrow"></span>Home</a>
+        </header>
 
         <h1>Privacy</h1>
         <p class="updated">Last updated 8 August 2026</p>
@@ -68,7 +86,7 @@
         <h2>Contact</h2>
         <p><a href="mailto:private@gatedshifter.co">private@gatedshifter.co</a></p>
 
-        <p class="footer">The Gated Shifter&trade;</p>
+        <div class="footer"><img class="mark" src="/assets/logo.svg" alt="The Gated Shifter" width="1370" height="657"></div>
     </main>
 </body>
 </html>

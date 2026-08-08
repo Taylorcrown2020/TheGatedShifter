@@ -2,18 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>The Gated Shifter — The Trusted Ecosystem for Analog Collectors</title>
     <meta name="description" content="A private ownership platform connecting exceptional automobiles with the collectors, specialists, heritage organizations, intelligence, and experiences that define extraordinary ownership.">
     <meta name="theme-color" content="#0B0C0E">
     <link rel="canonical" href="https://www.gatedshifter.co/">
 
-    <!-- Icons -->
     <link rel="icon" href="/assets/favicon.ico" sizes="any">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 
-    <!-- Social -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="The Gated Shifter">
     <meta property="og:title" content="The Gated Shifter">
@@ -27,27 +25,35 @@
     <meta name="twitter:description" content="Building the world's most trusted ecosystem for analog collectors.">
     <meta name="twitter:image" content="https://www.gatedshifter.co/assets/og-image.png">
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=EB+Garamond:wght@400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,600;1,300&family=EB+Garamond:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
     <style>
         /* =====================================================
-           DESIGN TOKENS
+           TOKENS
+           --mark-ghost controls how strongly the trademark shows
+           through behind the hero. 0.16 reads as a watermark;
+           raise it toward 0.4 for a bolder mark.
            ===================================================== */
         :root {
             --carbon-black: #0B0C0E;
-            --heritage-charcoal: #171A1F;
-            --slate-gray: #2A2E33;
             --muted-platinum: #BFC3C7;
             --ivory: #EDEBE7;
             --muted-stone: #A7ABB2;
             --oxblood: #A8474B;
 
-            --font-headline: 'Cormorant Garamond', 'Adobe Caslon Pro', 'Big Caslon', Georgia, serif;
-            --font-body: 'EB Garamond', 'Adobe Caslon Pro', Georgia, serif;
+            --hairline: rgba(191, 195, 199, 0.14);
+            --hairline-strong: rgba(191, 195, 199, 0.28);
+
+            --font-headline: 'Cormorant Garamond', 'Big Caslon', Georgia, serif;
+            --font-body: 'EB Garamond', Georgia, serif;
             --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+            --gutter: clamp(24px, 6vw, 80px);
+            --shell: 1240px;
+            --mark-ghost: 0.16;
+            --tap: 46px;
         }
 
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -56,6 +62,7 @@
             font-size: 16px;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            -webkit-text-size-adjust: 100%;
             scroll-behavior: smooth;
         }
 
@@ -64,396 +71,550 @@
             color: var(--ivory);
             font-family: var(--font-body);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        :focus-visible { outline: 1px solid var(--muted-platinum); outline-offset: 3px; }
+        :focus-visible { outline: 1px solid var(--muted-platinum); outline-offset: 4px; }
 
-        .page {
+        .shell {
             width: 100%;
-            min-height: 100vh;
-            opacity: 0;
-            animation: fadeIn 240ms ease-out forwards;
-        }
-
-        @keyframes fadeIn { to { opacity: 1; } }
-
-        .container {
-            width: 92vw;
-            max-width: 680px;
+            max-width: var(--shell);
             margin: 0 auto;
-            padding-top: 48px;
-            text-align: left;
-        }
-
-        .section { margin-bottom: 56px; }
-
-        /* =====================================================
-           TRADEMARK LOCKUP
-           ===================================================== */
-        .brand { margin-bottom: 40px; }
-
-        .brand__logo {
-            display: block;
-            width: 208px;
-            max-width: 62vw;
-            height: auto;
+            padding: 0 var(--gutter);
         }
 
         /* =====================================================
-           HERO
+           TYPE
            ===================================================== */
-        .hero__h1 {
-            font-family: var(--font-headline);
-            font-size: 34px;
-            line-height: 40px;
-            font-weight: 600;
-            letter-spacing: 0.01em;
-            color: var(--ivory);
-            margin-bottom: 18px;
-        }
-
-        .hero__lede {
-            font-family: var(--font-body);
-            font-size: 16px;
-            line-height: 28px;
-            color: var(--muted-stone);
-            max-width: 62ch;
-        }
-
-        .hero__lede + .hero__lede { margin-top: 14px; }
-
-        .hero__lede strong { color: var(--ivory); font-weight: 400; }
-
-        /* =====================================================
-           GATE MOTIF — taken from the shift pattern in the mark.
-           Four gates, four parts of the ecosystem.
-           ===================================================== */
-        .gate {
-            display: block;
-            width: 132px;
-            height: 26px;
-            margin: 32px 0;
-        }
-
-        .gate__rail { stroke: var(--slate-gray); stroke-width: 2; }
-        .gate__post { stroke: var(--slate-gray); stroke-width: 2; stroke-linecap: round; }
-        .gate__post--on { stroke: var(--muted-platinum); }
-
-        .pillar__gate {
-            width: 84px;
-            height: 18px;
-            margin: 0 0 14px;
-        }
-
-        /* =====================================================
-           SECTION LABEL
-           ===================================================== */
-        .label {
+        .eyebrow {
             font-family: var(--font-ui);
-            font-size: 12px;
-            line-height: 16px;
-            letter-spacing: 0.16em;
+            font-size: clamp(9px, 8px + 0.2vw, 10px);
+            font-weight: 500;
+            letter-spacing: 0.26em;
+            text-transform: uppercase;
+            color: var(--muted-stone);
+        }
+
+        .lede {
+            font-family: var(--font-body);
+            font-size: clamp(1.02rem, 0.96rem + 0.4vw, 1.22rem);
+            line-height: 1.75;
+            color: var(--muted-platinum);
+        }
+
+        .prose {
+            font-family: var(--font-body);
+            font-size: clamp(0.97rem, 0.92rem + 0.25vw, 1.08rem);
+            line-height: 1.78;
+            color: var(--muted-stone);
+        }
+
+        /* =====================================================
+           MASTHEAD
+           The mark is not a link. On phones the invitation moves
+           to a bar at the bottom of the screen, where a thumb is.
+           ===================================================== */
+        .masthead {
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            border-bottom: 1px solid transparent;
+            background-color: rgba(11, 12, 14, 0);
+            transition: background-color 400ms ease, border-color 400ms ease;
+        }
+
+        .masthead.is-stuck {
+            background-color: rgba(11, 12, 14, 0.92);
+            border-bottom-color: var(--hairline);
+            backdrop-filter: saturate(140%) blur(12px);
+            -webkit-backdrop-filter: saturate(140%) blur(12px);
+        }
+
+        .masthead__inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: clamp(14px, 2vw, 22px) clamp(0px, 2vw, 36px) clamp(14px, 2vw, 22px) 0;
+        }
+
+        .mark { display: block; height: auto; }
+        .masthead .mark { width: clamp(126px, 32vw, 172px); }
+
+        .btn-line {
+            display: none; /* phones use the bottom bar instead */
+            align-items: center;
+            font-family: var(--font-ui);
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.18em;
             text-transform: uppercase;
             color: var(--muted-platinum);
-            margin-bottom: 20px;
+            text-decoration: none;
+            min-height: var(--tap);
+            padding: 0 clamp(16px, 1.6vw, 22px);
+            border: 1px solid var(--hairline-strong);
+            border-radius: 2px;
+            white-space: nowrap;
+            transition: color 200ms ease, border-color 200ms ease, background-color 200ms ease;
+        }
+
+        .btn-line:hover, .btn-line:focus-visible {
+            color: var(--carbon-black);
+            background-color: var(--ivory);
+            border-color: var(--ivory);
         }
 
         /* =====================================================
-           PILLARS
+           HERO — the trademark itself, ghosted, behind the type
            ===================================================== */
-        .pillars { display: grid; gap: 1px; background-color: rgba(42, 46, 51, 0.55); border: 1px solid rgba(42, 46, 51, 0.55); border-radius: 14px; overflow: hidden; }
+        .hero {
+            position: relative;
+            padding: clamp(40px, 9vh, 132px) 0 clamp(48px, 9vh, 112px);
+        }
 
-        .pillar { background-color: var(--heritage-charcoal); padding: 22px; }
+        .hero__ghost {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+            display: none;
+        }
 
-        .pillar__h {
+        .hero__ghost .mark {
+            position: absolute;
+            top: 50%;
+            right: clamp(-40px, -2vw, 0px);
+            transform: translateY(-44%);
+            width: min(620px, 46vw);
+            opacity: 0;
+            animation: ghost 1600ms ease-out 320ms forwards;
+        }
+
+        @keyframes ghost { to { opacity: var(--mark-ghost); } }
+
+        .hero__inner { position: relative; z-index: 1; }
+
+        .hero__eyebrow { display: block; margin-bottom: clamp(18px, 3.5vh, 38px); }
+
+        .hero__h1 {
             font-family: var(--font-headline);
-            font-size: 23px;
-            line-height: 30px;
-            font-weight: 600;
+            font-weight: 500;
+            font-size: clamp(2.2rem, 1.05rem + 5vw, 5rem);
+            line-height: 1.06;
+            letter-spacing: -0.015em;
             color: var(--ivory);
-            margin-bottom: 8px;
+            max-width: 19ch;
         }
 
-        .pillar__p {
-            font-family: var(--font-body);
-            font-size: 15px;
-            line-height: 26px;
-            color: var(--muted-stone);
+        .hero__h1 em { font-style: italic; font-weight: 300; color: var(--muted-platinum); }
+
+        .hero__rule {
+            width: clamp(64px, 8vw, 96px);
+            height: 1px;
+            background-color: var(--hairline-strong);
+            margin: clamp(26px, 4.5vh, 50px) 0 clamp(22px, 3.5vh, 34px);
         }
+
+        .hero__body { max-width: 60ch; }
+        .hero__body p + p { margin-top: 1.05em; }
+        .hero__body .lede { color: var(--ivory); }
+
+        /* =====================================================
+           BANDS
+           ===================================================== */
+        .band { padding: clamp(48px, 9vh, 124px) 0; border-top: 1px solid var(--hairline); }
+        .band__head { margin-bottom: clamp(26px, 4vh, 56px); }
+
+        .band__title {
+            font-family: var(--font-headline);
+            font-weight: 500;
+            font-size: clamp(1.65rem, 1.1rem + 1.9vw, 2.85rem);
+            line-height: 1.12;
+            letter-spacing: -0.01em;
+            color: var(--ivory);
+        }
+
+        /* =====================================================
+           THE INDEX — name against definition, hairlines only
+           ===================================================== */
+        .index { border-top: 1px solid var(--hairline); }
+
+        .index__row {
+            display: grid;
+            gap: 10px;
+            padding: clamp(24px, 3.6vw, 44px) 0;
+            border-bottom: 1px solid var(--hairline);
+        }
+
+        .index__name {
+            font-family: var(--font-headline);
+            font-weight: 500;
+            font-size: clamp(1.4rem, 1.05rem + 1.25vw, 2.1rem);
+            line-height: 1.16;
+            letter-spacing: -0.008em;
+            color: var(--ivory);
+            text-wrap: balance;
+        }
+
+        .index__def { max-width: 56ch; }
 
         /* =====================================================
            REGISTRY
            ===================================================== */
         .registry {
-            background-color: var(--heritage-charcoal);
-            border: 1px solid rgba(42, 46, 51, 0.55);
-            border-radius: 14px;
-            padding: 22px;
+            border: 1px solid var(--hairline-strong);
+            border-radius: 3px;
+            background: linear-gradient(180deg, rgba(23, 26, 31, 0.9) 0%, rgba(11, 12, 14, 0.5) 100%);
+            padding: clamp(24px, 4.4vw, 58px);
+            display: grid;
+            gap: clamp(22px, 3.5vw, 42px);
         }
 
-        .body__p {
+        .registry__p {
             font-family: var(--font-body);
-            font-size: 15px;
-            line-height: 26px;
-            color: var(--muted-stone);
-            max-width: 62ch;
+            font-size: clamp(1.04rem, 0.95rem + 0.5vw, 1.32rem);
+            line-height: 1.7;
+            color: var(--ivory);
+            max-width: 46ch;
         }
 
-        .body__p + .body__p { margin-top: 14px; }
-
-        .status {
-            font-family: var(--font-ui);
-            font-size: 12px;
-            line-height: 16px;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--muted-platinum);
-            margin-top: 18px;
+        .registry__status {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 11px;
+            font-family: var(--font-ui);
+            font-size: clamp(9px, 8px + 0.2vw, 10px);
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted-platinum);
+            align-self: end;
         }
 
         .status__dot {
-            width: 6px;
-            height: 6px;
+            width: 5px; height: 5px;
             border-radius: 50%;
             background-color: var(--oxblood);
             flex-shrink: 0;
+            animation: pulse 3.2s ease-out infinite;
+        }
+
+        @keyframes pulse {
+            0%   { box-shadow: 0 0 0 0 rgba(168, 71, 75, 0.45); }
+            70%  { box-shadow: 0 0 0 9px rgba(168, 71, 75, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(168, 71, 75, 0); }
         }
 
         /* =====================================================
-           INVITATION / CTA
+           INVITATION
            ===================================================== */
-        .invite__h {
-            font-family: var(--font-headline);
-            font-size: 28px;
-            line-height: 36px;
-            font-weight: 600;
-            color: var(--ivory);
-            margin-bottom: 12px;
-        }
+        .invite { display: grid; gap: clamp(22px, 3.5vw, 42px); }
+        .invite__p { margin-top: 0.85em; max-width: 56ch; }
+        .invite__alt { font-family: var(--font-body); font-size: 0.95rem; color: var(--muted-stone); margin-top: 1.3em; }
 
         .cta {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
             font-family: var(--font-ui);
-            font-size: 12px;
+            font-size: clamp(10px, 9px + 0.2vw, 11px);
             font-weight: 500;
-            letter-spacing: 0.16em;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
             color: var(--carbon-black);
             background-color: var(--ivory);
             border: 1px solid var(--ivory);
-            border-radius: 8px;
-            padding: 15px 30px;
-            margin-top: 24px;
+            border-radius: 2px;
+            min-height: 56px;
+            padding: 0 clamp(24px, 2.5vw, 34px);
             text-decoration: none;
-            transition: background-color 150ms ease-out, color 150ms ease-out;
+            justify-self: stretch;
+            text-align: center;
+            transition: background-color 240ms ease, color 240ms ease, gap 240ms ease;
         }
 
-        .cta:hover { background-color: transparent; color: var(--ivory); }
-
-        .invite__note {
-            font-family: var(--font-body);
-            font-size: 14px;
-            line-height: 24px;
-            color: var(--muted-stone);
-            margin-top: 16px;
-        }
+        .cta:hover, .cta:focus-visible { background-color: transparent; color: var(--ivory); gap: 20px; }
+        .cta__arrow { width: 18px; height: 1px; background-color: currentColor; flex-shrink: 0; }
 
         a.email {
+            color: var(--muted-platinum);
             font-style: italic;
-            color: var(--ivory);
             text-decoration: none;
-            border-bottom: 1px solid rgba(191, 195, 199, 0.35);
+            border-bottom: 1px solid var(--hairline-strong);
+            word-break: break-word;
         }
 
-        a.email:hover { border-bottom-color: var(--ivory); }
+        a.email:hover { color: var(--ivory); border-bottom-color: var(--ivory); }
 
         /* =====================================================
            CLOSING
            ===================================================== */
-        .closing {
+        .closing { padding: clamp(56px, 11vh, 150px) 0; border-top: 1px solid var(--hairline); text-align: center; }
+
+        .closing__line {
             font-family: var(--font-headline);
-            font-size: 24px;
-            line-height: 34px;
-            font-weight: 600;
+            font-weight: 300;
+            font-size: clamp(1.45rem, 0.9rem + 2.4vw, 2.95rem);
+            line-height: 1.26;
             color: var(--ivory);
         }
+
+        .closing__line span { display: block; }
+        .closing__line span + span { color: var(--muted-platinum); font-style: italic; }
 
         /* =====================================================
            FOOTER
            ===================================================== */
-        .footer { margin-bottom: 64px; }
-
-        .footer__title {
-            font-family: var(--font-body);
-            font-size: 15px;
-            line-height: 26px;
-            color: var(--ivory);
-            margin-bottom: 4px;
+        .footer {
+            border-top: 1px solid var(--hairline);
+            padding: clamp(34px, 5vw, 46px) 0 clamp(40px, 6vw, 56px);
         }
+
+        .footer__inner { display: grid; gap: 22px; align-items: end; }
+        .footer .mark { width: clamp(124px, 30vw, 150px); }
 
         .footer__meta {
             font-family: var(--font-ui);
-            font-size: 11px;
-            line-height: 18px;
-            letter-spacing: 0.12em;
+            font-size: clamp(9px, 8px + 0.2vw, 10px);
+            letter-spacing: 0.18em;
             text-transform: uppercase;
-            color: var(--muted-platinum);
-            margin-bottom: 6px;
-        }
-
-        .footer__micro {
-            font-family: var(--font-body);
-            font-size: 12px;
-            line-height: 20px;
             color: var(--muted-stone);
         }
 
-        .footer__micro a { color: var(--muted-stone); text-decoration: none; border-bottom: 1px solid rgba(167, 171, 178, 0.3); }
+        .footer__micro { font-family: var(--font-body); font-size: 0.87rem; line-height: 1.7; color: var(--muted-stone); }
+        .footer__micro a { color: var(--muted-stone); text-decoration: none; border-bottom: 1px solid var(--hairline); }
         .footer__micro a:hover { color: var(--ivory); }
 
         /* =====================================================
-           TABLET (480px+)
+           PHONE BOTTOM BAR — the invitation, within thumb reach
            ===================================================== */
-        @media (min-width: 480px) {
-            .container { padding-top: 64px; }
-            .brand__logo { width: 240px; }
-            .hero__h1 { font-size: 44px; line-height: 50px; }
-            .pillars { grid-template-columns: 1fr 1fr; }
-            .pillar__p, .body__p { font-size: 16px; line-height: 28px; }
-            .closing { font-size: 28px; line-height: 38px; }
+        .dock {
+            position: fixed;
+            left: 0; right: 0; bottom: 0;
+            z-index: 40;
+            padding: 12px var(--gutter) calc(12px + env(safe-area-inset-bottom, 0px));
+            background: linear-gradient(180deg, rgba(11, 12, 14, 0) 0%, rgba(11, 12, 14, 0.94) 42%);
+            transform: translateY(120%);
+            transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1);
         }
 
+        .dock.is-up { transform: none; }
+
+        .dock .cta { width: 100%; min-height: 54px; }
+
+        @media (min-width: 601px) { .dock { display: none; } }
+
         /* =====================================================
-           DESKTOP (992px+)
+           MOTION
            ===================================================== */
-        @media (min-width: 992px) {
-            .container { padding-top: 96px; }
-            .section { margin-bottom: 72px; }
-            .brand__logo { width: 268px; }
-            .hero__h1 { font-size: 54px; line-height: 60px; }
-            .hero__lede { font-size: 17px; line-height: 30px; }
-            .pillar, .registry { padding: 28px; }
-            .footer { margin-bottom: 96px; }
+        .reveal { opacity: 0; transform: translateY(14px); transition: opacity 800ms ease, transform 800ms cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.is-in { opacity: 1; transform: none; }
+
+        .hero__eyebrow, .hero__h1, .hero__rule, .hero__body { opacity: 0; animation: rise 950ms cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .hero__eyebrow { animation-delay: 60ms; }
+        .hero__h1 { animation-delay: 140ms; }
+        .hero__rule { animation-delay: 360ms; }
+        .hero__body { animation-delay: 440ms; }
+
+        @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+        /* =====================================================
+           BREAKPOINTS
+           360–600  small to large phones: single column, dock CTA
+           601–833  small tablets, phone landscape: masthead CTA returns
+           834–1023 medium tablets: registry and footer go two-up
+           1024+    large tablets, laptops: index two-up, ghost mark
+           1600+    monitors: wider shell, slightly larger measure
+           ===================================================== */
+        @media (min-width: 601px) {
+            .btn-line { display: inline-flex; }
+            .cta { justify-self: start; }
+            .footer__inner { grid-template-columns: auto 1fr; }
+            .footer__text { justify-self: end; text-align: right; }
+        }
+
+        @media (min-width: 834px) {
+            .registry { grid-template-columns: 1.4fr 1fr; align-items: end; }
+            .index__row {
+                grid-template-columns: minmax(220px, 33%) 1fr;
+                gap: clamp(26px, 4vw, 68px);
+                align-items: baseline;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero__ghost { display: block; }
+            .hero { padding-top: clamp(56px, 10vh, 140px); }
+            .invite { grid-template-columns: 1.1fr auto; align-items: end; }
+            .invite__copy { max-width: 52ch; }
+        }
+
+        @media (min-width: 1600px) {
+            :root { --shell: 1380px; --gutter: clamp(80px, 6vw, 120px); }
+            .hero__h1 { font-size: 5.1rem; }
+            .hero__ghost .mark { width: min(680px, 40vw); }
+        }
+
+        /* Short viewports — phone and tablet landscape */
+        @media (max-height: 560px) and (orientation: landscape) {
+            .hero { padding: 28px 0 36px; }
+            .band, .closing { padding: 40px 0; }
+            .masthead { position: static; }
+            .dock { display: none; }
         }
 
         @media (prefers-reduced-motion: reduce) {
             html { scroll-behavior: auto; }
-            .page { opacity: 1; animation: none; }
+            .reveal { opacity: 1; transform: none; transition: none; }
+            .hero__eyebrow, .hero__h1, .hero__rule, .hero__body { opacity: 1; animation: none; }
+            .hero__ghost .mark { opacity: var(--mark-ghost); animation: none; }
+            .dock { transition: none; }
+            .status__dot { animation: none; }
             * { transition: none !important; }
         }
     </style>
 </head>
 <body>
-    <main class="page">
-        <div class="container">
 
-            <!-- TRADEMARK -->
-            <header class="brand">
-                <img class="brand__logo" src="assets/gated-shifter-logo.png" alt="The Gated Shifter" width="1029" height="495">
-            </header>
-
-            <!-- HERO -->
-            <section class="section">
-                <h1 class="hero__h1">Building the world&rsquo;s most trusted ecosystem for analog collectors.</h1>
-                <p class="hero__lede">The analog collector world deserves more than another marketplace.</p>
-                <p class="hero__lede">The Gated Shifter is developing a private ownership platform connecting exceptional automobiles with the collectors, specialists, heritage organizations, intelligence, and experiences that define extraordinary ownership.</p>
-
-                <svg class="gate" viewBox="0 0 132 26" aria-hidden="true" focusable="false">
-                    <line class="gate__rail" x1="8" y1="13" x2="124" y2="13"></line>
-                    <line class="gate__post gate__post--on" x1="18" y1="4" x2="18" y2="22"></line>
-                    <line class="gate__post gate__post--on" x1="53" y1="4" x2="53" y2="22"></line>
-                    <line class="gate__post gate__post--on" x1="88" y1="4" x2="88" y2="22"></line>
-                    <line class="gate__post gate__post--on" x1="123" y1="4" x2="123" y2="22"></line>
-                </svg>
-            </section>
-
-            <!-- FOUR PILLARS -->
-            <section class="section">
-                <p class="label">One ecosystem, four gates</p>
-                <div class="pillars">
-                    <article class="pillar">
-                        <svg class="gate pillar__gate" viewBox="0 0 132 26" aria-hidden="true" focusable="false">
-                            <line class="gate__rail" x1="8" y1="13" x2="124" y2="13"></line>
-                            <line class="gate__post gate__post--on" x1="18" y1="4" x2="18" y2="22"></line>
-                            <line class="gate__post" x1="53" y1="4" x2="53" y2="22"></line>
-                            <line class="gate__post" x1="88" y1="4" x2="88" y2="22"></line>
-                            <line class="gate__post" x1="123" y1="4" x2="123" y2="22"></line>
-                        </svg>
-                        <h2 class="pillar__h">Curated Marketplace</h2>
-                        <p class="pillar__p">Private and carefully selected opportunities for significant analog automobiles.</p>
-                    </article>
-
-                    <article class="pillar">
-                        <svg class="gate pillar__gate" viewBox="0 0 132 26" aria-hidden="true" focusable="false">
-                            <line class="gate__rail" x1="8" y1="13" x2="124" y2="13"></line>
-                            <line class="gate__post" x1="18" y1="4" x2="18" y2="22"></line>
-                            <line class="gate__post gate__post--on" x1="53" y1="4" x2="53" y2="22"></line>
-                            <line class="gate__post" x1="88" y1="4" x2="88" y2="22"></line>
-                            <line class="gate__post" x1="123" y1="4" x2="123" y2="22"></line>
-                        </svg>
-                        <h2 class="pillar__h">Collector Intelligence</h2>
-                        <p class="pillar__p">Better information and trusted expertise for better collection decisions.</p>
-                    </article>
-
-                    <article class="pillar">
-                        <svg class="gate pillar__gate" viewBox="0 0 132 26" aria-hidden="true" focusable="false">
-                            <line class="gate__rail" x1="8" y1="13" x2="124" y2="13"></line>
-                            <line class="gate__post" x1="18" y1="4" x2="18" y2="22"></line>
-                            <line class="gate__post" x1="53" y1="4" x2="53" y2="22"></line>
-                            <line class="gate__post gate__post--on" x1="88" y1="4" x2="88" y2="22"></line>
-                            <line class="gate__post" x1="123" y1="4" x2="123" y2="22"></line>
-                        </svg>
-                        <h2 class="pillar__h">Trusted Network</h2>
-                        <p class="pillar__p">A qualified ecosystem of specialists, restorers, advisors, ownership-service providers, and heritage partners.</p>
-                    </article>
-
-                    <article class="pillar">
-                        <svg class="gate pillar__gate" viewBox="0 0 132 26" aria-hidden="true" focusable="false">
-                            <line class="gate__rail" x1="8" y1="13" x2="124" y2="13"></line>
-                            <line class="gate__post" x1="18" y1="4" x2="18" y2="22"></line>
-                            <line class="gate__post" x1="53" y1="4" x2="53" y2="22"></line>
-                            <line class="gate__post" x1="88" y1="4" x2="88" y2="22"></line>
-                            <line class="gate__post gate__post--on" x1="123" y1="4" x2="123" y2="22"></line>
-                        </svg>
-                        <h2 class="pillar__h">Collection Stewardship</h2>
-                        <p class="pillar__p">A living record of the history, documentation, maintenance, and provenance surrounding each automobile.</p>
-                    </article>
-                </div>
-            </section>
-
-            <!-- FOUNDERS REGISTRY -->
-            <section class="section">
-                <p class="label">The Founders Registry</p>
-                <div class="registry">
-                    <p class="body__p">The first phase will include a limited number of Founding Collections, Founding Automobiles, Certified Specialists, and Heritage Partners selected to help shape the platform.</p>
-                    <p class="status"><span class="status__dot"></span>Private development is underway</p>
-                </div>
-            </section>
-
-            <!-- INVITATION -->
-            <section class="section" id="invitation">
-                <h2 class="invite__h">Request an Invitation</h2>
-                <p class="body__p">Currently accepting inquiries from collectors, specialists, heritage organizations, strategic partners, and experience providers interested in participating in the private launch.</p>
-                <a class="cta" href="/join">Request Founding Access</a>
-                <p class="invite__note">Or write to <a class="email" href="mailto:private@gatedshifter.co">private@gatedshifter.co</a>.</p>
-            </section>
-
-            <!-- CLOSING -->
-            <section class="section">
-                <p class="closing">One trusted ecosystem.<br>Every aspect of analog ownership.</p>
-            </section>
-
-            <!-- FOOTER -->
-            <footer class="footer">
-                <p class="footer__title">The Gated Shifter&trade;</p>
-                <p class="footer__meta">Private Ownership Platform &middot; In Development</p>
-                <p class="footer__micro">Inquiries are held privately and never shared or sold. <a href="/privacy">Privacy</a> &middot; <a href="mailto:private@gatedshifter.co">private@gatedshifter.co</a></p>
-            </footer>
-
+    <header class="masthead" id="masthead">
+        <div class="shell masthead__inner">
+            <img class="mark" src="assets/logo.svg" alt="The Gated Shifter" width="1370" height="657">
+            <a class="btn-line" href="/join">Request an Invitation</a>
         </div>
+    </header>
+
+    <main>
+
+        <section class="hero">
+            <!-- The trademark itself, ghosted. No frame, no outline: the SVG
+                 has no background, so only the mark and the wordmark show. -->
+            <div class="hero__ghost" aria-hidden="true">
+                <img class="mark" src="assets/logo.svg" alt="" width="1370" height="657">
+            </div>
+
+            <div class="shell hero__inner">
+                <span class="eyebrow hero__eyebrow">The Gated Shifter</span>
+                <h1 class="hero__h1">Building the world&rsquo;s most trusted ecosystem for <em>analog collectors.</em></h1>
+                <div class="hero__rule"></div>
+                <div class="hero__body">
+                    <p class="lede">The analog collector world deserves more than another marketplace.</p>
+                    <p class="prose">The Gated Shifter is developing a private ownership platform connecting exceptional automobiles with the collectors, specialists, heritage organizations, intelligence, and experiences that define extraordinary ownership.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="band">
+            <div class="shell">
+                <div class="index">
+                    <div class="index__row reveal">
+                        <h2 class="index__name">Curated Marketplace</h2>
+                        <p class="prose index__def">Private and carefully selected opportunities for significant analog automobiles.</p>
+                    </div>
+                    <div class="index__row reveal">
+                        <h2 class="index__name">Collector Intelligence</h2>
+                        <p class="prose index__def">Better information and trusted expertise for better collection decisions.</p>
+                    </div>
+                    <div class="index__row reveal">
+                        <h2 class="index__name">Trusted Network</h2>
+                        <p class="prose index__def">A qualified ecosystem of specialists, restorers, advisors, ownership-service providers, and heritage partners.</p>
+                    </div>
+                    <div class="index__row reveal">
+                        <h2 class="index__name">Collection Stewardship</h2>
+                        <p class="prose index__def">A living record of the history, documentation, maintenance, and provenance surrounding each automobile.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="band">
+            <div class="shell">
+                <div class="band__head reveal">
+                    <span class="eyebrow">The Founders Registry</span>
+                </div>
+                <div class="registry reveal">
+                    <p class="registry__p">The first phase will include a limited number of Founding Collections, Founding Automobiles, Certified Specialists, and Heritage Partners selected to help shape the platform.</p>
+                    <p class="registry__status"><span class="status__dot"></span>Private development is underway</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="band" id="invitation">
+            <div class="shell invite reveal">
+                <div class="invite__copy">
+                    <h2 class="band__title">Request an Invitation</h2>
+                    <p class="prose invite__p">Currently accepting inquiries from collectors, specialists, heritage organizations, strategic partners, and experience providers interested in participating in the private launch.</p>
+                    <p class="invite__alt">Or write to <a class="email" href="mailto:private@gatedshifter.co">private@gatedshifter.co</a>.</p>
+                </div>
+                <a class="cta" href="/join">Request Founding Access<span class="cta__arrow"></span></a>
+            </div>
+        </section>
+
+        <section class="closing">
+            <div class="shell">
+                <p class="closing__line reveal">
+                    <span>One trusted ecosystem.</span>
+                    <span>Every aspect of analog ownership.</span>
+                </p>
+            </div>
+        </section>
     </main>
+
+    <footer class="footer">
+        <div class="shell footer__inner">
+            <img class="mark" src="assets/logo.svg" alt="The Gated Shifter" width="1370" height="657">
+            <div class="footer__text">
+                <p class="footer__meta">Private Ownership Platform &middot; In Development</p>
+                <p class="footer__micro">Inquiries are held privately and never shared or sold.<br>
+                    <a href="/privacy">Privacy</a> &middot; <a href="mailto:private@gatedshifter.co">private@gatedshifter.co</a> &middot; The Gated Shifter&trade;</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="dock" id="dock">
+        <a class="cta" href="/join">Request an Invitation<span class="cta__arrow"></span></a>
+    </div>
+
+    <script>
+    (function () {
+        'use strict';
+
+        var masthead = document.getElementById('masthead');
+        var dock = document.getElementById('dock');
+
+        var onScroll = function () {
+            var y = window.scrollY;
+            if (y > 24) masthead.classList.add('is-stuck');
+            else masthead.classList.remove('is-stuck');
+            // The bottom bar appears once the hero has been read.
+            if (y > window.innerHeight * 0.55) dock.classList.add('is-up');
+            else dock.classList.remove('is-up');
+        };
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll, { passive: true });
+        onScroll();
+
+        var items = document.querySelectorAll('.reveal');
+        var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (!('IntersectionObserver' in window) || reduced) {
+            for (var i = 0; i < items.length; i++) items[i].classList.add('is-in');
+            return;
+        }
+
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('is-in');
+                observer.unobserve(entry.target);
+            });
+        }, { rootMargin: '0px 0px -10% 0px', threshold: 0.06 });
+
+        for (var j = 0; j < items.length; j++) observer.observe(items[j]);
+    })();
+    </script>
 </body>
 </html>

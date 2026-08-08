@@ -68,7 +68,6 @@
             padding: 40px 0 64px;
         }
 
-        .brand__logo { display: block; width: 188px; max-width: 58vw; height: auto; margin-bottom: 32px; }
 
         .head__h1 {
             font-family: var(--font-headline);
@@ -398,11 +397,30 @@
         }
 
         @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+        /* ---------- Masthead: mark plus a way back home ---------- */
+        .masthead { display: flex; align-items: center; justify-content: space-between; gap: 16px;
+                    padding: 0 0 clamp(16px, 3vw, 22px) 0; margin-bottom: clamp(26px, 5vh, 44px);
+                    border-bottom: 1px solid rgba(191,195,199,0.14); }
+        .masthead .mark { display: block; width: clamp(120px, 30vw, 168px); height: auto; min-width: 0; }
+        .btn-home { font-family: var(--font-ui); font-size: 10px; font-weight: 500; letter-spacing: 0.18em;
+                    text-transform: uppercase; color: var(--muted-platinum); text-decoration: none;
+                    min-height: 46px; padding: 0 clamp(14px, 3vw, 20px); border: 1px solid rgba(191,195,199,0.28);
+                    border-radius: 2px; white-space: nowrap; display: inline-flex; align-items: center; gap: 10px;
+                    flex-shrink: 0;
+                    transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease; }
+        .btn-home:focus-visible { color: var(--carbon-black); background-color: var(--ivory); border-color: var(--ivory); }
+        .btn-home:hover { color: var(--carbon-black); background-color: var(--ivory); border-color: var(--ivory); }
+        .btn-home__arrow { width: 14px; height: 1px; background-color: currentColor; }
+        .footer .mark { display: block; width: 140px; height: auto; margin-bottom: 14px; }
     </style>
 </head>
 <body>
     <main class="page">
-        <a href="/"><img class="brand__logo" src="/assets/gated-shifter-logo.png" alt="The Gated Shifter" width="1029" height="495"></a>
+        <header class="masthead">
+            <img class="mark" src="/assets/logo.svg" alt="The Gated Shifter" width="1370" height="657">
+            <a class="btn-home" href="/"><span class="btn-home__arrow"></span>Home</a>
+        </header>
 
         <!-- FORM VIEW -->
         <div id="view-form">
@@ -538,6 +556,7 @@
         </div>
 
         <footer class="footer">
+            <img class="mark" src="/assets/logo.svg" alt="The Gated Shifter" width="1370" height="657">
             <p class="footer__meta">The Gated Shifter&trade; &middot; Private Ownership Platform</p>
             <p class="footer__micro"><a href="/privacy">Privacy</a> &middot; <a href="mailto:private@gatedshifter.co">private@gatedshifter.co</a></p>
         </footer>
