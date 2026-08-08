@@ -60,7 +60,10 @@
             -moz-osx-font-smoothing: grayscale;
             -webkit-text-size-adjust: 100%;
             scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
         }
+        html::-webkit-scrollbar { display: none; }
 
         body {
             background-color: var(--carbon-black);
@@ -511,7 +514,7 @@
     <header class="masthead" id="masthead">
         <div class="shell masthead__inner">
             <img class="mark" src="/assets/logo.svg" alt="The Gated Shifter" width="1370" height="657">
-            <a class="btn-line" href="/join"><span class="btn-line__short">Request an Invitation</span><span class="btn-line__full">Request an Invitation</span></a>
+            <a class="btn-line" href="/join"><span class="btn-line__short">Apply</span><span class="btn-line__full">Request an Invitation</span></a>
         </div>
     </header>
 

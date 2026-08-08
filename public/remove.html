@@ -25,7 +25,8 @@
             --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html { font-size: 16px; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; }
+        html { font-size: 16px; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; scrollbar-width: none; -ms-overflow-style: none; }
+        html::-webkit-scrollbar { display: none; }
         body { background-color: var(--carbon-black); color: var(--ivory); font-family: var(--font-body); line-height: 1.6; }
         :focus-visible { outline: 1px solid var(--muted-platinum); outline-offset: 3px; }
         .page { width: 92vw; max-width: 560px; margin: 0 auto; padding: 48px 0 72px; }
