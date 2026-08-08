@@ -8,9 +8,9 @@
     <meta name="theme-color" content="#0B0C0E">
     <link rel="canonical" href="https://www.gatedshifter.co/">
 
-    <link rel="icon" href="assets/favicon.ico" sizes="any">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
-    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    <link rel="icon" href="/assets/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="The Gated Shifter">
@@ -135,23 +135,25 @@
         }
 
         .mark { display: block; height: auto; }
-        .masthead .mark { width: clamp(96px, 22vw, 128px); }
+        .masthead .mark { width: clamp(88px, 20vw, 128px); }
 
         .btn-line {
-            display: none; /* phones use the bottom bar instead */
+            display: inline-flex;
             align-items: center;
+            justify-content: center;
             font-family: var(--font-ui);
-            font-size: 10px;
+            font-size: clamp(9px, 8px + 0.2vw, 10px);
             font-weight: 500;
-            letter-spacing: 0.18em;
+            letter-spacing: 0.16em;
             text-transform: uppercase;
             color: var(--muted-platinum);
             text-decoration: none;
             min-height: var(--tap);
-            padding: 0 clamp(16px, 1.6vw, 22px);
+            padding: 0 clamp(12px, 2.6vw, 22px);
             border: 1px solid var(--hairline-strong);
             border-radius: 2px;
             white-space: nowrap;
+            flex-shrink: 0;
             transition: color 200ms ease, border-color 200ms ease, background-color 200ms ease;
         }
 
@@ -159,6 +161,14 @@
             color: var(--carbon-black);
             background-color: var(--ivory);
             border-color: var(--ivory);
+        }
+
+        .btn-line__short { display: inline; }
+        .btn-line__full { display: none; }
+
+        @media (min-width: 420px) {
+            .btn-line__short { display: none; }
+            .btn-line__full { display: inline; }
         }
 
         /* =====================================================
@@ -428,25 +438,6 @@
         }
 
         /* =====================================================
-           PHONE BOTTOM BAR — the invitation, within thumb reach
-           ===================================================== */
-        .dock {
-            position: fixed;
-            left: 0; right: 0; bottom: 0;
-            z-index: 40;
-            padding: 12px var(--gutter) calc(12px + env(safe-area-inset-bottom, 0px));
-            background: linear-gradient(180deg, rgba(11, 12, 14, 0) 0%, rgba(11, 12, 14, 0.94) 42%);
-            transform: translateY(120%);
-            transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .dock.is-up { transform: none; }
-
-        .dock .cta { width: 100%; min-height: 54px; }
-
-        @media (min-width: 601px) { .dock { display: none; } }
-
-        /* =====================================================
            MOTION
            ===================================================== */
         .reveal { opacity: 0; transform: translateY(14px); transition: opacity 800ms ease, transform 800ms cubic-bezier(0.16, 1, 0.3, 1); }
@@ -462,14 +453,13 @@
 
         /* =====================================================
            BREAKPOINTS
-           360–600  small to large phones: single column, dock CTA
-           601–833  small tablets, phone landscape: masthead CTA returns
+           360–600  small to large phones: single column, header CTA
+           601–833  small tablets, phone landscape
            834–1023 medium tablets: registry and footer go two-up
            1024+    large tablets, laptops: index two-up, ghost mark
            1600+    monitors: wider shell, slightly larger measure
            ===================================================== */
         @media (min-width: 601px) {
-            .btn-line { display: inline-flex; }
             .cta { justify-self: start; }
             .footer__top { grid-template-columns: repeat(2, 1fr); }
             .footer__brand { grid-column: 1 / -1; }
@@ -505,14 +495,12 @@
             .hero { padding: 28px 0 36px; }
             .band, .closing { padding: 40px 0; }
             .masthead { position: static; }
-            .dock { display: none; }
         }
 
         @media (prefers-reduced-motion: reduce) {
             html { scroll-behavior: auto; }
             .reveal { opacity: 1; transform: none; transition: none; }
             .hero__eyebrow, .hero__h1, .hero__rule, .hero__body { opacity: 1; animation: none; }
-            .dock { transition: none; }
             .status__dot { animation: none; }
             * { transition: none !important; }
         }
@@ -522,8 +510,8 @@
 
     <header class="masthead" id="masthead">
         <div class="shell masthead__inner">
-            <img class="mark" src="assets/logo.svg" alt="The Gated Shifter" width="1370" height="657">
-            <a class="btn-line" href="/join">Request an Invitation</a>
+            <img class="mark" src="/assets/logo.svg" alt="The Gated Shifter" width="1370" height="657">
+            <a class="btn-line" href="/join"><span class="btn-line__short">Apply</span><span class="btn-line__full">Request an Invitation</span></a>
         </div>
     </header>
 
@@ -601,7 +589,7 @@
         <div class="shell">
             <div class="footer__top">
                 <div class="footer__brand">
-                    <img class="mark" src="assets/logo.svg" alt="The Gated Shifter" width="1370" height="657">
+                    <img class="mark" src="/assets/logo.svg" alt="The Gated Shifter" width="1370" height="657">
                     <p class="footer__tagline">A private ownership platform connecting exceptional automobiles with the collectors, specialists, and heritage organizations who define analog ownership.</p>
                     <div class="footer__social">
                         <a href="#" aria-label="The Gated Shifter on Facebook" target="_blank" rel="noopener">
@@ -638,24 +626,16 @@
         </div>
     </footer>
 
-    <div class="dock" id="dock">
-        <a class="cta" href="/join">Request an Invitation<span class="cta__arrow"></span></a>
-    </div>
-
     <script>
     (function () {
         'use strict';
 
         var masthead = document.getElementById('masthead');
-        var dock = document.getElementById('dock');
 
         var onScroll = function () {
             var y = window.scrollY;
             if (y > 24) masthead.classList.add('is-stuck');
             else masthead.classList.remove('is-stuck');
-            // The bottom bar appears once the hero has been read.
-            if (y > window.innerHeight * 0.55) dock.classList.add('is-up');
-            else dock.classList.remove('is-up');
         };
 
         window.addEventListener('scroll', onScroll, { passive: true });
