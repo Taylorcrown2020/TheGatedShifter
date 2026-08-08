@@ -9,9 +9,9 @@
     <meta name="robots" content="noindex">
     <link rel="canonical" href="https://www.gatedshifter.co/join">
 
-    <link rel="icon" href="assets/favicon.ico" sizes="any">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
-    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    <link rel="icon" href="/assets/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="The Gated Shifter">
@@ -83,7 +83,7 @@
             line-height: 26px;
             color: var(--muted-stone);
             max-width: 60ch;
-            margin-bottom: 28px;
+            margin-bottom: 32px;
         }
 
         /* ---------- Card ---------- */
@@ -91,12 +91,28 @@
             background-color: var(--heritage-charcoal);
             border: 1px solid rgba(42, 46, 51, 0.55);
             border-radius: 14px;
-            padding: 22px;
+            padding: 24px 22px;
+        }
+
+        /* ---------- Sections: groups the form into readable chunks ---------- */
+        .section { margin-bottom: 30px; }
+        .section:last-of-type { margin-bottom: 0; }
+        .section + .section { padding-top: 28px; border-top: 1px solid rgba(191, 195, 199, 0.1); }
+
+        .section__title {
+            font-family: var(--font-ui);
+            font-size: 10.5px;
+            font-weight: 500;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--muted-stone);
+            margin-bottom: 20px;
         }
 
         /* ---------- Fields ---------- */
-        .field { margin-bottom: 22px; }
+        .field { margin-bottom: 24px; }
         .field:last-child { margin-bottom: 0; }
+        .section .field:last-child { margin-bottom: 0; }
 
         .field__label {
             display: block;
@@ -204,7 +220,7 @@
         .type input:focus-visible + span { outline: 1px solid var(--muted-platinum); outline-offset: 3px; }
 
         /* ---------- Intent chips ---------- */
-        .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+        .chips { display: flex; flex-wrap: wrap; gap: 10px; }
 
         .chip { position: relative; }
 
@@ -388,11 +404,12 @@
         @media (min-width: 480px) {
             .head__h1 { font-size: 40px; line-height: 46px; }
             .welcome__h { font-size: 42px; line-height: 48px; }
+            .card { padding: 30px 32px; }
         }
 
         @media (min-width: 992px) {
             .page { padding: 72px 0 96px; }
-            .card { padding: 28px; }
+            .card { padding: 40px 44px; }
             .head__h1 { font-size: 46px; line-height: 52px; }
         }
 
@@ -418,7 +435,7 @@
 <body>
     <main class="page">
         <header class="masthead">
-            <img class="mark" src="assets/logo.svg" alt="The Gated Shifter" width="1370" height="657">
+            <img class="mark" src="/assets/logo.svg" alt="The Gated Shifter" width="1370" height="657">
             <a class="btn-home" href="/"><span class="btn-home__arrow"></span>Home</a>
         </header>
 
@@ -431,114 +448,126 @@
 
             <form class="card" id="join-form" novalidate autocomplete="off">
 
-                <div class="field" data-field="member_type">
-                    <span class="field__label" id="member-type-label">I am a</span>
-                    <div class="types" role="radiogroup" aria-labelledby="member-type-label">
-                        <label class="type">
-                            <input type="radio" name="member_type" value="Collector">
-                            <span>Collector</span>
-                        </label>
-                        <label class="type">
-                            <input type="radio" name="member_type" value="Specialist">
-                            <span>Specialist</span>
-                        </label>
-                        <label class="type">
-                            <input type="radio" name="member_type" value="Partner">
-                            <span>Partner</span>
-                        </label>
-                    </div>
-                    <p class="field__error" data-error-for="member_type">Choose Collector, Specialist or Partner.</p>
-                </div>
-
-                <div class="field--split">
-                    <div class="field" data-field="first_name">
-                        <label class="field__label" for="first_name">First name</label>
-                        <input class="field__input" type="text" id="first_name" name="first_name" autocomplete="off" autocapitalize="words" required>
-                        <p class="field__error" data-error-for="first_name">Enter a first name.</p>
+                <div class="section">
+                    <p class="section__title">About You</p>
+                    <div class="field" data-field="member_type">
+                        <span class="field__label" id="member-type-label">I am a</span>
+                        <div class="types" role="radiogroup" aria-labelledby="member-type-label">
+                            <label class="type">
+                                <input type="radio" name="member_type" value="Collector">
+                                <span>Collector</span>
+                            </label>
+                            <label class="type">
+                                <input type="radio" name="member_type" value="Specialist">
+                                <span>Specialist</span>
+                            </label>
+                            <label class="type">
+                                <input type="radio" name="member_type" value="Partner">
+                                <span>Partner</span>
+                            </label>
+                        </div>
+                        <p class="field__error" data-error-for="member_type">Choose Collector, Specialist or Partner.</p>
                     </div>
 
-                    <div class="field" data-field="last_name">
-                        <label class="field__label" for="last_name">Last name</label>
-                        <input class="field__input" type="text" id="last_name" name="last_name" autocomplete="off" autocapitalize="words" required>
-                        <p class="field__error" data-error-for="last_name">Enter a last name.</p>
+                    <div class="field--split">
+                        <div class="field" data-field="first_name">
+                            <label class="field__label" for="first_name">First name</label>
+                            <input class="field__input" type="text" id="first_name" name="first_name" autocomplete="off" autocapitalize="words" required>
+                            <p class="field__error" data-error-for="first_name">Enter a first name.</p>
+                        </div>
+
+                        <div class="field" data-field="last_name">
+                            <label class="field__label" for="last_name">Last name</label>
+                            <input class="field__input" type="text" id="last_name" name="last_name" autocomplete="off" autocapitalize="words" required>
+                            <p class="field__error" data-error-for="last_name">Enter a last name.</p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="field--split">
-                    <div class="field" data-field="email">
-                        <label class="field__label" for="email">Email</label>
-                        <input class="field__input" type="email" id="email" name="email" inputmode="email" autocomplete="off" autocapitalize="none" spellcheck="false" required>
-                        <p class="field__error" data-error-for="email">Enter an email address we can reply to.</p>
+                    <div class="field--split">
+                        <div class="field" data-field="email">
+                            <label class="field__label" for="email">Email</label>
+                            <input class="field__input" type="email" id="email" name="email" inputmode="email" autocomplete="off" autocapitalize="none" spellcheck="false" required>
+                            <p class="field__error" data-error-for="email">Enter an email address we can reply to.</p>
+                        </div>
+
+                        <div class="field" data-field="mobile_phone">
+                            <label class="field__label" for="mobile_phone">Mobile <span class="field__optional">— optional</span></label>
+                            <input class="field__input" type="tel" id="mobile_phone" name="mobile_phone" inputmode="tel" autocomplete="off">
+                            <p class="field__error" data-error-for="mobile_phone">Enter a mobile number with at least 7 digits, or leave it blank.</p>
+                        </div>
                     </div>
 
-                    <div class="field" data-field="mobile_phone">
-                        <label class="field__label" for="mobile_phone">Mobile <span class="field__optional">— optional</span></label>
-                        <input class="field__input" type="tel" id="mobile_phone" name="mobile_phone" inputmode="tel" autocomplete="off">
-                        <p class="field__error" data-error-for="mobile_phone">Enter a mobile number with at least 7 digits, or leave it blank.</p>
-                    </div>
-                </div>
-
-                <div class="field" data-field="city">
-                    <label class="field__label" for="city">City <span class="field__optional">— optional</span></label>
-                    <input class="field__input" type="text" id="city" name="city" autocomplete="off" autocapitalize="words" placeholder="Monterey, CA">
-                    <p class="field__error" data-error-for="city"></p>
-                </div>
-
-                <div class="field" data-field="primary_marques">
-                    <label class="field__label" for="primary_marques"><span id="marques-label-text">Primary marques</span> <span class="field__optional">— optional</span></label>
-                    <input class="field__input" type="text" id="primary_marques" name="primary_marques" autocomplete="off" placeholder="Ferrari 275 GTB, Miura P400S, 911 2.7 RS">
-                    <p class="field__hint" id="marques-hint">The marques in your care, or those you follow most closely.</p>
-                    <p class="field__error" data-error-for="primary_marques"></p>
-                </div>
-
-                <div class="field" data-field="looking_for_now">
-                    <span class="field__label" id="intent-label">What are you looking for right now? <span class="field__optional">— choose any</span></span>
-                    <div class="chips" role="group" aria-labelledby="intent-label" id="intent-chips">
-                        <label class="chip"><input type="checkbox" name="looking_for_now" value="Buy a vehicle"><span>Buy a vehicle</span></label>
-                        <label class="chip"><input type="checkbox" name="looking_for_now" value="Sell a vehicle discreetly"><span>Sell a vehicle discreetly</span></label>
-                        <label class="chip"><input type="checkbox" name="looking_for_now" value="Find a trusted specialist"><span>Find a trusted specialist</span></label>
-                        <label class="chip"><input type="checkbox" name="looking_for_now" value="Source parts"><span>Source parts</span></label>
-                        <label class="chip"><input type="checkbox" name="looking_for_now" value="Vehicle valuation"><span>Vehicle valuation</span></label>
-                        <label class="chip"><input type="checkbox" name="looking_for_now" value="Provenance / documentation"><span>Provenance / documentation</span></label>
-                        <label class="chip"><input type="checkbox" name="looking_for_now" value="Collector events &amp; experiences"><span>Collector events &amp; experiences</span></label>
-                        <label class="chip"><input type="checkbox" name="looking_for_now" value="Connect with other collectors"><span>Connect with other collectors</span></label>
-                        <label class="chip"><input type="checkbox" name="looking_for_now" value="Offer specialist services"><span>Offer specialist services</span></label>
-                        <label class="chip"><input type="checkbox" name="looking_for_now" value="Explore a partnership"><span>Explore a partnership</span></label>
-                        <label class="chip"><input type="checkbox" name="looking_for_now" value="Just exploring"><span>Just exploring</span></label>
-                    </div>
-                    <p class="field__error" data-error-for="looking_for_now"></p>
-                </div>
-
-                <div class="field" data-field="additional_notes">
-                    <label class="field__label" for="additional_notes">Notes <span class="field__optional">— optional</span></label>
-                    <textarea class="field__textarea" id="additional_notes" name="additional_notes" autocomplete="off"></textarea>
-                    <p class="field__error" data-error-for="additional_notes"></p>
-                </div>
-
-                <div class="field field--consent" data-field="privacy_consent">
-                    <div class="consent">
-                        <input type="checkbox" id="privacy_consent" name="privacy_consent" required>
-                        <label for="privacy_consent">The Gated Shifter may contact me about this request. My details are held privately, never shared or sold, and I can have them deleted at any time. <a href="/privacy" target="_blank" rel="noopener">Privacy</a></label>
-                    </div>
-                    <p class="field__error" data-error-for="privacy_consent">Please confirm we may contact you about your request.</p>
-                </div>
-
-                <div class="field field--consent" data-field="marketing_consent">
-                    <div class="consent">
-                        <input type="checkbox" id="marketing_consent" name="marketing_consent">
-                        <label for="marketing_consent">Send me occasional Founding Registry and platform updates. <span class="field__optional">Optional</span></label>
+                    <div class="field" data-field="city">
+                        <label class="field__label" for="city">City <span class="field__optional">— optional</span></label>
+                        <input class="field__input" type="text" id="city" name="city" autocomplete="off" autocapitalize="words" placeholder="Monterey, CA">
+                        <p class="field__error" data-error-for="city"></p>
                     </div>
                 </div>
 
-                <!-- Bot trap. Hidden from people, tempting to scripts. -->
-                <div class="honeypot" aria-hidden="true">
-                    <label for="company_website">Company website</label>
-                    <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off">
+                <div class="section">
+                    <p class="section__title">Your Collection</p>
+                    <div class="field" data-field="primary_marques">
+                        <label class="field__label" for="primary_marques"><span id="marques-label-text">Primary marques</span> <span class="field__optional">— optional</span></label>
+                        <input class="field__input" type="text" id="primary_marques" name="primary_marques" autocomplete="off" placeholder="Ferrari 275 GTB, Miura P400S, 911 2.7 RS">
+                        <p class="field__hint" id="marques-hint">The marques in your care, or those you follow most closely.</p>
+                        <p class="field__error" data-error-for="primary_marques"></p>
+                    </div>
                 </div>
 
-                <div class="field">
-                    <button class="submit" type="submit" id="submit-button">Request Founding Access</button>
-                    <p class="form__footnote">We reply personally. No newsletters unless you ask for them.</p>
+                <div class="section">
+                    <div class="field" data-field="looking_for_now">
+                        <span class="field__label" id="intent-label">What are you looking for right now? <span class="field__optional">— choose any</span></span>
+                        <div class="chips" role="group" aria-labelledby="intent-label" id="intent-chips">
+                            <label class="chip"><input type="checkbox" name="looking_for_now" value="Buy a vehicle"><span>Buy a vehicle</span></label>
+                            <label class="chip"><input type="checkbox" name="looking_for_now" value="Sell a vehicle discreetly"><span>Sell a vehicle discreetly</span></label>
+                            <label class="chip"><input type="checkbox" name="looking_for_now" value="Find a trusted specialist"><span>Find a trusted specialist</span></label>
+                            <label class="chip"><input type="checkbox" name="looking_for_now" value="Source parts"><span>Source parts</span></label>
+                            <label class="chip"><input type="checkbox" name="looking_for_now" value="Vehicle valuation"><span>Vehicle valuation</span></label>
+                            <label class="chip"><input type="checkbox" name="looking_for_now" value="Provenance / documentation"><span>Provenance / documentation</span></label>
+                            <label class="chip"><input type="checkbox" name="looking_for_now" value="Collector events &amp; experiences"><span>Collector events &amp; experiences</span></label>
+                            <label class="chip"><input type="checkbox" name="looking_for_now" value="Connect with other collectors"><span>Connect with other collectors</span></label>
+                            <label class="chip"><input type="checkbox" name="looking_for_now" value="Offer specialist services"><span>Offer specialist services</span></label>
+                            <label class="chip"><input type="checkbox" name="looking_for_now" value="Explore a partnership"><span>Explore a partnership</span></label>
+                            <label class="chip"><input type="checkbox" name="looking_for_now" value="Just exploring"><span>Just exploring</span></label>
+                        </div>
+                        <p class="field__error" data-error-for="looking_for_now"></p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="field" data-field="additional_notes">
+                        <label class="field__label" for="additional_notes">Notes <span class="field__optional">— optional</span></label>
+                        <textarea class="field__textarea" id="additional_notes" name="additional_notes" autocomplete="off"></textarea>
+                        <p class="field__error" data-error-for="additional_notes"></p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="field field--consent" data-field="privacy_consent">
+                        <div class="consent">
+                            <input type="checkbox" id="privacy_consent" name="privacy_consent" required>
+                            <label for="privacy_consent">The Gated Shifter may contact me about this request. My details are held privately, never shared or sold, and I can have them deleted at any time. <a href="/privacy" target="_blank" rel="noopener">Privacy</a></label>
+                        </div>
+                        <p class="field__error" data-error-for="privacy_consent">Please confirm we may contact you about your request.</p>
+                    </div>
+
+                    <div class="field field--consent" data-field="marketing_consent">
+                        <div class="consent">
+                            <input type="checkbox" id="marketing_consent" name="marketing_consent">
+                            <label for="marketing_consent">Send me occasional Founding Registry and platform updates. <span class="field__optional">Optional</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Bot trap. Hidden from people, tempting to scripts. -->
+                    <div class="honeypot" aria-hidden="true">
+                        <label for="company_website">Company website</label>
+                        <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off">
+                    </div>
+
+                    <div class="field">
+                        <button class="submit" type="submit" id="submit-button">Request Founding Access</button>
+                        <p class="form__footnote">We reply personally. No newsletters unless you ask for them.</p>
+                    </div>
                 </div>
             </form>
         </div>
@@ -556,7 +585,7 @@
         </div>
 
         <footer class="footer">
-            <img class="mark" src="assets/logo.svg" alt="The Gated Shifter" width="1370" height="657">
+            <img class="mark" src="/assets/logo.svg" alt="The Gated Shifter" width="1370" height="657">
             <p class="footer__meta">The Gated Shifter&trade; &middot; Private Ownership Platform</p>
             <p class="footer__micro"><a href="/privacy">Privacy</a> &middot; <a href="mailto:private@gatedshifter.co">private@gatedshifter.co</a></p>
         </footer>
