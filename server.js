@@ -28,6 +28,11 @@ const PORT = process.env.PORT || 10000;
 const IP_SALT = process.env.IP_HASH_SALT || 'gatedshifter-dev-salt';
 const CANONICAL_HOST = (process.env.CANONICAL_HOST || 'www.gatedshifter.co').toLowerCase();
 
+/* Bumped whenever behaviour changes, so it is possible to tell from the
+ * outside which code a deploy is actually running: curl /healthz, or read
+ * the first line of the Render log. */
+const BUILD = '2026-08-08 · delete-by-email · unique-email-across-paths · consent-required';
+
 app.set('trust proxy', 1); // Render terminates TLS at its load balancer
 app.disable('x-powered-by');
 app.use(express.json({ limit: '32kb' }));
@@ -133,19 +138,25 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
 /* ------------------------------------------------------------------ *
  * Duplicate policy — one record per email.
  *
- *   'per_path'  one record per email per path. Someone who applied as a
- *               Collector can still register apparel interest, which is
- *               what the button in their confirmation email invites them
- *               to do. A second Collector application is refused.
- *   'global'    one record per email, full stop. Anyone already in the
- *               database is refused by every form, including the apparel
- *               register linked from their own confirmation email.
+ *   Collector / Specialist / Partner   one record per address, across all
+ *                                      three. An address used for any
+ *                                      membership application cannot be
+ *                                      used for another one.
+ *   Apparel                            counted on its own. An existing
+ *                                      member can register apparel
+ *                                      interest once — which is what the
+ *                                      button in their confirmation email
+ *                                      invites them to do — but not twice.
  *
- * Change this one word to switch. The unique index in migration 006 is
- * per path; switching to 'global' only tightens the application check,
- * so no migration is needed.
+ * Enforced here and, independently, by the two partial unique indexes in
+ * migration 007, so nothing that bypasses this handler can create a
+ * second record either.
+ *
+ * To make apparel share the same namespace (one record per address, full
+ * stop), set APPAREL_COUNTED_SEPARATELY to false and drop
+ * member_intake_apparel_email_unique.
  * ------------------------------------------------------------------ */
-const DUPLICATE_SCOPE = 'per_path';
+const APPAREL_COUNTED_SEPARATELY = true;
 
 const MEMBER_TYPES = ['Collector', 'Specialist', 'Partner', 'Apparel'];
 
@@ -314,12 +325,12 @@ function validate(body) {
 
 const hashEmail = (email) => crypto.createHash('sha256').update(IP_SALT + email).digest('hex');
 
-/** What a returning applicant is told. Never "already exists" alone —
- * they get the way to change or remove what is on file. */
+/** What a returning applicant is told. Never "already exists" alone — they
+ * get the way to change or remove what is on file. */
 function duplicateMessage(existingType) {
-  const where = existingType && DUPLICATE_SCOPE === 'global' ? ` as a ${existingType}` : '';
+  const as = existingType ? ` as a ${existingType}` : '';
   return (
-    `This email address is already registered${where}. We keep one record per person, so nothing further ` +
+    `This email address is already registered${as}. We keep one record per person, so nothing further ` +
     'is needed. To change what we hold, reply to the confirmation email we sent you, or write to ' +
     'private@gatedshifter.co. The deletion link in that email removes your information entirely.'
   );
@@ -380,20 +391,30 @@ app.post('/api/intake', async (req, res) => {
       return res.status(200).json({ ok: true, duplicate: true });
     }
 
-    /* One record per email. The database enforces this too (migration 006),
-     * so a race between two simultaneous submissions still cannot create a
-     * second record — it lands in the 23505 branch below. */
+    /* One record per email. The membership paths share a single namespace,
+     * so a Collector address cannot come back as a Specialist. Apparel is
+     * counted on its own. The indexes in migration 007 enforce the same
+     * thing, so a race between two simultaneous submissions still cannot
+     * create a second record — it lands in the 23505 branch below. */
+    const apparelSubmission = APPAREL_COUNTED_SEPARATELY && data.member_type === 'Apparel';
+
     const { rows: taken } = await query(
-      DUPLICATE_SCOPE === 'global'
+      apparelSubmission
         ? `select id, member_type from member_intake
-            where lower(email) = $1 and duplicate_of is null limit 1`
+            where lower(email) = $1 and member_type = 'Apparel' and duplicate_of is null limit 1`
         : `select id, member_type from member_intake
-            where lower(email) = $1 and member_type = $2 and duplicate_of is null limit 1`,
-      DUPLICATE_SCOPE === 'global' ? [data.email] : [data.email, data.member_type]
+            where lower(email) = $1
+              and duplicate_of is null
+              ${APPAREL_COUNTED_SEPARATELY ? "and member_type is distinct from 'Apparel'" : ''}
+            limit 1`,
+      [data.email]
     );
 
     if (taken.length) {
-      console.log(`Duplicate submission refused for ${data.email} (existing record #${taken[0].id})`);
+      console.log(
+        `Duplicate submission refused: ${data.email} as ${data.member_type} ` +
+          `(existing record #${taken[0].id}, ${taken[0].member_type})`
+      );
       return res.status(409).json({
         ok: false,
         errors: { email: 'This email address is already on file.' },
@@ -401,13 +422,17 @@ app.post('/api/intake', async (req, res) => {
       });
     }
 
-    /* The address is new to this path but known elsewhere — kept as its own
-     * record and flagged REVIEW so a person can join the two up. */
+    /* The address is new to this namespace but known in the other one — an
+     * existing member registering apparel interest, or the reverse. Normal,
+     * so the record is NEW rather than flagged for review. */
     const { rows: seen } = await query(
-      `select 1 from member_intake where lower(email) = $1 limit 1`,
+      `select member_type from member_intake where lower(email) = $1 limit 1`,
       [data.email]
     );
-    const status = seen.length ? 'REVIEW' : 'NEW';
+    if (seen.length) {
+      console.log(`${data.email} already holds a ${seen[0].member_type} record — new ${data.member_type} record alongside it`);
+    }
+    const status = 'NEW';
 
     const { rows } = await query(
       `insert into member_intake
@@ -677,7 +702,7 @@ app.use(adminRouter);
 app.get('/healthz', async (_req, res) => {
   try {
     await healthcheck();
-    res.json({ ok: true, db: 'up', mail: mailerConfigured ? 'configured' : 'unconfigured' });
+    res.json({ ok: true, build: BUILD, db: 'up', mail: mailerConfigured ? 'configured' : 'unconfigured' });
   } catch (err) {
     res.status(503).json({ ok: false, db: 'down', error: err.message });
   }
@@ -757,7 +782,7 @@ async function start() {
   }
 
   const server = app.listen(PORT, '0.0.0.0', () => {
-    console.log(`The Gated Shifter listening on 0.0.0.0:${PORT}`);
+    console.log(`The Gated Shifter listening on 0.0.0.0:${PORT} — build ${BUILD}`);
     if (!mailerConfigured) console.warn('BREVO_API_KEY is not set — confirmation email is disabled.');
   });
 

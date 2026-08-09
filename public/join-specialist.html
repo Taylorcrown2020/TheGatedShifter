@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Specialist Application — The Gated Shifter</title>
+    <meta name="build" content="2026-08-08 consent-required">
     <meta name="description" content="Apply for Founding Access to The Gated Shifter as a Specialist.">
     <meta name="theme-color" content="#0B0C0E">
     <meta name="robots" content="noindex">
@@ -115,6 +116,31 @@
             .field--split > .field { margin-bottom: 22px; }
         }
 
+
+        /* ---------- Consent: required before submitting ---------- */
+        .consent { border-top: 1px solid var(--hairline); margin-top: 30px; padding-top: 24px; }
+        .consent__row {
+            display: flex; align-items: flex-start; gap: 14px;
+            border: 1px solid var(--slate-gray); background-color: var(--carbon-black);
+            padding: 16px; cursor: pointer;
+        }
+        .consent__row:hover { border-color: rgba(191, 195, 199, 0.4); }
+        .consent input {
+            appearance: none; -webkit-appearance: none;
+            width: 16px; height: 16px; flex: 0 0 16px; margin: 3px 0 0;
+            border: 1px solid var(--muted-platinum); border-radius: 0;
+            background-color: transparent; cursor: pointer; position: relative;
+        }
+        .consent input:checked { background-color: var(--ivory); border-color: var(--ivory); }
+        .consent input:checked::after {
+            content: ''; position: absolute; left: 3px; top: 6px; width: 8px; height: 3px;
+            border-left: 2px solid var(--carbon-black); border-bottom: 2px solid var(--carbon-black);
+            transform: rotate(-45deg);
+        }
+        .consent__text { font-size: 14px; line-height: 22px; color: var(--muted-stone); }
+        .consent__row:hover .consent__text, .consent input:checked ~ .consent__text { color: var(--ivory); }
+        .consent__text a { color: var(--ivory); text-decoration: none; border-bottom: 1px solid rgba(191, 195, 199, 0.35); }
+        .field.is-invalid .consent__row { border-color: var(--oxblood); }
         .honeypot { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
         .form__footer {
@@ -223,6 +249,14 @@
                     <p class="field__error"></p>
                 </div>
 
+
+                <div class="field consent" data-field="privacy_consent">
+                    <label class="consent__row" for="f-consent">
+                        <input type="checkbox" id="f-consent" name="privacy_consent" required>
+                        <span class="consent__text">I agree that The Gated Shifter may contact me about this application and about the platform in future. My details are held privately, never shared or sold, and I can have them deleted at any time. <a href="/privacy" target="_blank" rel="noopener">Privacy</a></span>
+                    </label>
+                    <p class="field__error">Please confirm we may contact you before submitting.</p>
+                </div>
                 <div class="honeypot" aria-hidden="true">
                     <label for="f-company">Company website</label>
                     <input type="text" id="f-company" name="company_website" tabindex="-1" autocomplete="off">
@@ -335,6 +369,9 @@
                 errors.mobile_phone = 'Enter a phone number with at least 7 digits, or leave it blank.';
             }
             if (!values.discipline) errors.discipline = 'Choose a discipline.';
+            if (!values.privacy_consent) {
+                errors.privacy_consent = 'Please confirm we may contact you before submitting.';
+            }
             return errors;
         }
 
@@ -346,7 +383,7 @@
                 last_name: name.last,
                 email: form.email.value.trim().toLowerCase(),
                 mobile_phone: form.mobile_phone.value.trim(),
-                privacy_consent: true,
+                privacy_consent: form.privacy_consent.checked,
                 company_website: form.company_website.value,
                 elapsed_ms: Date.now() - openedAt,
                 page_path: window.location.pathname,
@@ -407,7 +444,7 @@
                     button.textContent = 'Submit Application';
                     if (result.body && result.body.errors) {
                         showFieldErrors(result.body.errors);
-                        showAlert('Please check the highlighted fields and send again.');
+                        showAlert(result.body.message || 'Please check the highlighted fields and send again.');
                         return;
                     }
                     showAlert((result.body && result.body.message) || 'We couldn’t complete your application. Please try again.');
