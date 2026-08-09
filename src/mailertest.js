@@ -49,21 +49,6 @@ const REPLY_TO = process.env.MAIL_REPLY_TO || 'private@gatedshifter.co';
 // Raster mark: email clients do not render SVG. 368x176 @2x for a 184px slot.
 const MARK_URL = `${SITE_URL}/assets/gated-shifter-logo.png`;
 
-/* While the site is behind the access gate (see src/gate.js), links in these
- * emails would land on the gate page. Set SITE_ACCESS_EMAIL_KEY to one of the
- * gate tokens and every link below carries it, so a reviewer can follow the
- * whole journey out of their inbox. Leave it unset in production.
- *
- * The deletion link deliberately does NOT carry it — /remove is open to
- * everyone, gate or no gate, and that link outlives any review period. */
-const ACCESS_KEY = process.env.SITE_ACCESS_EMAIL_KEY || '';
-
-const link = (path) => {
-  const url = `${SITE_URL}${path}`;
-  if (!ACCESS_KEY) return url;
-  return `${url}${url.includes('?') ? '&' : '?'}key=${encodeURIComponent(ACCESS_KEY)}`;
-};
-
 export const mailerConfigured = Boolean(API_KEY);
 
 /* ------------------------------------------------------------------ *
@@ -325,7 +310,7 @@ const PATH_COPY = {
 
 export async function sendMemberConfirmation(record) {
   const removeUrl = `${SITE_URL}/remove?t=${encodeURIComponent(record.delete_token)}`;
-  const apparelUrl = link('/apparel?source=email&channel=email&placement=confirmation');
+  const apparelUrl = `${SITE_URL}/apparel?source=email&channel=email&placement=confirmation`;
   const firstName = record.first_name || 'there';
   const fullName = [record.first_name, record.last_name].filter(Boolean).join(' ');
   const lot = LOT_BY_TYPE[record.member_type] || 'Founding Access';
@@ -435,7 +420,7 @@ export async function sendApparelConfirmation(record) {
       ${gap(30)}
       ${rule(28)}
       <p style="font-family:${SERIF};font-size:14px;line-height:23px;color:${COLOR.stone};margin:0 0 22px;">If you have not applied to the registry itself, the three founding paths are open now.</p>
-      ${buttonQuiet(link('/#apply'), 'See the three ways in')}
+      ${buttonQuiet(`${SITE_URL}/#apply`, 'See the three ways in')}
 
       ${gap(32)}
       ${rule(26)}
@@ -462,7 +447,7 @@ export async function sendApparelConfirmation(record) {
     record.additional_notes ? `Notes: ${record.additional_notes}` : '',
     `Registered ${formatDate(record.created_at)}. Reply to this email to change any of it.`,
     '',
-    `The three founding paths: ${link('/#apply')}`,
+    `The three founding paths: ${SITE_URL}/#apply`,
     '',
     'One trusted ecosystem. Every aspect of analog ownership.',
     '',
@@ -560,7 +545,7 @@ export async function notifyPrivateInbox(record) {
 
       ${gap(32)}
       ${rule(26)}
-      ${buttonQuiet(link('/admin'), 'Open the admin portal')}
+      ${buttonQuiet(`${SITE_URL}/admin`, 'Open the admin portal')}
     `,
     footer: `Sent by the gatedshifter.co application forms. Internal — not seen by the applicant.`,
   });
@@ -600,7 +585,7 @@ export async function notifyPrivateInbox(record) {
  * 4. Deletion confirmation
  * ------------------------------------------------------------------ */
 export async function sendDeletionConfirmation({ email, first_name: firstName }) {
-  const rejoinUrl = link('/join?source=rejoin&channel=email');
+  const rejoinUrl = `${SITE_URL}/join?source=rejoin&channel=email`;
 
   const html = shell({
     preheader: 'Your information has been deleted from The Gated Shifter database.',
