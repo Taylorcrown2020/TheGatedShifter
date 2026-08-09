@@ -288,7 +288,10 @@ const LOT_BY_TYPE = {
 
 /** What each path had a chance to tell us, shown back to them. */
 function applicationRows(record) {
-  const common = [['Email', record.email]];
+  const common = [
+    ['Registered as', LOT_BY_TYPE[record.member_type] || 'Founding Access'],
+    ['Email', record.email],
+  ];
 
   if (record.member_type === 'Collector') {
     return common.concat([
@@ -332,13 +335,13 @@ export async function sendMemberConfirmation(record) {
   const pathCopy = PATH_COPY[record.member_type] || PATH_COPY.Collector;
 
   const html = shell({
-    preheader: `${fullName || 'Your'} application has been received — we read every one personally.`,
+    preheader: 'Welcome to The Gated Shifter — your Founding Access request has been received.',
     body: `
       <p style="${EYEBROW}">Welcome to The Gated Shifter</p>
       <h1 class="h1" style="${H1}">Your Founding Access Request Has Been Received.</h1>
-      <p style="${LEDE}">The Intelligent Trust Network for Collectors, Specialists &amp; Partners.</p>
-      <p style="${P}">${escapeHtml(firstName)}, thank you. Nothing further is needed from you — you will hear back directly, from a person.</p>
+      <p style="font-family:${SERIF};font-style:italic;font-size:16px;line-height:26px;color:${COLOR.platinum};margin:0 0 26px;">The Intelligent Trust Network for Collectors, Specialists &amp; Partners.</p>
       ${accent()}
+      <p style="${LEDE}">${escapeHtml(firstName)}, thank you. Nothing further is needed from you — you will hear back directly, from a person.</p>
       <p style="${P}">${escapeHtml(pathCopy)}</p>
 
       ${gap(14)}
@@ -367,7 +370,6 @@ export async function sendMemberConfirmation(record) {
     'WELCOME TO THE GATED SHIFTER',
     '',
     'Your Founding Access Request Has Been Received.',
-    '',
     'The Intelligent Trust Network for Collectors, Specialists & Partners.',
     '',
     `${firstName}, thank you. Nothing further is needed from you — you will hear back directly, from a person.`,
@@ -399,7 +401,7 @@ export async function sendMemberConfirmation(record) {
   return sendEmail({
     to: record.email,
     toName: fullName || undefined,
-    subject: `The Gated Shifter — your ${record.member_type || 'Founding Access'} application has been received`,
+    subject: 'Welcome to The Gated Shifter — your Founding Access request has been received',
     html,
     text,
     tags: ['founding-access-confirmation'],

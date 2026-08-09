@@ -1,18 +1,9 @@
 import express from 'express';
 import crypto from 'node:crypto';
-import { readFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { pool, query, healthcheck } from './src/db.js';
 import { runMigrations } from './src/migrate.js';
-import { describeGate, gateRouter, siteGate } from './src/gate.js';
-import {
-  describePreview,
-  previewEnabled,
-  previewPages,
-  tagPreviewData,
-  withBanner,
-} from './src/preview.js';
 import {
   adminRouter,
   buildIntakeCsv,
@@ -114,15 +105,6 @@ app.use((_req, res, next) => {
   );
   next();
 });
-
-/* ------------------------------------------------------------------ *
- * Site access gate — off unless SITE_ACCESS is set to link or password.
- * Sits in front of every page and API route except the health check, the
- * deletion links already sent out in emails, the privacy page and the admin
- * portal (which has its own sign-in). See src/gate.js.
- * ------------------------------------------------------------------ */
-app.use(gateRouter);
-app.use(siteGate);
 
 /* ------------------------------------------------------------------ *
  * Rate limiting — in-memory, sized for a single instance
@@ -379,14 +361,10 @@ app.post('/api/intake', async (req, res) => {
     });
   }
 
-  const { data: submitted, errors } = validate(req.body);
+  const { data, errors } = validate(req.body);
   if (Object.keys(errors).length) {
     return res.status(400).json({ ok: false, errors });
   }
-
-  // In a preview build every record is tagged campaign='preview', so test
-  // data is obvious in the export and can be cleared in one statement.
-  const data = tagPreviewData(submitted);
 
   const fullName = [data.first_name, data.last_name].filter(Boolean).join(' ');
   const ipHash = crypto.createHash('sha256').update(IP_SALT + ip).digest('hex');
@@ -724,13 +702,7 @@ app.use(adminRouter);
 app.get('/healthz', async (_req, res) => {
   try {
     await healthcheck();
-    res.json({
-      ok: true,
-      build: BUILD,
-      db: 'up',
-      mail: mailerConfigured ? 'configured' : 'unconfigured',
-      access: process.env.SITE_ACCESS || 'public',
-    });
+    res.json({ ok: true, build: BUILD, db: 'up', mail: mailerConfigured ? 'configured' : 'unconfigured' });
   } catch (err) {
     res.status(503).json({ ok: false, db: 'down', error: err.message });
   }
@@ -739,10 +711,6 @@ app.get('/healthz', async (_req, res) => {
 /* ------------------------------------------------------------------ *
  * Pages
  * ------------------------------------------------------------------ */
-// Preview build: pages are served with the notice bar injected, ahead of the
-// static handler so it can never return an un-bannered copy. No-op when off.
-app.use(previewPages(publicDir));
-
 app.use(
   express.static(publicDir, {
     extensions: ['html'],
@@ -753,16 +721,9 @@ app.use(
   })
 );
 
-const page = (file) => async (_req, res) => {
+const page = (file) => (_req, res) => {
   res.setHeader('Cache-Control', 'no-store');
-  if (!previewEnabled) return res.sendFile(join(publicDir, file));
-  try {
-    const html = await readFile(join(publicDir, file), 'utf8');
-    res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    return res.send(withBanner(html));
-  } catch {
-    return res.sendFile(join(publicDir, file));
-  }
+  res.sendFile(join(publicDir, file));
 };
 
 // Each lot has its own dedicated application page — these are the URLs on
@@ -822,8 +783,6 @@ async function start() {
 
   const server = app.listen(PORT, '0.0.0.0', () => {
     console.log(`The Gated Shifter listening on 0.0.0.0:${PORT} — build ${BUILD}`);
-    console.log(describeGate());
-    console.log(describePreview());
     if (!mailerConfigured) console.warn('BREVO_API_KEY is not set — confirmation email is disabled.');
   });
 

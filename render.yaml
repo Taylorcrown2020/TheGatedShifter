@@ -56,38 +56,6 @@ services:
         sync: false
       - key: ADMIN_BOOTSTRAP_PASSWORD
         sync: false
-      # Site access gate. Unset or 'public' = the site is open as normal.
-      #   link      only someone with https://www.gatedshifter.co/?key=<token>
-      #   password  a passphrase box on every page
-      # Keys are comma-separated label:token pairs — one per person, so the log
-      # names who came in and a single token can be revoked without disturbing
-      # anyone else. Generate with: openssl rand -hex 16
-      #   john:8f2c...,insurer:4b91...,photographer:0d77...
-      # Always reachable regardless: /healthz, /remove, /api/remove, /privacy,
-      # /admin, /assets — see src/gate.js for why.
-      - key: SITE_ACCESS
-        value: public
-      - key: SITE_ACCESS_KEYS
-        sync: false
-      - key: SITE_ACCESS_DAYS
-        value: "30"
-      # Optional end of the review period, YYYY-MM-DD. After this date every
-      # key stops working and the gate says the review window closed. Set it
-      # to the date agreed in writing; extend it by editing this value.
-      - key: SITE_ACCESS_UNTIL
-        sync: false
-      # Preview build: notice bar on every page, and every submission tagged
-      # campaign='preview' so test data is obvious and easy to clear:
-      #   delete from member_intake where campaign = 'preview';
-      # Set to false (or delete) on launch day.
-      - key: PREVIEW_MODE
-        value: "false"
-      # While the gate is on, set this to one of the SITE_ACCESS_KEYS tokens
-      # so links inside emails carry it and a reviewer can follow the whole
-      # journey out of their inbox. Leave unset in production. The deletion
-      # link never carries it — /remove is open regardless.
-      - key: SITE_ACCESS_EMAIL_KEY
-        sync: false
       # Secrets
       - key: IP_HASH_SALT
         generateValue: true
