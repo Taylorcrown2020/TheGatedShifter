@@ -334,9 +334,10 @@ export async function sendMemberConfirmation(record) {
   const html = shell({
     preheader: `${fullName || 'Your'} application has been received — we read every one personally.`,
     body: `
-      <p style="${EYEBROW}">${escapeHtml(lot)} &middot; Received</p>
-      <h1 class="h1" style="${H1}">Your application has been received.</h1>
-      <p style="${LEDE}">${escapeHtml(firstName)}, thank you. Nothing further is needed from you — you will hear back directly, from a person.</p>
+      <p style="${EYEBROW}">Welcome to The Gated Shifter</p>
+      <h1 class="h1" style="${H1}">Your Founding Access Request Has Been Received.</h1>
+      <p style="${LEDE}">The Intelligent Trust Network for Collectors, Specialists &amp; Partners.</p>
+      <p style="${P}">${escapeHtml(firstName)}, thank you. Nothing further is needed from you — you will hear back directly, from a person.</p>
       ${accent()}
       <p style="${P}">${escapeHtml(pathCopy)}</p>
 
@@ -363,9 +364,11 @@ export async function sendMemberConfirmation(record) {
   });
 
   const text = [
-    `${lot} — received`,
+    'WELCOME TO THE GATED SHIFTER',
     '',
-    'Your application has been received.',
+    'Your Founding Access Request Has Been Received.',
+    '',
+    'The Intelligent Trust Network for Collectors, Specialists & Partners.',
     '',
     `${firstName}, thank you. Nothing further is needed from you — you will hear back directly, from a person.`,
     '',
