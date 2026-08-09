@@ -10,6 +10,7 @@ const { rows } = await query(
           primary_marques, collection_size, defining_vehicle, referred_by,
           specialist_needs as discipline, workshop_practice, proud_work, vouch_referral,
           partner_specialty as organization, partner_area, partnership_notes,
+          apparel_size, array_to_string(apparel_items, ' | ') as apparel_items,
           array_to_string(looking_for_now, ' | ') as looking_for_now,
           additional_notes,
           founding_access, status,

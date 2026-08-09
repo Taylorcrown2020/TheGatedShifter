@@ -13,6 +13,7 @@ import {
 import {
   mailerConfigured,
   sendMemberConfirmation,
+  sendApparelConfirmation,
   notifyPrivateInbox,
   sendDeletionConfirmation,
   upsertBrevoContact,
@@ -129,7 +130,24 @@ function rateLimited(ip) {
  * ------------------------------------------------------------------ */
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
 
-const MEMBER_TYPES = ['Collector', 'Specialist', 'Partner'];
+/* ------------------------------------------------------------------ *
+ * Duplicate policy — one record per email.
+ *
+ *   'per_path'  one record per email per path. Someone who applied as a
+ *               Collector can still register apparel interest, which is
+ *               what the button in their confirmation email invites them
+ *               to do. A second Collector application is refused.
+ *   'global'    one record per email, full stop. Anyone already in the
+ *               database is refused by every form, including the apparel
+ *               register linked from their own confirmation email.
+ *
+ * Change this one word to switch. The unique index in migration 006 is
+ * per path; switching to 'global' only tightens the application check,
+ * so no migration is needed.
+ * ------------------------------------------------------------------ */
+const DUPLICATE_SCOPE = 'per_path';
+
+const MEMBER_TYPES = ['Collector', 'Specialist', 'Partner', 'Apparel'];
 
 const INTENTS = [
   'Buy a vehicle',
@@ -188,6 +206,20 @@ const PARTNER_AREAS = [
   'Events',
 ];
 
+// Lot 04 — Apparel. An interest register: garments and a size, nothing else.
+// No prices, no quantities, no payment fields exist anywhere in this flow.
+const APPAREL_ITEMS = [
+  'Shirts & polos',
+  'Knitwear',
+  'Outerwear & jackets',
+  'Caps & headwear',
+  'Driving gloves',
+  'Scarves & accessories',
+  'Luggage & leather',
+  'Garage & workshop wear',
+];
+const APPAREL_SIZES = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL', 'Not sure yet'];
+
 // Tracking values arrive from the URL, so they are never trusted as text —
 // each one is reduced to a short slug before it goes near the database.
 const slug = (value, fallback = '') => {
@@ -238,6 +270,12 @@ function validate(body) {
     organization: clean(body.organization, 160),
     partner_area: clean(body.partner_area, 40),
     partnership_notes: cleanMultiline(body.partnership_notes, 600),
+
+    // Lot 04 — Apparel
+    apparel_items: Array.isArray(body.apparel_items)
+      ? [...new Set(body.apparel_items.filter((item) => APPAREL_ITEMS.includes(item)))]
+      : [],
+    apparel_size: clean(body.apparel_size, 20),
   };
 
   const errors = {};
@@ -266,10 +304,26 @@ function validate(body) {
     if (!PARTNER_AREAS.includes(data.partner_area)) errors.partner_area = 'Choose an area.';
   }
 
+  if (data.member_type === 'Apparel') {
+    if (!data.apparel_items.length) errors.apparel_items = 'Choose at least one.';
+    if (!APPAREL_SIZES.includes(data.apparel_size)) errors.apparel_size = 'Choose a size, or “Not sure yet”.';
+  }
+
   return { data, errors };
 }
 
 const hashEmail = (email) => crypto.createHash('sha256').update(IP_SALT + email).digest('hex');
+
+/** What a returning applicant is told. Never "already exists" alone —
+ * they get the way to change or remove what is on file. */
+function duplicateMessage(existingType) {
+  const where = existingType && DUPLICATE_SCOPE === 'global' ? ` as a ${existingType}` : '';
+  return (
+    `This email address is already registered${where}. We keep one record per person, so nothing further ` +
+    'is needed. To change what we hold, reply to the confirmation email we sent you, or write to ' +
+    'private@gatedshifter.co. The deletion link in that email removes your information entirely.'
+  );
+}
 
 /* ------------------------------------------------------------------ *
  * POST /api/intake — record a Founding Access request
@@ -326,9 +380,29 @@ app.post('/api/intake', async (req, res) => {
       return res.status(200).json({ ok: true, duplicate: true });
     }
 
-    /* A returning email is never rejected and never overwrites the earlier
-     * record: the new submission is kept in full and flagged REVIEW so the
-     * new intent can be merged by a person. */
+    /* One record per email. The database enforces this too (migration 006),
+     * so a race between two simultaneous submissions still cannot create a
+     * second record — it lands in the 23505 branch below. */
+    const { rows: taken } = await query(
+      DUPLICATE_SCOPE === 'global'
+        ? `select id, member_type from member_intake
+            where lower(email) = $1 and duplicate_of is null limit 1`
+        : `select id, member_type from member_intake
+            where lower(email) = $1 and member_type = $2 and duplicate_of is null limit 1`,
+      DUPLICATE_SCOPE === 'global' ? [data.email] : [data.email, data.member_type]
+    );
+
+    if (taken.length) {
+      console.log(`Duplicate submission refused for ${data.email} (existing record #${taken[0].id})`);
+      return res.status(409).json({
+        ok: false,
+        errors: { email: 'This email address is already on file.' },
+        message: duplicateMessage(taken[0].member_type),
+      });
+    }
+
+    /* The address is new to this path but known elsewhere — kept as its own
+     * record and flagged REVIEW so a person can join the two up. */
     const { rows: seen } = await query(
       `select 1 from member_intake where lower(email) = $1 limit 1`,
       [data.email]
@@ -345,7 +419,8 @@ app.post('/api/intake', async (req, res) => {
           page_path, user_agent, ip_hash,
           referred_by, collection_size, defining_vehicle,
           specialist_needs, workshop_practice, proud_work, vouch_referral,
-          partner_specialty, partner_area, partnership_notes)
+          partner_specialty, partner_area, partnership_notes,
+          apparel_items, apparel_size)
        values ($1,$2,$3,$4,$5,$6,$7,$8,
                $9,$10,$11,$12,
                $13,$13,$14,now(),
@@ -354,7 +429,8 @@ app.post('/api/intake', async (req, res) => {
                $22,$23,$24,
                $25,$26,$27,
                $28,$29,$30,$31,
-               $32,$33,$34)
+               $32,$33,$34,
+               $35,$36)
        returning id, created_at, delete_token, status, founding_access`,
       [
         fullName,
@@ -391,6 +467,8 @@ app.post('/api/intake', async (req, res) => {
         data.organization || null,
         data.partner_area || null,
         data.partnership_notes || null,
+        data.apparel_items,
+        data.apparel_size || null,
       ]
     );
 
@@ -415,6 +493,16 @@ app.post('/api/intake', async (req, res) => {
     dispatchEmails(record).catch((err) => console.error('Email dispatch failed:', err.message));
     return undefined;
   } catch (err) {
+    // 23505 = unique violation. Two submissions arriving at the same instant
+    // both pass the check above; the index refuses the second one.
+    if (err.code === '23505') {
+      console.log(`Duplicate submission refused at the index for ${data.email}`);
+      return res.status(409).json({
+        ok: false,
+        errors: { email: 'This email address is already on file.' },
+        message: duplicateMessage(data.member_type),
+      });
+    }
     console.error('Intake insert failed:', err.message);
     return res.status(503).json({
       ok: false,
@@ -434,23 +522,22 @@ async function dispatchEmails(record) {
     return;
   }
 
-  const results = await Promise.allSettled([
-    sendMemberConfirmation(record),
-    notifyPrivateInbox(record),
-    upsertBrevoContact(record),
-  ]);
+  const confirmation =
+    record.member_type === 'Apparel' ? sendApparelConfirmation(record) : sendMemberConfirmation(record);
 
-  const [confirmation] = results;
+  const results = await Promise.allSettled([confirmation, notifyPrivateInbox(record), upsertBrevoContact(record)]);
 
-  if (confirmation.status === 'fulfilled') {
+  const [confirmationResult] = results;
+
+  if (confirmationResult.status === 'fulfilled') {
     await query('update member_intake set confirmation_sent_at = now(), last_email_error = null where id = $1', [
       record.id,
     ]).catch(() => {});
   } else {
-    console.error(`Confirmation email failed for intake #${record.id}:`, confirmation.reason.message);
+    console.error(`Confirmation email failed for intake #${record.id}:`, confirmationResult.reason.message);
     await query('update member_intake set last_email_error = $2 where id = $1', [
       record.id,
-      String(confirmation.reason.message).slice(0, 400),
+      String(confirmationResult.reason.message).slice(0, 400),
     ]).catch(() => {});
   }
 
@@ -482,10 +569,21 @@ app.post('/api/remove', async (req, res) => {
   }
 
   try {
+    /* "Delete my information" means all of it. The token identifies the
+     * person; every record filed under that email address goes, in one
+     * statement so it cannot half-succeed.
+     *
+     * This is the fix for records surviving a deletion: the old query
+     * removed only the row the token belonged to, so any earlier or later
+     * submission from the same person stayed in the table. */
     const { rows } = await query(
-      `delete from member_intake
-        where delete_token = $1
-       returning id, email, first_name, created_at, source, channel`,
+      `with target as (
+         select email from member_intake where delete_token = $1
+       )
+       delete from member_intake m
+        using target t
+        where lower(m.email) = lower(t.email)
+       returning m.id, m.email, m.first_name, m.member_type, m.created_at, m.source, m.channel`,
       [token]
     );
 
@@ -495,17 +593,24 @@ app.post('/api/remove', async (req, res) => {
 
     const removed = rows[0];
 
-    // The log evidences the deletion without keeping the person: a salted
+    // The log evidences each deletion without keeping the person: a salted
     // hash of the email, and nothing else that identifies them.
-    await query(
-      `insert into member_removal_log (email_hash, record_created_at, source, channel)
-       values ($1, $2, $3, $4)`,
-      [hashEmail(removed.email), removed.created_at, removed.source, removed.channel]
+    await Promise.all(
+      rows.map((row) =>
+        query(
+          `insert into member_removal_log (email_hash, record_created_at, source, channel)
+           values ($1, $2, $3, $4)`,
+          [hashEmail(row.email), row.created_at, row.source, row.channel]
+        )
+      )
     ).catch((err) => console.error('Removal log write failed:', err.message));
 
-    console.log(`Record #${removed.id} deleted at the member's request`);
+    console.log(
+      `Deletion at the member's request removed ${rows.length} record(s): ` +
+        rows.map((row) => `#${row.id} (${row.member_type || 'unknown'})`).join(', ')
+    );
 
-    res.status(200).json({ ok: true });
+    res.status(200).json({ ok: true, removed: rows.length });
 
     if (mailerConfigured) {
       Promise.allSettled([
@@ -618,6 +723,7 @@ app.get('/join', (req, res) => {
 });
 
 app.get('/admin', page('admin.html'));
+app.get('/apparel', page('apparel.html'));
 app.get('/remove', page('remove.html'));
 app.get('/privacy', page('privacy.html'));
 app.get('/', page('index.html'));

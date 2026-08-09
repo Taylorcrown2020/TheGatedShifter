@@ -247,6 +247,26 @@
             color: var(--muted-stone);
         }
 
+        /* =====================================================
+           LOT 04 — APPAREL REGISTER
+           No imagery, no prices. A QR code and one way in.
+           ===================================================== */
+        .apparel__row {
+            display: grid; grid-template-columns: 56px 1fr; gap: 6px 24px;
+            padding: clamp(18px, 2.4vh, 26px) 0;
+            border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline);
+        }
+        .apparel__note {
+            margin-top: clamp(16px, 2.4vh, 22px);
+            font-family: var(--font-ui); font-size: 10px; font-weight: 500; letter-spacing: 0.14em;
+            text-transform: uppercase; color: var(--muted-stone);
+        }
+        .apparel__note em { font-style: normal; color: var(--oxblood); }
+
+        @media (min-width: 620px) {
+            .apparel__row { grid-template-columns: 80px 1fr auto; align-items: center; }
+        }
+
         @media (min-width: 620px) {
             .lot { grid-template-columns: 80px 1fr auto; align-items: center; }
             .lot__num { grid-row: 1; }
@@ -376,7 +396,32 @@
             </div>
         </section>
 
+        <section class="band" id="apparel">
+            <div class="shell">
+                <div class="lots__head reveal">
+                    <h2 class="lots__title">Apparel</h2>
+                    <span class="lots__meta">Lot 04 &middot; Interest Register</span>
+                </div>
+
+                <div class="apparel__row reveal">
+                    <span class="lot__num">04</span>
+                    <span class="lot__lot">Lot</span>
+                    <div class="lot__body">
+                        <h3 class="lot__title">Made for the people in the registry</h3>
+                        <p class="prose lot__desc">Before the first pieces are cut, we are asking who would wear them. There is no catalogue here and nothing is for sale — tell us what you would actually wear and what size you take, and it will decide what gets made.</p>
+                    </div>
+                    <div class="lot__apply">
+                        <div class="lot__qr"><img class="swatch" src="/assets/qr-apparel.svg" alt="QR code linking to the apparel interest form" width="96" height="96"><span>Scan for Info</span></div>
+                        <a class="btn-solid" href="/apparel?source=web&amp;channel=web&amp;placement=home">More Information</a>
+                    </div>
+                </div>
+
+                <p class="apparel__note reveal">An enquiry only &mdash; <em>no prices, no presale, no payment details</em> are ever collected</p>
+            </div>
+        </section>
+
         <section class="closing">
+
             <div class="shell">
                 <span class="eyebrow closing__eyebrow reveal">Our Only Promise</span>
                 <p class="closing__quote reveal">&ldquo;The platform is shaped by the people in it &mdash; not the other way around.&rdquo;</p>
