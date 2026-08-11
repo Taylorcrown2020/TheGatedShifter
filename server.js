@@ -111,7 +111,8 @@ app.use((_req, res, next) => {
  * ------------------------------------------------------------------ */
 const hits = new Map();
 const WINDOW_MS = 10 * 60 * 1000;
-const MAX_PER_WINDOW = 40; // one tablet enrolling a queue shares a single IP
+const MAX_PER_WINDOW = 200; // a whole event on one venue WiFi shares a single IP
+const MAX_REMOVE_PER_WINDOW = 40; // deletion attempts stay tight — the token is the real guard
 
 setInterval(() => {
   const cutoff = Date.now() - WINDOW_MS;
@@ -122,12 +123,12 @@ setInterval(() => {
   }
 }, WINDOW_MS).unref();
 
-function rateLimited(ip) {
+function rateLimited(ip, max = MAX_PER_WINDOW) {
   const now = Date.now();
   const times = (hits.get(ip) || []).filter((t) => t > now - WINDOW_MS);
   times.push(now);
   hits.set(ip, times);
-  return times.length > MAX_PER_WINDOW;
+  return times.length > max;
 }
 
 /* ------------------------------------------------------------------ *
@@ -589,7 +590,7 @@ app.post('/api/remove', async (req, res) => {
     return res.status(404).json({ ok: false, message: 'This link is no longer valid.' });
   }
 
-  if (rateLimited(`remove:${req.ip || '0.0.0.0'}`)) {
+  if (rateLimited(`remove:${req.ip || '0.0.0.0'}`, MAX_REMOVE_PER_WINDOW)) {
     return res.status(429).json({ ok: false, message: 'Too many attempts. Wait a moment and try again.' });
   }
 
