@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>The Gated Shifter — One Trusted Ecosystem for Analog Ownership</title>
-    <meta name="build" content="2026-08-08 hero-italic consent-required">
-    <meta name="description" content="A private ownership platform connecting exceptional automobiles with the collectors, specialists, and heritage partners who define analog ownership. Founding places are numbered and capped.">
+    <title>The Gated Shifter&reg; | Collector Car Intelligence Platform</title>
+    <meta name="build" content="2026-08-10 intelligence-positioning consent-required">
+    <meta name="description" content="The Gated Shifter&reg; is the intelligence and trust platform for collector cars—connecting market data, provenance, significant vehicles, trusted specialists and opportunities.">
     <meta name="theme-color" content="#0B0C0E">
     <link rel="canonical" href="https://www.gatedshifter.co/">
 
@@ -14,14 +14,73 @@
 
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="The Gated Shifter">
-    <meta property="og:title" content="The Gated Shifter">
-    <meta property="og:description" content="One trusted ecosystem. Every aspect of analog ownership.">
+    <meta property="og:title" content="The Gated Shifter&reg; | Collector Car Intelligence Platform">
+    <meta property="og:description" content="The intelligence and trust platform for collector cars — market data, provenance, significant vehicles, trusted specialists and opportunities in one ecosystem.">
     <meta property="og:url" content="https://www.gatedshifter.co/">
     <meta property="og:image" content="https://www.gatedshifter.co/assets/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Gated Shifter&reg; | Collector Car Intelligence Platform">
+    <meta name="twitter:description" content="Market intelligence, provenance, significant vehicles, trusted specialists and opportunities for the global collector car community.">
     <meta name="twitter:image" content="https://www.gatedshifter.co/assets/og-image.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://www.gatedshifter.co/#organization",
+          "name": "The Gated Shifter",
+          "alternateName": "The Gated Shifter®",
+          "url": "https://www.gatedshifter.co/",
+          "logo": "https://www.gatedshifter.co/assets/logo.svg",
+          "email": "private@gatedshifter.co",
+          "description": "The Gated Shifter® is a collector car intelligence and trust platform built for the analog automotive world, bringing together market intelligence, provenance, significant vehicles, trusted specialists and opportunities in one trusted ecosystem.",
+          "slogan": "Collector Car Intelligence, In One Place",
+          "knowsAbout": [
+            "Collector car market intelligence",
+            "Vehicle provenance and history",
+            "Significant analog automobiles",
+            "Trusted restoration and marque specialists",
+            "Collector car opportunities and acquisitions"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://www.gatedshifter.co/#website",
+          "url": "https://www.gatedshifter.co/",
+          "name": "The Gated Shifter® | Collector Car Intelligence Platform",
+          "description": "Market intelligence, provenance, significant vehicles, trusted specialists and opportunities for the global collector car community.",
+          "publisher": { "@id": "https://www.gatedshifter.co/#organization" },
+          "inLanguage": "en"
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://www.gatedshifter.co/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is The Gated Shifter®?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The Gated Shifter® is a collector car intelligence and trust platform built for the analog automotive world. We bring together market intelligence, provenance, significant vehicles, trusted specialists and opportunities in one trusted ecosystem. The platform is being built to help collectors and industry professionals discover vehicles, understand markets, evaluate provenance, identify trusted expertise and make better-informed decisions across the collector car ecosystem."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Who is The Gated Shifter® for?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The Gated Shifter® is a collector car intelligence platform connecting enthusiasts, collectors and industry professionals with trusted market intelligence, provenance, vehicles, specialists and opportunities — all in one ecosystem. Membership is by application through three paths: Collector, Specialist and Partner."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -172,6 +231,18 @@
             text-rendering: optimizeLegibility;
         }
 
+
+        /* Crawlable positioning statement under the H1 */
+        .hero__statement {
+            font-family: var(--font-body);
+            font-size: clamp(1.02rem, 0.96rem + 0.4vw, 1.22rem);
+            line-height: 1.7;
+            color: var(--muted-platinum);
+            max-width: 58ch;
+            margin: clamp(22px, 3.6vh, 34px) auto 0;
+        }
+        .hero__statement strong { font-weight: 500; color: var(--ivory); }
+
         .hero__body { max-width: 62ch; margin: clamp(24px, 4vh, 40px) auto 0; }
         .hero__body p + p { margin-top: 12px; }
         .hero__body .lede {
@@ -298,6 +369,36 @@
             .lot__qr .swatch { width: 52px; height: 52px; padding: 8px; }
         }
 
+
+        /* =====================================================
+           WHAT IS THE GATED SHIFTER — crawlable definition block
+           ===================================================== */
+        .about__body { max-width: 72ch; }
+        .about__body .prose + .prose { margin-top: 14px; }
+        .about__body .prose strong { font-weight: 500; color: var(--ivory); }
+
+        .pillars {
+            list-style: none;
+            margin-top: clamp(26px, 4vh, 38px);
+            border-top: 1px solid var(--hairline);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        }
+        .pillars li {
+            padding: 16px 20px 16px 0;
+            border-bottom: 1px solid var(--hairline);
+        }
+        .pillars dfn {
+            display: block;
+            font-family: var(--font-ui); font-size: 10px; font-weight: 500;
+            letter-spacing: 0.16em; text-transform: uppercase; font-style: normal;
+            color: var(--ivory); margin-bottom: 6px;
+        }
+        .pillars span {
+            font-family: var(--font-body); font-size: 0.9rem; line-height: 1.55;
+            color: var(--muted-stone);
+        }
+
         /* =====================================================
            CLOSING QUOTE
            ===================================================== */
@@ -321,6 +422,50 @@
         .footer__meta a { color: var(--muted-stone); text-decoration: none; border-bottom: 1px solid var(--hairline-strong); }
         .footer__meta a:hover { color: var(--ivory); }
 
+
+        .footer__social {
+            list-style: none;
+            margin: clamp(20px, 3vh, 28px) 0 0;
+            display: flex; justify-content: center; align-items: center; gap: 6px;
+        }
+        .footer__social a {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: var(--tap); height: var(--tap);
+            color: var(--muted-stone);
+            transition: color 180ms ease;
+        }
+        .footer__social a:hover, .footer__social a:focus-visible {
+            color: var(--ivory);
+        }
+        .footer__social svg { width: 20px; height: 20px; display: block; }
+
+        .footer__built {
+            margin-top: clamp(24px, 4vh, 34px);
+            padding-top: clamp(20px, 3vh, 26px);
+            border-top: 1px solid var(--hairline);
+        }
+        .built-by {
+            display: inline-flex; align-items: center; justify-content: center;
+            gap: 10px; min-height: var(--tap); padding: 0 4px;
+            text-decoration: none; color: var(--muted-stone);
+            transition: color 180ms ease, opacity 180ms ease;
+        }
+        .built-by:hover, .built-by:focus-visible { color: var(--ivory); }
+        .built-by__label {
+            font-family: var(--font-ui); font-size: 9.5px; font-weight: 500;
+            letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted-stone);
+        }
+        .built-by__mark { display: block; width: 21px; height: 21px; flex-shrink: 0; color: currentColor; }
+        .built-by__name {
+            font-family: var(--font-ui); font-size: 10.5px; font-weight: 600;
+            letter-spacing: 0.16em; text-transform: uppercase; color: currentColor;
+            border-bottom: 1px solid var(--hairline-strong); padding-bottom: 1px;
+        }
+
+        @media (max-width: 420px) {
+            .built-by { flex-wrap: wrap; gap: 8px; }
+        }
+
         .reveal { opacity: 0; transform: translateY(14px); transition: opacity 600ms ease, transform 600ms ease; }
         .reveal.is-in { opacity: 1; transform: none; }
 
@@ -335,7 +480,7 @@
 
     <header class="masthead" id="masthead">
         <div class="shell masthead__inner">
-            <img class="mark" src="assets/logo.svg" alt="The Gated Shifter" width="1370" height="657">
+            <img class="mark" src="/assets/logo.svg" alt="The Gated Shifter" width="1370" height="657">
             <a class="btn-solid" href="#apply">Request an Invitation</a>
         </div>
     </header>
@@ -345,14 +490,38 @@
             <div class="shell">
                 <img class="hero__mark" src="/assets/logo.svg" alt="" aria-hidden="true" width="1370" height="657">
                 <span class="eyebrow hero__eyebrow">By Invitation &amp; Application &middot; MMXXVI</span>
-                <h1 class="hero__h1">One trusted ecosystem.<span class="hero__h1--italic">Every aspect of analog ownership.</span></h1>
+                <h1 class="hero__h1">Collector Car Intelligence,<span class="hero__h1--italic">In One Place.</span></h1>
+                <p class="hero__statement"><strong>The Gated Shifter&reg; is a collector car intelligence and trust platform built for the analog automotive world.</strong> We bring together market intelligence, provenance, vehicles, specialists and opportunities in one trusted ecosystem.</p>
                 <div class="hero__body">
-                    <p class="lede">The Gated Shifter is a private registry for significant analog automobiles and the people who keep them. Membership is limited. Founding Collections are being selected now.</p>
+                    <p class="lede">Membership is limited &middot; Founding Collections are being selected now</p>
                 </div>
                 <div class="hero__actions">
                     <a class="btn-solid" href="/join-collector">Apply as a Collector</a>
                     <a class="btn-outline" href="#apply">Specialist &amp; Partner Paths</a>
                 </div>
+            </div>
+        </section>
+
+        <section class="band" id="about">
+            <div class="shell">
+                <div class="lots__head reveal">
+                    <h2 class="lots__title">What is The Gated Shifter&reg;?</h2>
+                    <span class="lots__meta">Collector Car Intelligence &amp; Trust</span>
+                </div>
+
+                <div class="about__body reveal">
+                    <p class="prose"><strong>The Gated Shifter&reg; is a collector car intelligence and trust platform built for the analog automotive world.</strong> We bring together market intelligence, provenance, significant vehicles, trusted specialists and opportunities in one trusted ecosystem.</p>
+                    <p class="prose">The platform is being built to help collectors and industry professionals discover vehicles, understand markets, evaluate provenance, identify trusted expertise and make better-informed decisions across the collector car ecosystem.</p>
+                    <p class="prose">It is a collector car intelligence platform connecting enthusiasts, collectors and industry professionals with trusted market intelligence, provenance, vehicles, specialists and opportunities &mdash; all in one ecosystem.</p>
+                </div>
+
+                <ul class="pillars reveal">
+                    <li><dfn>Market Intelligence</dfn><span>What comparable cars are actually doing, read across the analog market.</span></li>
+                    <li><dfn>Provenance</dfn><span>History, documentation and ownership, evaluated before money moves.</span></li>
+                    <li><dfn>Significant Vehicles</dfn><span>Cars of consequence, and the collections they sit in.</span></li>
+                    <li><dfn>Trusted Specialists</dfn><span>Restorers, historians and marque experts, accredited not advertised.</span></li>
+                    <li><dfn>Opportunities</dfn><span>What is quietly available, shown to the people it suits.</span></li>
+                </ul>
             </div>
         </section>
 
@@ -443,7 +612,49 @@
         <div class="shell">
             <img class="mark" src="/assets/logo.svg" alt="The Gated Shifter" width="1370" height="657">
             <p class="footer__meta">Private &amp; Confidential &middot; Membership by Invitation</p>
-            <p class="footer__meta"><a href="mailto:private@gatedshifter.co">private@gatedshifter.co</a></p>
+            <p class="footer__meta"><a href="mailto:private@gatedshifter.co">private@gatedshifter.co</a> &middot; <a href="/privacy">Privacy</a></p>
+
+            <!-- SOCIAL — replace the three href values with the live account URLs. -->
+            <ul class="footer__social">
+                <li>
+                    <a href="https://www.linkedin.com/company/the-gated-shifter" aria-label="The Gated Shifter on LinkedIn" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <rect x="3" y="3" width="18" height="18" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.4"/>
+                            <rect x="6.7" y="10" width="1.9" height="7.3" fill="currentColor"/>
+                            <circle cx="7.65" cy="7.5" r="1.15" fill="currentColor"/>
+                            <path d="M11.3 17.3V10h1.9v1.05a2.85 2.85 0 0 1 2.45-1.2c1.85 0 2.65 1.15 2.65 3.15v4.3h-1.95v-3.95c0-1.05-.4-1.75-1.35-1.75-.95 0-1.75.65-1.75 1.85v3.85z" fill="currentColor"/>
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.instagram.com/thegatedshifter" aria-label="The Gated Shifter on Instagram" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.4"/>
+                            <circle cx="12" cy="12" r="4.1" fill="none" stroke="currentColor" stroke-width="1.4"/>
+                            <circle cx="17.1" cy="6.9" r="1.1" fill="currentColor"/>
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.facebook.com/thegatedshifter" aria-label="The Gated Shifter on Facebook" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <rect x="3" y="3" width="18" height="18" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.4"/>
+                            <path d="M14.9 8.5h-1.35c-.5 0-.8.3-.8.85V11h2.1l-.3 2h-1.8v5h-2.05v-5H9.1v-2h1.6V9.05c0-1.6 1-2.7 2.6-2.7h1.6z" fill="currentColor"/>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+
+            <p class="footer__built">
+                <a class="built-by" href="https://diamondbackcoding.com" target="_blank" rel="noopener">
+                    <span class="built-by__label">Built by</span>
+                    <svg class="built-by__mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="miter" stroke-linecap="butt">
+                        <path d="M12 3.2 20.6 7.9v8.6L12 21.2 3.4 16.5V7.9z"/>
+                        <path d="M3.4 7.9 12 12.6l8.6-4.7M12 12.6v8.6"/>
+                    </svg>
+                    <span class="built-by__name">Diamondback Coding</span>
+                </a>
+            </p>
         </div>
     </footer>
 
