@@ -49,6 +49,27 @@ const REPLY_TO = process.env.MAIL_REPLY_TO || 'private@gatedshifter.co';
 // Raster mark: email clients do not render SVG. 368x176 @2x for a 184px slot.
 const MARK_URL = `${SITE_URL}/assets/gated-shifter-logo.png`;
 
+/* Social accounts. Email clients will not render the site's inline SVG, so
+ * these are PNGs at 2x served from /assets. Set the SOCIAL_* variables once
+ * the live handles are confirmed. */
+const SOCIAL = [
+  {
+    name: 'LinkedIn',
+    url: process.env.SOCIAL_LINKEDIN || 'https://www.linkedin.com/company/the-gated-shifter',
+    icon: `${SITE_URL}/assets/email-social-linkedin.png`,
+  },
+  {
+    name: 'Instagram',
+    url: process.env.SOCIAL_INSTAGRAM || 'https://www.instagram.com/thegatedshifter',
+    icon: `${SITE_URL}/assets/email-social-instagram.png`,
+  },
+  {
+    name: 'Facebook',
+    url: process.env.SOCIAL_FACEBOOK || 'https://www.facebook.com/thegatedshifter',
+    icon: `${SITE_URL}/assets/email-social-facebook.png`,
+  },
+];
+
 /* While the site is behind the access gate (see src/gate.js), links in these
  * emails would land on the gate page. Set SITE_ACCESS_EMAIL_KEY to one of the
  * gate tokens and every link below carries it, so a reviewer can follow the
@@ -265,11 +286,31 @@ function shell({ preheader, body, footer }) {
 </body></html>`;
 }
 
+/** Social icons for the member-facing footers. 22px slot, 2x source.
+ *  Alt text is the account name so image-blocking clients degrade to
+ *  three legible links rather than three empty boxes. */
+const socialRow = () => `
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0;">
+    <tr>
+      ${SOCIAL.map(
+        (account, index) => `${index ? `<td width="14" style="width:14px;font-size:0;line-height:0;">&nbsp;</td>` : ''}
+      <td style="padding:0;">
+        <a href="${account.url}" style="text-decoration:none;color:${COLOR.stone};font-family:${SANS};font-size:11px;">
+          <img src="${account.icon}" width="22" height="22" alt="${escapeHtml(account.name)}"
+               style="display:block;border:0;outline:none;width:22px;height:22px;">
+        </a>
+      </td>`
+      ).join('')}
+    </tr>
+  </table>`;
+
 /** The footer every member-facing message shares. */
 const memberFooter = (removeUrl) => `
-  The Gated Shifter&trade; &middot; Private Ownership Platform &middot; In Development<br>
+  The Gated Shifter&reg; &middot; Collector Car Intelligence Platform &middot; In Development<br>
   Your details are held privately and never shared or sold.
-  ${gap(14)}
+  ${gap(18)}
+  ${socialRow()}
+  ${gap(18)}
   ${removeUrl ? `${footerLink(removeUrl, 'Delete my information from The Gated Shifter database')}<br>` : ''}
   ${footerLink(`${SITE_URL}/privacy`, 'Privacy')} &nbsp;&middot;&nbsp;
   ${footerLink(`mailto:${REPLY_TO}`, REPLY_TO)}
@@ -319,11 +360,11 @@ function applicationRows(record) {
 
 const PATH_COPY = {
   Collector:
-    'Founding Collections shape the registry before it opens. Yours is now in front of us, and a small number of numbered places will be offered.',
+    'Founding Collections shape what the platform knows before it opens — the cars, the marques, the market it can speak to. Yours is now in front of us, and a small number of numbered places will be offered.',
   Specialist:
-    'The registry is only as good as the expertise inside it. Accreditation is deliberately rare, and every application is read by a person who knows the work.',
+    'A trust platform is only as good as the expertise inside it. Accreditation is deliberately rare, and every application is read by a person who knows the work.',
   Partner:
-    'Partnership begins with a conversation, not a contract. If the fit is there, we will write to arrange one.',
+    'Partnership begins with a conversation, not a contract. If your work fits how the ecosystem is being built, we will write to arrange one.',
 };
 
 export async function sendMemberConfirmation(record) {
@@ -339,10 +380,11 @@ export async function sendMemberConfirmation(record) {
     body: `
       <p style="${EYEBROW}">Welcome to The Gated Shifter</p>
       <h1 class="h1" style="${H1}">Your Founding Access Request Has Been Received.</h1>
-      <p style="font-family:${SERIF};font-style:italic;font-size:16px;line-height:26px;color:${COLOR.platinum};margin:0 0 26px;">The Intelligent Trust Network for Collectors, Specialists &amp; Partners.</p>
+      <p style="font-family:${SERIF};font-style:italic;font-size:16px;line-height:26px;color:${COLOR.platinum};margin:0 0 26px;">The intelligence and trust platform for collector cars.</p>
       ${accent()}
       <p style="${LEDE}">${escapeHtml(firstName)}, thank you. Nothing further is needed from you — you will hear back directly, from a person.</p>
       <p style="${P}">${escapeHtml(pathCopy)}</p>
+      <p style="${P}">The Gated Shifter&reg; is being built as a collector car intelligence and trust platform: market intelligence, provenance, significant vehicles, trusted specialists and opportunities, in one ecosystem. You will hear from us as it opens.</p>
 
       ${gap(14)}
       <p style="${SECTION_LABEL}">What we have on file</p>
@@ -361,7 +403,7 @@ export async function sendMemberConfirmation(record) {
 
       ${gap(32)}
       ${rule(26)}
-      <p style="${SIGNATURE}">One trusted ecosystem. Every aspect of analog ownership.</p>
+      <p style="${SIGNATURE}">Collector car intelligence, in one trusted ecosystem.</p>
     `,
     footer: memberFooter(removeUrl),
   });
@@ -370,11 +412,15 @@ export async function sendMemberConfirmation(record) {
     'WELCOME TO THE GATED SHIFTER',
     '',
     'Your Founding Access Request Has Been Received.',
-    'The Intelligent Trust Network for Collectors, Specialists & Partners.',
+    'The intelligence and trust platform for collector cars.',
     '',
     `${firstName}, thank you. Nothing further is needed from you — you will hear back directly, from a person.`,
     '',
     pathCopy,
+    '',
+    'The Gated Shifter is being built as a collector car intelligence and trust platform:',
+    'market intelligence, provenance, significant vehicles, trusted specialists and',
+    'opportunities, in one ecosystem. You will hear from us as it opens.',
     '',
     'WHAT WE HAVE ON FILE',
     ...applicationRows(record)
@@ -389,13 +435,17 @@ export async function sendMemberConfirmation(record) {
     'no prices, nothing for sale. Tell us what you would wear and what size you take:',
     apparelUrl,
     '',
-    'One trusted ecosystem. Every aspect of analog ownership.',
+    'Collector car intelligence, in one trusted ecosystem.',
     '',
     '---',
     'Delete my information from The Gated Shifter database:',
     removeUrl,
     `Privacy: ${SITE_URL}/privacy`,
     `Contact: ${REPLY_TO}`,
+    '',
+    `LinkedIn: ${SOCIAL[0].url}`,
+    `Instagram: ${SOCIAL[1].url}`,
+    `Facebook: ${SOCIAL[2].url}`,
   ].join('\n');
 
   return sendEmail({
@@ -439,12 +489,12 @@ export async function sendApparelConfirmation(record) {
 
       ${gap(30)}
       ${rule(28)}
-      <p style="font-family:${SERIF};font-size:14px;line-height:23px;color:${COLOR.stone};margin:0 0 22px;">If you have not applied to the registry itself, the three founding paths are open now.</p>
+      <p style="font-family:${SERIF};font-size:14px;line-height:23px;color:${COLOR.stone};margin:0 0 22px;">If you are not yet in the platform itself, the three founding paths are open now.</p>
       ${buttonQuiet(link('/#apply'), 'See the three ways in')}
 
       ${gap(32)}
       ${rule(26)}
-      <p style="${SIGNATURE}">One trusted ecosystem. Every aspect of analog ownership.</p>
+      <p style="${SIGNATURE}">Collector car intelligence, in one trusted ecosystem.</p>
     `,
     footer: memberFooter(removeUrl),
   });
@@ -469,13 +519,16 @@ export async function sendApparelConfirmation(record) {
     '',
     `The three founding paths: ${link('/#apply')}`,
     '',
-    'One trusted ecosystem. Every aspect of analog ownership.',
+    'Collector car intelligence, in one trusted ecosystem.',
     '',
     '---',
     'Delete my information from The Gated Shifter database:',
     removeUrl,
     `Privacy: ${SITE_URL}/privacy`,
     `Contact: ${REPLY_TO}`,
+    `LinkedIn: ${SOCIAL[0].url}`,
+    `Instagram: ${SOCIAL[1].url}`,
+    `Facebook: ${SOCIAL[2].url}`,
   ]
     .filter((line) => line !== '')
     .join('\n');
@@ -624,11 +677,13 @@ export async function sendDeletionConfirmation({ email, first_name: firstName })
 
       ${gap(32)}
       ${rule(26)}
-      <p style="${SIGNATURE}">One trusted ecosystem. Every aspect of analog ownership.</p>
+      <p style="${SIGNATURE}">Collector car intelligence, in one trusted ecosystem.</p>
     `,
     footer: `
-      The Gated Shifter&trade; &middot; Private Ownership Platform
-      ${gap(14)}
+      The Gated Shifter&reg; &middot; Collector Car Intelligence Platform
+      ${gap(18)}
+      ${socialRow()}
+      ${gap(18)}
       ${footerLink(`${SITE_URL}/privacy`, 'Privacy')} &nbsp;&middot;&nbsp;
       ${footerLink(`mailto:${REPLY_TO}`, REPLY_TO)}
     `,
@@ -648,6 +703,10 @@ export async function sendDeletionConfirmation({ email, first_name: firstName })
     '',
     `Privacy: ${SITE_URL}/privacy`,
     `Contact: ${REPLY_TO}`,
+    '',
+    `LinkedIn: ${SOCIAL[0].url}`,
+    `Instagram: ${SOCIAL[1].url}`,
+    `Facebook: ${SOCIAL[2].url}`,
   ].join('\n');
 
   return sendEmail({
